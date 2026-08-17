@@ -1,0 +1,70 @@
+---
+title: <Feature name> — requirements
+type: requirements
+status: draft
+feature: <feature-name>
+version: 0.1
+owners:
+  - product
+related:
+  - product.md
+---
+
+# <Feature name> — requirements
+
+<!-- AI: формализация product.md в проверяемые требования. Каждое требование —
+атомарное, однозначное, проверяемое, со стабильным ID (rules/requirements.md,
+schemas/README.md). Источник — только product.md, глобальный контекст и указания
+человека; придумывать требования запрещено (rules/ai-guardrails.md). -->
+
+## Context
+
+<!-- AI: 2–3 предложения: что формализуем, ссылка на product.md. Не пересказывать
+product.md целиком. -->
+
+## Functional Requirements
+
+<!-- AI: FR-XXX — что система делает. Формат:
+FR-001: <кто> может/должен <что> [при каких условиях].
+Нумерация — следующий свободный номер в этой feature, включая deprecated.
+Одно требование = один пункт; условия — частью формулировки. -->
+
+## Business Rules
+
+<!-- AI: BR-XXX — правила предметной области этой feature. Глобальные правила
+НЕ копировать — ссылаться на docs/product/business-rules.md по ID.
+Формат: BR-001: <правило>. Rationale: <зачем>. -->
+
+## Non-functional Requirements
+
+<!-- AI: NFR-XXX — измеримые качества (время ответа, доступность, безопасность).
+Только с числами/критериями; неизвестное значение — TBD внутри формулировки.
+Глобальные NFR не копировать — ссылаться. -->
+
+## Constraints
+
+<!-- AI: внешние ограничения, влияющие на требования (без ID, если это не
+требование как таковое). Подтверждённые факты; иначе ASSUMPTION/TBD. -->
+
+## Acceptance Criteria
+
+<!-- AI: проверяемые условия приёмки, пригодные для тестировщика напрямую.
+Given/When/Then, где применимо. Каждый criterion ссылается на FR/BR:
+AC для FR-001: Given ... When ... Then ... -->
+
+## Dependencies
+
+<!-- AI: от каких features/систем/требований зависит реализация этих требований.
+Ссылки по ID и относительным путям. -->
+
+## Open Questions
+
+<!-- AI: нерешённые вопросы уровня требований. «TBD: ...» и неподтверждённые
+«ASSUMPTION: ... Requires confirmation.» — все в одном месте для review. -->
+
+## Traceability
+
+<!-- AI: сводная таблица связей требований этой feature:
+| ID | Источник (product-сценарий / BR) | Покрыто (UI / API / technical) |
+Заполняется по мере появления ui.md/api.md/technical.md; непокрытые ID
+остаются в таблице с пустой ячейкой — это вход для review. -->
