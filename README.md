@@ -28,7 +28,8 @@ docs/
 │                   # personas, business-rules, non-functional-requirements
 ├── features/       # Документация по фичам: одна директория = одна feature
 ├── architecture/   # Архитектура системы и ADR
-└── api/            # Глобальные API-соглашения и документация сервисов
+├── api/            # Глобальные API-соглашения и документация сервисов
+└── ai/             # Справочные материалы для AI: рекомендуемые external skills
 
 templates/          # Шаблоны документов (source of truth для структуры)
 rules/              # Глобальные правила для AI и людей (стиль, ID, ссылки, guardrails)
@@ -125,6 +126,18 @@ node scripts/validate-docs.mjs
 4. Неизвестную информацию помечать `TBD`, предположения — `ASSUMPTION`. Придумывать факты запрещено.
 5. Сохранять существующие requirement ID, не переиспользовать удалённые.
 6. После изменений обновлять cross-reference и запускать review.
+
+## Рекомендуемые external skills
+
+Помимо собственных skills (`skills/`), существуют внешние Agent Skills из реестра skills.sh, которые можно использовать как концептуальные ориентиры:
+
+- `prd-development` — разработка PRD;
+- `user-story` — формулирование user stories;
+- `documentation` — общие практики ведения документации;
+- `api-documentation-generator` — генерация API-документации;
+- `architecture-decision-records` — ведение ADR.
+
+Ключевое правило: source of truth — **локальные** `skills/*/SKILL.md`; внешние skills носят справочный характер, репозиторий не имеет runtime dependency от skills.sh. Соответствие ориентиров локальным skills и команды установки — в `docs/ai/external-skills.md`.
 
 ## services/
 
