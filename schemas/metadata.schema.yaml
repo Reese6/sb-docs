@@ -1,0 +1,55 @@
+# Схема YAML frontmatter документа.
+# Человекочитаемый стандарт: schemas/README.md
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Document frontmatter
+type: object
+required:
+  - title
+  - type
+  - status
+  - version
+  - owners
+properties:
+  title:
+    type: string
+    minLength: 3
+  type:
+    enum:
+      - product
+      - requirements
+      - ui
+      - api
+      - technical
+      - adr
+      - architecture
+      - feature-readme
+  status:
+    enum:
+      - draft
+      - review
+      - approved
+      - deprecated
+  feature:
+    # Обязательно для документов внутри docs/features/<feature-name>/
+    type: string
+    pattern: "^[a-z0-9]+(-[a-z0-9]+)*$"
+  version:
+    # MAJOR.MINOR, например 1.0
+    type: [string, number]
+    pattern: "^\\d+\\.\\d+$"
+  owners:
+    type: array
+    minItems: 1
+    items:
+      enum:
+        - product
+        - backend
+        - frontend
+        - architecture
+        - qa
+  related:
+    # Относительные пути к связанным файлам
+    type: array
+    items:
+      type: string
+additionalProperties: false

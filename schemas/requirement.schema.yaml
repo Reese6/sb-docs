@@ -1,0 +1,40 @@
+# Схема отдельного требования (логическая структура записи в Markdown).
+# Требования живут в Markdown-документах; схема описывает, из чего состоит
+# корректная запись требования, — для валидации и стабильной работы AI.
+# Человекочитаемый стандарт ID: schemas/README.md
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Requirement
+type: object
+required:
+  - id
+  - statement
+properties:
+  id:
+    # FR-001, BR-002, NFR-003, UI-004, API-005, ADR-006
+    type: string
+    pattern: "^(FR|BR|NFR|UI|API|ADR)-\\d{3,}$"
+  statement:
+    # Атомарная, однозначная, проверяемая формулировка (rules/requirements.md)
+    type: string
+    minLength: 10
+  rationale:
+    # Зачем требование существует; заполняется, если неочевидно
+    type: string
+  status:
+    # Статус отдельного требования; по умолчанию наследует статус документа
+    enum:
+      - draft
+      - review
+      - approved
+      - deprecated
+  trace:
+    # Cross-reference к требованиям-источникам: UI-004 → FR-012
+    type: array
+    items:
+      type: string
+      pattern: "^(FR|BR|NFR|UI|API|ADR)-\\d{3,}$"
+  deprecated_by:
+    # Заменяющий ID для deprecated-требования
+    type: string
+    pattern: "^(FR|BR|NFR|UI|API|ADR)-\\d{3,}$"
+additionalProperties: false

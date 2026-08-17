@@ -1,0 +1,44 @@
+# Схема feature-директории docs/features/<feature-name>/.
+# Описывает состав файлов и их обязательность.
+# Человекочитаемое описание структуры: docs/features/README.md
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Feature directory
+type: object
+required:
+  - name
+  - files
+properties:
+  name:
+    # Имя директории feature, kebab-case
+    type: string
+    pattern: "^[a-z0-9]+(-[a-z0-9]+)*$"
+  files:
+    type: object
+    required:
+      - readme
+      - product
+      - requirements
+    properties:
+      readme:
+        # README.md — обзор feature; обязателен
+        const: "README.md"
+      product:
+        # product.md — WHAT + WHY; обязателен
+        const: "product.md"
+      requirements:
+        # requirements.md — FR/BR/NFR; обязателен
+        const: "requirements.md"
+      ui:
+        # ui.md — опционален (backend-only feature может не иметь UI)
+        const: "ui.md"
+      api:
+        # api.md — опционален (feature без внешнего API)
+        const: "api.md"
+      technical:
+        # technical.md — опционален до начала проработки реализации
+        const: "technical.md"
+      decisions:
+        # decisions/ — директория ADR; создаётся при первом ADR
+        const: "decisions/"
+    additionalProperties: false
+additionalProperties: false
