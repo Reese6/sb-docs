@@ -23,14 +23,45 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
 | Шаблоны документов | `templates/` |
 | Правила работы (обязательны к прочтению) | `rules/` |
 | Стандарт ID и frontmatter, схемы | `schemas/` |
+| Пошаговые процессы работы с документацией | `skills/*/SKILL.md` |
+| Процесс изменений, commit-конвенция, статусы | `CONTRIBUTING.md` |
+| Механическая валидация документации | `scripts/validate-docs.mjs` |
+| Работа с внешними (устанавливаемыми) skills | `docs/ai/external-skills.md` |
 | Исходный код сервисов (локально, не в Git) | `services/` |
 
 ## Обязательно перед любым изменением
 
-1. Прочитать `rules/ai-guardrails.md` — главный документ защиты от галлюцинаций.
+1. Прочитать правила `rules/` — все обязательны:
+   - `rules/ai-guardrails.md` — главный документ защиты от галлюцинаций;
+   - `rules/writing.md` — стиль формулировок, неизмеримые слова, разделение WHAT/HOW;
+   - `rules/requirements.md` — типы и качество требований;
+   - `rules/linking.md` — связывание документов, «одно требование — один файл», impact-анализ;
+   - `rules/terminology.md` — термины только из `docs/product/glossary.md`;
+   - `rules/markdown.md` — структура документов и секций.
 2. Прочитать связанные документы затрагиваемой feature: `product.md`, `requirements.md`, `ui.md`, `api.md`, `technical.md`.
 3. Проверить глобальный контекст: `docs/product/business-rules.md`, `docs/product/glossary.md`.
-4. Новые документы создавать только из шаблонов `templates/`.
+4. Новые feature-документы создавать только из шаблонов `templates/` (см. таблицу ниже). Для глобальных документов `docs/product/`, `docs/api/`, `docs/architecture/` шаблонов нет — редактировать существующие файлы, сохраняя их структуру.
+
+## Какие файлы создавать
+
+| Тип документа | Шаблон | Куда | Обязательность |
+|---------------|--------|------|----------------|
+| README feature | `templates/feature.md` | `docs/features/<feature-name>/README.md` | обязателен |
+| Product | `templates/product.md` | `docs/features/<feature-name>/product.md` | обязателен |
+| Requirements | `templates/requirements.md` | `docs/features/<feature-name>/requirements.md` | обязателен |
+| UI | `templates/ui.md` | `docs/features/<feature-name>/ui.md` | если есть интерфейс |
+| API | `templates/api.md` | `docs/features/<feature-name>/api.md` | если есть API |
+| Technical | `templates/technical.md` | `docs/features/<feature-name>/technical.md` | при описании реализации |
+| ADR feature | `templates/adr.md` | `docs/features/<feature-name>/decisions/adr-XXX-<short-kebab-title>.md` | при значимом решении |
+| ADR глобальный | `templates/adr.md` | `docs/architecture/adr/adr-XXX-<short-kebab-title>.md` | при решении, затрагивающем несколько фич |
+
+Имена директорий фич — kebab-case. Решение уровня одной feature — в её `decisions/`; решение, влияющее на систему в целом, — в `docs/architecture/adr/`.
+
+## Frontmatter и статусы
+
+- YAML frontmatter обязателен в каждом документе `docs/`: `title`, `type`, `status`, `version`, `owners`; для feature-документов также `feature`. Стандарт и допустимые значения — `schemas/README.md`.
+- Жизненный цикл документа: `draft → review → approved → deprecated`. Новый документ — `status: draft`.
+- `approved` выставляет только человек. AI переводит документ максимум в `review`.
 
 ## FACT / ASSUMPTION / TBD
 
@@ -73,6 +104,11 @@ Skill `documentation-review` запускается:
 - как финальная стадия работы над feature (в pipeline `documentation-orchestrator` — автоматически).
 
 Review только формирует отчёт о находках; исправления вносят пишущие skills.
+
+## Проверка результата
+
+- `node scripts/validate-docs.mjs` — механическая проверка frontmatter, ID, ссылок и структуры. Exit code `0` — ошибок нет, `1` — есть. Запускать после любого изменения `docs/` и перед commit.
+- Скрипт дополняет `skills/documentation-review`, но не заменяет его: противоречия, галлюцинации и терминологию проверяет review.
 
 ## Как определить нужный skill
 

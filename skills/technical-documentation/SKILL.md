@@ -1,6 +1,6 @@
 ---
 name: technical-documentation
-description: Техническое решение feature (technical.md) — HOW; компоненты, data flow, изменения данных, миграции, деплой на основе утверждённых требований и кода в services/. Использовать, когда product.md, requirements.md и ui.md/api.md готовы и нужно описать реализацию. Не использовать для формализации требований (requirements), контракта API, поведения интерфейса или фиксации архитектурного решения (ADR).
+description: Техническое решение feature (technical.md) — HOW; компоненты, data flow, изменения данных, миграции, деплой на основе утверждённых требований и кода в services/. Использовать, когда product.md и requirements.md готовы (ui.md/api.md — если есть) и нужно описать реализацию. Не использовать для формализации требований (requirements), контракта API, поведения интерфейса или фиксации архитектурного решения (ADR).
 ---
 
 # Skill: technical-documentation
@@ -19,7 +19,7 @@ services source code = source of truth для текущей реализаци�
 
 ## Когда использовать
 
-- `product.md`, `requirements.md` и `ui.md`/`api.md` feature готовы, нужно описать техническое решение.
+- `product.md` и `requirements.md` feature готовы (`ui.md`/`api.md` — если есть), нужно описать техническое решение.
 - Пользователь просит добавить или изменить техническое решение существующей feature.
 - Orchestrator запускает стадию technical после UI/API.
 
@@ -109,7 +109,7 @@ services source code = source of truth для текущей реализаци�
 - Новый документ создавать строго по [templates/technical.md](../../templates/technical.md), включая все секции (Context, Related requirements, Current implementation, Proposed solution, Components, Data flow, Services involved, Data model changes, API changes, Events, Caching, Transactions, Error handling, Security, Observability, Performance, Backward compatibility, Migration, Deployment, Testing considerations, Alternatives, Risks, Open questions) и YAML frontmatter.
 - Неприменимые секции помечать «Not applicable: <причина>», не удалять.
 - Frontmatter — по [schemas/README.md](../../schemas/README.md): `type: technical`, новый документ — `status: draft`; `approved` выставляет только человек.
-- При изменении существующего документа — правило минимального изменения (`CONTRIBUTING.md`): менять только нужное; изменение `approved`-документа переводит его в `review`; `version`: MINOR — правки без изменения смысла, MAJOR — изменение решения.
+- При изменении существующего документа — правило минимального изменения и повышение `version`/`status` по [CONTRIBUTING.md](../../CONTRIBUTING.md) и [schemas/README.md](../../schemas/README.md).
 
 ### Шаг 8. Обновить Traceability requirements.md
 

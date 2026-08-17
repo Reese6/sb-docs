@@ -79,16 +79,17 @@ Product documentation отвечает на **WHAT + WHY**: какая проб�
 ### Шаг 8. Создать или изменить product.md
 
 - Новый документ создавать строго по [templates/product.md](../../templates/product.md), включая все секции и YAML frontmatter.
+- Неприменимые секции помечать «Not applicable: <причина>», не удалять и не заполнять заглушками.
 - Frontmatter — по стандарту [schemas/README.md](../../schemas/README.md): `type: product`, новый документ — `status: draft`; `approved` выставляет только человек.
 - Ссылаться на глобальный контекст, не копировать его ([rules/linking.md](../../rules/linking.md), [docs/features/README.md](../../docs/features/README.md)): термины — glossary, пользователи — personas, глобальные правила — `BR-XXX`/`NFR-XXX` по ссылке.
-- При изменении существующего документа — правило минимального изменения (`CONTRIBUTING.md`): менять только нужные секции, не переписывать документ целиком; изменение `approved`-документа переводит его в `review`, `version` увеличивать по стандарту.
+- При изменении существующего документа — правило минимального изменения и повышение `version`/`status` по [CONTRIBUTING.md](../../CONTRIBUTING.md) и [schemas/README.md](../../schemas/README.md).
 - Если директории feature нет — создать `docs/features/<feature-name>/` (kebab-case) и `README.md` feature; структура — [docs/features/README.md](../../docs/features/README.md).
 
 ### Шаг 9. Проверить результат
 
 Перед завершением пройти чеклист:
 
-- [ ] Все секции шаблона присутствуют; незаполнимые содержат `TBD`, а не выдуманный текст.
+- [ ] Все секции шаблона присутствуют; неприменимые помечены «Not applicable: <причина>»; незаполнимые содержат `TBD`, а не выдуманный текст.
 - [ ] Документ отвечает только на WHAT + WHY; деталей реализации нет.
 - [ ] Ни один `ASSUMPTION` не записан как факт; у каждого есть `Requires confirmation.`
 - [ ] Термины соответствуют [glossary.md](../../docs/product/glossary.md); новые термины не введены молча.

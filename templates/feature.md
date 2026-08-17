@@ -28,7 +28,7 @@ TBD: краткое описание feature (1–2 предложения).
 | [ui.md](ui.md) | draft | Поведение интерфейса |
 | [api.md](api.md) | draft | Контракт API |
 | [technical.md](technical.md) | draft | Техническое решение |
-| [decisions/](decisions/) | — | ADR feature |
+| `decisions/` | — | ADR feature |
 
 ## Related global context
 

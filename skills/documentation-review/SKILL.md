@@ -13,7 +13,7 @@ Review покрывает семь групп проверок: Structure, Requi
 
 - После содержательного изменения `requirements.md`, `ui.md`, `api.md` или `technical.md` feature.
 - Перед переводом документа в статус `approved` (сам перевод делает человек).
-- Как финальная стадия комплексной работы над feature (будущий `skills/documentation-orchestrator`).
+- Как финальная стадия комплексной работы над feature (`skills/documentation-orchestrator`).
 - Пользователь просит проверить документацию.
 
 ## Когда не использовать
@@ -31,7 +31,7 @@ Review покрывает семь групп проверок: Structure, Requi
 
 ## Процесс
 
-Шаги 1–2 — обязательная подготовка. Шаги 3–9 — семь групп проверок; выполнять все, порядок внутри неважен. Локальные скрипты валидации дополнят проверки после их добавления (задача 16), но не заменяют review.
+Шаги 1–2 — обязательная подготовка. Шаги 3–9 — семь групп проверок; выполнять все, порядок внутри неважен. Локальная проверка `node scripts/validate-docs.mjs` дополняет review механическими проверками (frontmatter, ID, ссылки), но не заменяет его.
 
 ### Шаг 1. Прочитать контекст
 
@@ -41,6 +41,7 @@ Review покрывает семь групп проверок: Structure, Requi
 2. Стандарт ID и frontmatter: [schemas/README.md](../../schemas/README.md), схемы [schemas/metadata.schema.yaml](../../schemas/metadata.schema.yaml), [schemas/requirement.schema.yaml](../../schemas/requirement.schema.yaml), [schemas/feature.schema.yaml](../../schemas/feature.schema.yaml).
 3. Шаблоны в [templates/](../../templates/feature.md) — эталон структуры секций каждого типа документа.
 4. Glossary: [docs/product/glossary.md](../../docs/product/glossary.md).
+5. Запустить `node scripts/validate-docs.mjs` ([scripts/validate-docs.mjs](../../scripts/validate-docs.mjs)) — механические ошибки попадают в отчёт до ручной проверки.
 
 ### Шаг 2. Определить scope
 
@@ -60,11 +61,11 @@ Review покрывает семь групп проверок: Structure, Requi
 По [rules/requirements.md](../../rules/requirements.md) для каждого FR/BR/NFR/UI/API:
 
 - **Atomic** — одно требование в одном пункте; «и» между независимыми действиями — признак склейки (WARNING).
-- **Unambiguous** — без неизмеримых слов `удобно, быстро, интуитивно, корректно, нормально, оптимально` ([rules/writing.md](../../rules/writing.md)) без измеримого определения (WARNING).
+- **Unambiguous** — без слов из чёрного списка неизмеримых формулировок ([rules/writing.md](../../rules/writing.md)), употреблённых без измеримого определения (WARNING).
 - **Testable** — формулировка проверяема тестировщиком; непроверяемая — WARNING.
 - **No duplicates** — одно требование живёт ровно в одном файле ([rules/linking.md](../../rules/linking.md)); продублированная формулировка вместо ссылки на ID — ERROR.
 - Формат ID — `^(FR|BR|NFR|UI|API|ADR)-\d{3,}$`; malformed ID или дубль номера в одной области уникальности — ERROR.
-- Acceptance Criteria — в формате Given/When/Then, каждый ссылается на FR/BR; AC без связи — WARNING.
+- Acceptance Criteria — в формате Given/When/Then, каждый ссылается на FR/BR; AC без связи (висячий критерий) — ERROR.
 
 ### Шаг 5. Traceability
 
@@ -79,7 +80,7 @@ FR-004
 
 Находить:
 
-- FR, не покрытый ни UI, ни API, ни technical (когда покрытие ожидается) — ERROR;
+- FR, не покрытый ни UI, ни API, ни technical, когда покрытие ожидается (в feature существует соответствующий `ui.md`/`api.md`/`technical.md`), — ERROR; для feature без этих документов пустая колонка «Покрыто» — не находка, а вход для следующих стадий;
 - UI/API-требование без ссылки хотя бы на один FR/BR/NFR — WARNING;
 - ссылку на несуществующий ID — ERROR;
 - битую относительную Markdown-ссылку — ERROR;
@@ -129,7 +130,7 @@ Review только помечает подозрения; подтвержда�
 
 Каждая находка — одной строкой, с severity, файлом и ID (если применимо):
 
-- `ERROR` — нарушение правил или схем, битая ссылка, несуществующий или malformed ID, дубль требования, непокрытый FR, противоречие, подозрение на галлюцинацию;
+- `ERROR` — нарушение правил или схем, битая ссылка, несуществующий или malformed ID, дубль требования, непокрытый FR, висячий acceptance criterion, противоречие, подозрение на галлюцинацию;
 - `WARNING` — висячее UI/API-требование, неатомарность, неизмеримая формулировка, отклонение от шаблона или glossary, рассинхрон Traceability-таблицы.
 
 ```text
@@ -154,6 +155,7 @@ Coverage gaps
 Перед завершением пройти чеклист:
 
 - [ ] Прочитаны rules/, schemas/, templates/ и glossary; scope определён по шагу 2.
+- [ ] `node scripts/validate-docs.mjs` выполнен; его находки включены в отчёт.
 - [ ] Все семь групп проверок выполнены: Structure, Requirements quality, Traceability, Contradictions, Hallucination protection, Terminology, TBD/assumptions.
 - [ ] Дерево покрытия построено для всех FR scope.
 - [ ] Каждая находка имеет severity (`ERROR`/`WARNING`), файл и ID, если применимо.

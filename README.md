@@ -89,17 +89,7 @@ node scripts/validate-docs.mjs
 
 ## Source of truth
 
-Приоритет источников информации (сверху вниз):
-
-```text
-1. Approved requirements
-2. Approved business rules
-3. Approved product documentation
-4. Approved ADR
-5. Existing technical documentation
-6. Current source code (services/)
-7. Assumptions
-```
+Приоритет источников информации определён в `AGENTS.md` (раздел «Source of truth») — единственном месте, где живёт этот список.
 
 - Requirements описывают **требуемое** поведение.
 - Исходный код в `services/` описывает **текущую** реализацию.

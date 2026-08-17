@@ -13,13 +13,16 @@ owners:
 <!-- AI: ADR фиксирует ВАЖНОЕ техническое решение и его WHY. Создавать только
 если решение: существенно влияет на архитектуру / сложно изменить / имеет
 несколько разумных альтернатив / создаёт важные ограничения / важно будущим
-разработчикам. Имя файла: adr-XXX-<short-kebab-title>.md. ADR неизменяем после
-принятия: пересмотр = новый ADR со статусом superseded у старого и двусторонней
-ссылкой. -->
+разработчикам. Имя файла: adr-XXX-<short-kebab-title>.md. H1 обязан начинаться
+с «ADR-XXX:» — именно H1 определяет ID для автоматической валидации.
+ADR неизменяем после принятия: пересмотр = новый ADR со статусом superseded
+у старого и двусторонней ссылкой. -->
 
 ## Status
 
-<!-- AI: одно из: proposed | accepted | deprecated | superseded | rejected.
+<!-- AI: статус РЕШЕНИЯ, одно из: proposed | accepted | deprecated | superseded | rejected.
+Не путать со статусом ДОКУМЕНТА в frontmatter (draft/review/approved/deprecated);
+соответствие — schemas/README.md, раздел «Статусы ADR».
 Для superseded — «superseded by ADR-YYY»; в заменяющем — «supersedes ADR-XXX».
 Статус accepted выставляет человек. -->
 

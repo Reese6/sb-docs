@@ -106,7 +106,7 @@ description: Спецификация контракта API feature (api.md) �
 - Новый документ создавать строго по [templates/api.md](../../templates/api.md), включая все секции (Purpose, Related requirements, Endpoint, Authentication, Authorization, Request, Validation, Response, Errors, Pagination, Filtering, Sorting, Idempotency, Rate limits, Security, Side effects, Events, Examples, Traceability) и YAML frontmatter.
 - Неприменимые секции помечать «Not applicable: <причина>», не удалять.
 - Frontmatter — по [schemas/README.md](../../schemas/README.md): `type: api`, новый документ — `status: draft`; `approved` выставляет только человек.
-- При изменении существующего документа — правило минимального изменения (`CONTRIBUTING.md`): менять только нужное; изменение `approved`-документа переводит его в `review`; `version`: MINOR — правки без изменения смысла, MAJOR — изменение/добавление требований.
+- При изменении существующего документа — правило минимального изменения и повышение `version`/`status` по [CONTRIBUTING.md](../../CONTRIBUTING.md) и [schemas/README.md](../../schemas/README.md).
 
 ### Шаг 9. Заполнить Traceability
 

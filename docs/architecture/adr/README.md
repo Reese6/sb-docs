@@ -18,8 +18,9 @@
 
 - Шаблон: `templates/adr.md`.
 - Имя файла: `adr-XXX-<short-kebab-title>.md` (например, `adr-001-event-driven-notifications.md`).
-- ID `ADR-XXX` — сквозная нумерация в пределах этой директории; стандарт — `../../../schemas/README.md`.
-- Статусы: `proposed`, `accepted`, `deprecated`, `superseded`, `rejected`.
+- ID `ADR-XXX` — нумерация в глобальной области уникальности (вся документация вне `docs/features/`); стандарт — `../../../schemas/README.md`.
+- Заголовок H1 обязан начинаться с `ADR-XXX:` — именно H1 определяет ID для автоматической валидации.
+- У ADR два независимых статуса: статус документа в frontmatter (`draft`/`review`/`approved`/`deprecated`) и статус решения в секции Status (`proposed`, `accepted`, `deprecated`, `superseded`, `rejected`). Ориентировочное соответствие: `proposed` ↔ `draft`/`review`, `accepted` ↔ `approved`, `superseded`/`rejected` ↔ `deprecated`.
 - Если ADR заменяет другой — двусторонняя ссылка (superseded by / supersedes).
 
 ## Список ADR

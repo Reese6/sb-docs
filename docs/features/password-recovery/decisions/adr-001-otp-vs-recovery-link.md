@@ -3,7 +3,7 @@ title: ADR-001 Одноразовый код вместо ссылки восс�
 type: adr
 status: draft
 feature: password-recovery
-version: 0.1
+version: 0.2
 owners:
   - architecture
 ---
@@ -35,6 +35,7 @@ proposed
 ## Related requirements
 
 - ADR-001 → FR-002, FR-003 ([../requirements.md](../requirements.md)).
+- ADR-001 → BR-002, BR-003 ([../requirements.md](../requirements.md)) — последствия решения опираются на эти правила.
 - ADR-001 → NFR-002 ([../requirements.md](../requirements.md)).
 
 ## Related ADR

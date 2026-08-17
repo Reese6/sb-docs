@@ -25,7 +25,7 @@ ADR-XXX  Architecture Decision        feature decisions/ | docs/architecture/adr
 
 ## Область уникальности
 
-- **ID уникальны в пределах своей области (scope)**: feature — для ID, определённых в её документах; глобальный файл (`business-rules.md`, `non-functional-requirements.md`, `docs/architecture/adr/`) — для глобальных ID.
+- **ID уникальны в пределах своей области (scope)**. Областей две категории: каждая feature (`docs/features/<feature-name>/`) — отдельная область для определённых в ней ID; вся остальная документация (`docs/product/`, `docs/architecture/`, `docs/api/`) — единая глобальная область. Так проверяет и `scripts/validate-docs.mjs`.
 - Внутри области один номер используется одним требованием за всю историю.
 - При ссылке между областями ID указывается со ссылкой на файл-источник при первом упоминании (см. `rules/linking.md`); неоднозначность (`FR-003` из другой feature без ссылки) — ошибка review.
 
@@ -109,3 +109,12 @@ deprecated  устарел; требования не действуют, фай
 - `approved` выставляет только человек.
 - Понижение `approved` → `draft` не делается: изменение утверждённого документа переводит его в `review`.
 - `version` увеличивается при содержательных изменениях: MINOR — правки без изменения смысла требований, MAJOR — изменение/добавление требований.
+
+### Статусы ADR
+
+У ADR два независимых статуса:
+
+- **статус документа** — frontmatter `status` (`draft`/`review`/`approved`/`deprecated`), общий жизненный цикл выше;
+- **статус решения** — секция `## Status` в теле (`proposed`, `accepted`, `deprecated`, `superseded`, `rejected`).
+
+Ориентировочное соответствие: `proposed` ↔ `draft`/`review`, `accepted` ↔ `approved`, `superseded`/`rejected` ↔ `deprecated`. В сводных таблицах (README feature) указывается статус документа из frontmatter; статус решения — отдельно при необходимости.
