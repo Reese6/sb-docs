@@ -8,7 +8,7 @@
 2. Прочитать связанные документы (product, requirements, ui, api, technical этой feature).
 3. Внести изменения по шаблонам из `templates/` и правилам из `rules/`.
 4. Обновить cross-reference и traceability.
-5. Прогнать проверку (skill `documentation-review`; локальные скрипты — после их добавления).
+5. Прогнать проверку (skill `documentation-review` и `node scripts/validate-docs.mjs`).
 6. Закоммитить с осмысленным сообщением.
 
 ## Правило минимального изменения
