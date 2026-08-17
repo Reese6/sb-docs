@@ -1,0 +1,18 @@
+# Подключённые репозитории сервисов: исходный код анализируется AI локально,
+# но не должен попадать в этот репозиторий.
+services/*
+!services/README.md
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Логи и временные файлы
+*.log
+*.tmp
+node_modules/
