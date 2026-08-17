@@ -52,4 +52,4 @@ product.md → requirements.md → ui.md / api.md → technical.md → decisions
 
 ## Список features
 
-TBD: features ещё не созданы.
+- [password-recovery](password-recovery/README.md) — восстановление пароля по email с одноразовым кодом (OTP); демонстрационная feature (reference implementation).
