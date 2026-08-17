@@ -2,8 +2,6 @@
 
 Entry point для AI-агента (Claude Code, Codex CLI и совместимые). Прочитай этот файл первым.
 
-> Первичная версия. Routing по skills будет расширен после создания skills (см. `tasks/14-agents-md-finalization.md`).
-
 ## Что это за репозиторий
 
 Формализованная система ведения продуктовой, функциональной, UI, API и технической документации:
@@ -68,9 +66,15 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
 
 ## Когда запускать review
 
-После любого содержательного изменения требований, UI, API или technical-документации — skill `documentation-review` (после его создания; до этого — самопроверка по `rules/`).
+Skill `documentation-review` запускается:
 
-## Routing (предварительный)
+- после содержательного изменения `requirements.md`, `ui.md`, `api.md` или `technical.md`;
+- перед переводом документа в статус `approved`;
+- как финальная стадия работы над feature (в pipeline `documentation-orchestrator` — автоматически).
+
+Review только формирует отчёт о находках; исправления вносят пишущие skills.
+
+## Как определить нужный skill
 
 ```text
 Создать/изменить описание функции   → skills/product-documentation
@@ -83,4 +87,6 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
 Комплексная новая feature           → skills/documentation-orchestrator
 ```
 
-Skills находятся в разработке; до их появления следовать `rules/` и `templates/` напрямую.
+Правило выбора: запрос укладывается в один документ — работать напрямую специализированным skill; комплексный запрос (новая feature целиком или изменение нескольких типов документов) — `skills/documentation-orchestrator`.
+
+При сомнении сверяться с разделами «Когда использовать» / «Когда не использовать» в `SKILL.md` соответствующего skill.
