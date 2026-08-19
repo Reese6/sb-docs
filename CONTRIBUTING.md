@@ -23,6 +23,14 @@
 6. Обновлять cross-reference.
 7. Запускать review.
 
+## Изменение утверждённых документов
+
+Содержательное изменение документа со статусом `approved` — добавление, изменение или удаление требований (MAJOR-версия) — вносится только через change proposal в `docs/changes/<change-name>/` (процесс — skill `skills/change-management`, структура — `docs/changes/README.md`):
+
+- MINOR-правки approved-документов (опечатки, ссылки, формулировки без изменения смысла) и любые правки `draft`/`review`-документов — обычный процесс, без proposal.
+- Жизненный цикл proposal: `proposed → approved → applied` (или `rejected`); `approved`/`rejected` выставляет только человек.
+- После apply целевые документы получают MAJOR bump версии и переходят в `review`; proposal архивируется в `docs/changes/archive/YYYY-MM-<change-name>/`.
+
 ## Статусы документов
 
 ```text

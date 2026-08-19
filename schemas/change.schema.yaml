@@ -1,0 +1,31 @@
+# Схема change-директории docs/changes/<change-name>/.
+# Описывает состав файлов и их обязательность.
+# Человекочитаемое описание: docs/changes/README.md
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Change directory
+type: object
+required:
+  - name
+  - files
+properties:
+  name:
+    # Имя активной директории изменения, kebab-case
+    type: string
+    pattern: "^[a-z0-9]+(-[a-z0-9]+)*$"
+  archiveName:
+    # Имя директории в docs/changes/archive/: YYYY-MM-<change-name>
+    type: string
+    pattern: "^\\d{4}-\\d{2}-[a-z0-9]+(-[a-z0-9]+)*$"
+  files:
+    type: object
+    required:
+      - proposal
+    properties:
+      proposal:
+        # proposal.md — why/what/deltas; обязателен
+        const: "proposal.md"
+      tasks:
+        # tasks.md — план применения; опционален до apply
+        const: "tasks.md"
+    additionalProperties: false
+additionalProperties: false

@@ -18,6 +18,7 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
 |------------|-----|
 | Глобальный продуктовый контекст | `docs/product/` (overview, vision, glossary, personas, business-rules, NFR) |
 | Документация фич | `docs/features/<feature-name>/` |
+| Изменения утверждённых документов (change proposals) | `docs/changes/` |
 | Архитектура и ADR | `docs/architecture/`, `docs/architecture/adr/` |
 | Глобальные API-соглашения | `docs/api/` |
 | Шаблоны документов | `templates/` |
@@ -55,6 +56,8 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
 | Technical | `templates/technical.md` | `docs/features/<feature-name>/technical.md` | при описании реализации |
 | ADR feature | `templates/adr.md` | `docs/features/<feature-name>/decisions/adr-XXX-<short-kebab-title>.md` | при значимом решении |
 | ADR глобальный | `templates/adr.md` | `docs/architecture/adr/adr-XXX-<short-kebab-title>.md` | при решении, затрагивающем несколько фич |
+| Change proposal | `templates/change-proposal.md` | `docs/changes/<change-name>/proposal.md` | при содержательном изменении approved-документа |
+| Change tasks | `templates/change-tasks.md` | `docs/changes/<change-name>/tasks.md` | опционален до apply proposal |
 
 Имена директорий фич — kebab-case. Решение уровня одной feature — в её `decisions/`; решение, влияющее на систему в целом, — в `docs/architecture/adr/`.
 
@@ -121,6 +124,7 @@ Review только формирует отчёт о находках; испр�
 Описать реализацию                  → skills/technical-documentation
 Зафиксировать архитектурное решение → skills/architecture-decisions
 Проверить документацию              → skills/documentation-review
+Содержательно изменить утверждённый документ → skills/change-management
 Комплексная новая feature           → skills/documentation-orchestrator
 ```
 

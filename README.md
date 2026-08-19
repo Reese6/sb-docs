@@ -27,6 +27,8 @@ docs/
 ├── product/        # Глобальный продуктовый контекст: overview, vision, glossary,
 │                   # personas, business-rules, non-functional-requirements
 ├── features/       # Документация по фичам: одна директория = одна feature
+├── changes/        # Change proposals: изменения утверждённых документов
+│                   # (+ archive/ применённых и отклонённых)
 ├── architecture/   # Архитектура системы и ADR
 ├── api/            # Глобальные API-соглашения и документация сервисов
 └── ai/             # Справочные материалы для AI: рекомендуемые external skills
@@ -67,6 +69,10 @@ draft → review → approved → deprecated
 - `review` — на проверке (в т.ч. skill `documentation-review`);
 - `approved` — утверждён, является source of truth;
 - `deprecated` — устарел, хранится для истории; его требования не действуют.
+
+## Изменение утверждённых документов
+
+Содержательное изменение `approved`-документа (добавление/изменение/удаление требований) вносится через change proposal в `docs/changes/<change-name>/`: proposal с дельтами требований утверждает человек, затем изменения применяются к целевым документам, а proposal архивируется. MINOR-правки и правки `draft`/`review`-документов идут обычным процессом. Правило порога — [CONTRIBUTING.md](CONTRIBUTING.md), структура и жизненный цикл — [docs/changes/README.md](docs/changes/README.md), процесс — skill `change-management`.
 
 ## Проверка документации
 

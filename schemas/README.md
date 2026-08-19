@@ -4,7 +4,8 @@ Source of truth для формата requirement ID и YAML frontmatter. Маш
 
 - [metadata.schema.yaml](metadata.schema.yaml) — frontmatter документа;
 - [requirement.schema.yaml](requirement.schema.yaml) — структура требования;
-- [feature.schema.yaml](feature.schema.yaml) — состав feature-директории.
+- [feature.schema.yaml](feature.schema.yaml) — состав feature-директории;
+- [change.schema.yaml](change.schema.yaml) — состав change-директории (`docs/changes/`).
 
 ## Типы ID
 
@@ -36,6 +37,7 @@ ADR-XXX  Architecture Decision        feature decisions/ | docs/architecture/adr
 1. Найти максимальный существующий номер данного типа в данной области — **включая deprecated**.
 2. Взять следующий номер. Пропуски в нумерации допустимы и не заполняются.
 3. ID присваивается при первом появлении требования в документе (статус документа значения не имеет).
+4. В change proposal (`docs/changes/`) новые требования получают placeholder `<TYPE>-NEW-<n>` (например `FR-NEW-1`), уникальный в пределах proposal. Реальный ID присваивается при применении proposal: первым появлением требования считается его появление в целевом документе.
 
 ### Изменение
 
@@ -89,7 +91,7 @@ related:
 | Поле | Обязательно | Значения |
 |------|-------------|----------|
 | `title` | да | название документа, человекочитаемое |
-| `type` | да | `product`, `requirements`, `ui`, `api`, `technical`, `adr`, `architecture`, `feature-readme` |
+| `type` | да | `product`, `requirements`, `ui`, `api`, `technical`, `adr`, `architecture`, `feature-readme`, `change` |
 | `status` | да | `draft`, `review`, `approved`, `deprecated` |
 | `feature` | для документов feature | имя директории feature (kebab-case) |
 | `version` | да | версия документа, `MAJOR.MINOR` |
@@ -118,3 +120,12 @@ deprecated  устарел; требования не действуют, фай
 - **статус решения** — секция `## Status` в теле (`proposed`, `accepted`, `deprecated`, `superseded`, `rejected`).
 
 Ориентировочное соответствие: `proposed` ↔ `draft`/`review`, `accepted` ↔ `approved`, `superseded`/`rejected` ↔ `deprecated`. В сводных таблицах (README feature) указывается статус документа из frontmatter; статус решения — отдельно при необходимости.
+
+### Статусы change proposal
+
+У change proposal (`docs/changes/`, `type: change`) два независимых статуса:
+
+- **статус документа** — frontmatter `status` (`draft`/`review`/`approved`/`deprecated`), общий жизненный цикл выше;
+- **статус изменения** — секция `## Status` в теле `proposal.md` (`proposed`, `approved`, `applied`, `rejected`).
+
+Соответствие: `proposed` ↔ `draft`/`review`, `approved` ↔ `approved`, `applied`/`rejected` ↔ `deprecated` (выставляется при архивировании). Статусы `approved` и `rejected` выставляет только человек; `applied` выставляется после внесения всех правок proposal в целевые документы. Полный процесс — `skills/change-management`.

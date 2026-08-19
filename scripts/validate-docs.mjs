@@ -9,7 +9,16 @@
 //   5. FM-TYPE / FM-ENUM / FM-PATTERN / FM-UNKNOWN-KEY — валидация по схеме;
 //   6. ID-UNRESOLVED — ссылки на несуществующие FR/BR/NFR/UI/API/ADR;
 //   7. MD-*    — базовая структура Markdown (rules/markdown.md).
-// Бонус: FEATURE-FILES — состав feature-директорий (schemas/feature.schema.yaml).
+// Бонус: FEATURE-FILES — состав feature-директорий (schemas/feature.schema.yaml);
+//        CHANGE-FILES — состав change-директорий (schemas/change.schema.yaml).
+//
+// docs/changes/ (change proposals) обрабатывается особо:
+//   - активные proposals — reference-only для ID: строки-определения не
+//     регистрируются (нет ID-DUP и загрязнения глобальной области), упоминания
+//     резолвятся по объединению всех областей; placeholder <TYPE>-NEW-<n>
+//     легален только здесь (вне docs/changes/ — ID-MALFORMED);
+//   - docs/changes/archive/ — замороженная история: исключён из FM-/ID-/LINK-
+//     проверок (как templates/), остаются только MD-* проверки структуры.
 //
 // Источник правил frontmatter и ID — schemas/*.yaml (не хардкод).
 //
@@ -147,6 +156,7 @@ function loadSchemas() {
   const meta = read('metadata.schema.yaml');
   const req = read('requirement.schema.yaml');
   const feat = read('feature.schema.yaml');
+  const change = read('change.schema.yaml');
 
   const props = meta.properties;
   const schema = {
@@ -163,6 +173,11 @@ function loadSchemas() {
     featureNamePattern: feat.properties?.name?.pattern,
     featureRequiredFiles: (feat.properties?.files?.required ?? []).map(
       (key) => feat.properties?.files?.properties?.[key]?.const
+    ),
+    changeNamePattern: change.properties?.name?.pattern,
+    changeArchivePattern: change.properties?.archiveName?.pattern,
+    changeRequiredFiles: (change.properties?.files?.required ?? []).map(
+      (key) => change.properties?.files?.properties?.[key]?.const
     ),
   };
 
@@ -449,6 +464,15 @@ function scopeOf(rel) {
   return feature ? `feature:${feature}` : 'global';
 }
 
+// docs/changes/ — change proposals: reference-only для ID (см. шапку файла).
+function isChangeDoc(rel) {
+  return rel.startsWith('docs/changes/');
+}
+
+function isArchivedChange(rel) {
+  return rel.startsWith('docs/changes/archive/');
+}
+
 // Копия masked-строк с заблэнкленными URL ссылок — чтобы имена файлов вида
 // adr-001-*.md не попадали в ID-сканирование.
 function maskLinkTargets(maskedLines) {
@@ -459,11 +483,16 @@ function maskLinkTargets(maskedLines) {
 
 function collectDefinitions(f, schema, defs) {
   const scope = scopeOf(f.rel);
+  const referenceOnly = isChangeDoc(f.rel);
+  const scan = maskLinkTargets(f.masked);
+  const positions = new Set(); // "line:col" определений — исключаются из ссылок
+  if (referenceOnly) {
+    // Дельты в change proposal не определяют ID — только ссылаются на них.
+    return { scan, positions, scope, referenceOnly };
+  }
   const nonAdr = schema.idPrefixes.filter((p) => p !== 'ADR').join('|');
   const defRe = new RegExp(`^\\s*(?:-\\s+)?((?:${nonAdr})-\\d{3,})\\s*(?:\\(→[^)]*\\))?\\s*:`);
   const adrRe = new RegExp(`^#\\s+(ADR-\\d{3,})\\b`);
-  const scan = maskLinkTargets(f.masked);
-  const positions = new Set(); // "line:col" определений — исключаются из ссылок
   const seenInFile = new Set();
   for (let i = 0; i < scan.length; i++) {
     const m = scan[i].match(defRe) ?? scan[i].match(adrRe);
@@ -475,18 +504,21 @@ function collectDefinitions(f, schema, defs) {
     (defs[scope] ??= {});
     (defs[scope][id] ??= []).push({ file: f.rel, line: i });
   }
-  return { scan, positions, scope };
+  return { scan, positions, scope, referenceOnly };
 }
 
 function checkIds(f, schema, ctx, defs) {
-  const { scan, positions, scope } = ctx;
+  const { scan, positions, scope, referenceOnly } = ctx;
   const prefixes = schema.idPrefixes.join('|');
 
-  // Проверка 6: все упоминания ID должны резолвиться в своей области видимости
-  const visible = new Set([
-    ...Object.keys(defs[scope] ?? {}),
-    ...(scope !== 'global' ? Object.keys(defs.global ?? {}) : []),
-  ]);
+  // Проверка 6: все упоминания ID должны резолвиться в своей области видимости.
+  // Change proposal ссылается на ID любых областей — видимость: объединение.
+  const visible = referenceOnly
+    ? new Set(Object.values(defs).flatMap((byId) => Object.keys(byId)))
+    : new Set([
+        ...Object.keys(defs[scope] ?? {}),
+        ...(scope !== 'global' ? Object.keys(defs.global ?? {}) : []),
+      ]);
   const refRe = new RegExp(`\\b(?:${prefixes})-\\d{3,}\\b`, 'g');
   for (let i = 0; i < scan.length; i++) {
     for (const m of scan[i].matchAll(refRe)) {
@@ -503,6 +535,13 @@ function checkIds(f, schema, ctx, defs) {
     [new RegExp(`\\b(?:${prefixes})-\\d{3,}(?=[A-Za-zА-Яа-я])`, 'g'), 'trailing letters'],
     [new RegExp(`\\b(?:${prefixes})-X{2,}\\b`, 'g'), 'unfilled template placeholder'],
   ];
+  if (!referenceOnly) {
+    // Placeholder <TYPE>-NEW-<n> легален только внутри docs/changes/
+    malformed.push([
+      new RegExp(`\\b(?:${prefixes})-NEW-\\d+\\b`, 'g'),
+      'placeholder ID outside docs/changes/',
+    ]);
+  }
   for (let i = 0; i < scan.length; i++) {
     for (const [re, why] of malformed) {
       for (const m of scan[i].matchAll(re)) {
@@ -635,6 +674,37 @@ function checkFeatureDirs(schema) {
   }
 }
 
+// --- Бонус: состав change-директорий (schemas/change.schema.yaml) ----------
+
+function checkChangeDirs(schema) {
+  const changesDir = path.join(ROOT, 'docs', 'changes');
+  if (!existsSync(changesDir)) return;
+  const checkDir = (relDir, absDir, namePattern, name) => {
+    if (!new RegExp(namePattern).test(name)) {
+      report(relDir, -1, 'CHANGE-FILES',
+        `change directory name "${name}" does not match ${namePattern}`);
+    }
+    for (const file of schema.changeRequiredFiles) {
+      if (!existsSync(path.join(absDir, file))) {
+        report(relDir, -1, 'CHANGE-FILES', `required file "${file}" is missing`);
+      }
+    }
+  };
+  for (const name of readdirSync(changesDir).sort()) {
+    const abs = path.join(changesDir, name);
+    if (!statSync(abs).isDirectory()) continue;
+    if (name === 'archive') {
+      for (const arch of readdirSync(abs).sort()) {
+        const archAbs = path.join(abs, arch);
+        if (!statSync(archAbs).isDirectory()) continue;
+        checkDir(`docs/changes/archive/${arch}`, archAbs, schema.changeArchivePattern, arch);
+      }
+      continue;
+    }
+    checkDir(`docs/changes/${name}`, abs, schema.changeNamePattern, name);
+  }
+}
+
 // ---------------------------------------------------------------------------
 // main
 // ---------------------------------------------------------------------------
@@ -652,8 +722,8 @@ function main() {
     }
   }
 
-  const fmSet = allMd.filter((rel) => rel.startsWith('docs/'));
-  const linkSet = allMd.filter((rel) => !rel.startsWith('templates/'));
+  const fmSet = allMd.filter((rel) => rel.startsWith('docs/') && !isArchivedChange(rel));
+  const linkSet = allMd.filter((rel) => !rel.startsWith('templates/') && !isArchivedChange(rel));
 
   // pass 1: структура, frontmatter, сбор определений ID
   const defs = {}; // scope -> id -> [{file, line}]
@@ -672,6 +742,7 @@ function main() {
   checkDuplicates(defs);
   for (const rel of linkSet) checkLinks(fileCache.get(rel), fileCache);
   checkFeatureDirs(schema);
+  checkChangeDirs(schema);
 
   errors.sort((a, b) =>
     a.file.localeCompare(b.file) || a.line - b.line || a.code.localeCompare(b.code));

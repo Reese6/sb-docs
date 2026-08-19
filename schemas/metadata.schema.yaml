@@ -23,6 +23,8 @@ properties:
       - adr
       - architecture
       - feature-readme
+      # change — change proposal (docs/changes/)
+      - change
   status:
     enum:
       - draft
