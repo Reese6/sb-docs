@@ -202,8 +202,7 @@ function collectFiles() {
           continue;
         }
         walk(abs);
-      } else if (name.endsWith('.md') && rel !== 'INIT.md') {
-        // INIT.md — исторический init-prompt, вне правил оформления
+      } else if (name.endsWith('.md')) {
         files.push(rel);
       }
     }

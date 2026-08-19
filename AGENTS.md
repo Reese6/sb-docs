@@ -21,6 +21,7 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
 | Архитектура и ADR | `docs/architecture/`, `docs/architecture/adr/` |
 | Глобальные API-соглашения | `docs/api/` |
 | Шаблоны документов | `templates/` |
+| Пример заполненной feature (reference) | `templates/examples/password-recovery/` |
 | Правила работы (обязательны к прочтению) | `rules/` |
 | Стандарт ID и frontmatter, схемы | `schemas/` |
 | Пошаговые процессы работы с документацией | `skills/*/SKILL.md` |

@@ -52,4 +52,4 @@ product.md → requirements.md → ui.md / api.md → technical.md → decisions
 
 ## Список features
 
-- [password-recovery](password-recovery/README.md) — восстановление пароля по email с одноразовым кодом (OTP); демонстрационная feature (reference implementation).
+Features пока нет. Пример заполненной feature (reference implementation) — [templates/examples/password-recovery](../../templates/examples/password-recovery/README.md).
