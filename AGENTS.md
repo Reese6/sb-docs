@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Entry point для AI-агента (Claude Code, Codex CLI и совместимые). Прочитай этот файл первым.
+Entry point для AI-агента. Прочитай этот файл первым.
 
 ## Что это за репозиторий
 
@@ -27,6 +27,7 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
 | Стандарт ID и frontmatter, схемы | `schemas/` |
 | Пошаговые процессы работы с документацией | `skills/*/SKILL.md` |
 | Процесс изменений, commit-конвенция, статусы | `CONTRIBUTING.md` |
+| Workflow человека: сценарии и промпты | `WORKFLOW.md` |
 | Механическая валидация документации | `scripts/validate-docs.mjs` |
 | Работа с внешними (устанавливаемыми) skills | `docs/ai/external-skills.md` |
 | Исходный код сервисов (локально, не в Git) | `services/` |
