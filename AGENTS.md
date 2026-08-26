@@ -31,6 +31,7 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
 | Механическая валидация документации | `scripts/validate-docs.mjs` |
 | Работа с внешними (устанавливаемыми) skills | `docs/ai/external-skills.md` |
 | Исходный код сервисов (локально, не в Git) | `services/` |
+| Список репозиториев сервисов и их клонирование | `repos.json`, `scripts/repos.mjs` |
 
 ## Обязательно перед любым изменением
 
@@ -99,6 +100,8 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
 ## Когда анализировать services/
 
 Только при написании или проверке технической документации (`technical.md`), чтобы описать текущую реализацию. Не использовать код как источник продуктовых требований.
+
+Подключение кода: список репозиториев — `repos.json`; `npm run pull` клонирует отсутствующие в `services/` и переходит на главную ветку, `npm run update` актуализирует уже склонированные (см. `services/README.md`).
 
 ## Когда запускать review
 

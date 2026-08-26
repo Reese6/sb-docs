@@ -4,6 +4,35 @@
 
 ## Как подключить сервис
 
+Список необходимых репозиториев ведётся в `repos.json` (корень репозитория):
+
+```json
+{
+  "target": "services",
+  "repos": [
+    {
+      "name": "example-service",
+      "url": "git@github.com:org/example-service.git",
+      "branch": "main"
+    }
+  ]
+}
+```
+
+- `name` — kebab-case, имя каталога в `services/` (должно совпадать с `docs/architecture/components.md`);
+- `branch` — опционально: без него скрипт сам определит главную ветку по `origin/HEAD`.
+
+Команды (npm или yarn):
+
+```bash
+npm run pull      # клонировать отсутствующие репозитории и перейти на главную ветку
+npm run update    # актуализировать: fetch + checkout главной ветки + pull --ff-only
+```
+
+`update` пропускает репозитории с незакоммиченными изменениями и символьные ссылки — ничего не теряется.
+
+Ручное подключение по-прежнему работает:
+
 ```bash
 # вариант 1: клонировать
 git clone <service-repo-url> services/<service-name>

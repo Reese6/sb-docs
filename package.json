@@ -1,0 +1,13 @@
+{
+  "name": "sb-docs",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "pull": "node scripts/repos.mjs pull",
+    "update": "node scripts/repos.mjs update",
+    "validate": "node scripts/validate-docs.mjs"
+  }
+}
