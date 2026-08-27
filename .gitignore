@@ -3,6 +3,11 @@
 services/*
 !services/README.md
 
+# Отчёты сверки документации с кодом: артефакты разовых прогонов,
+# в этот репозиторий не попадают.
+reports/*
+!reports/README.md
+
 # OS
 .DS_Store
 Thumbs.db

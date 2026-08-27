@@ -33,6 +33,7 @@ services source code = source of truth для текущей реализаци�
 | Описать контракт API | `skills/api-requirements` |
 | Зафиксировать архитектурное решение | `skills/architecture-decisions` |
 | Проверить существующую документацию | `skills/documentation-review` |
+| Сверить документацию с кодом: покрытие требований, дрейф, противоречия | `skills/spec-verification` |
 
 ## Процесс
 

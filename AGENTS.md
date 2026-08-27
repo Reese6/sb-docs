@@ -29,6 +29,9 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
 | Процесс изменений, commit-конвенция, статусы | `CONTRIBUTING.md` |
 | Workflow человека: сценарии и промпты | `WORKFLOW.md` |
 | Механическая валидация документации | `scripts/validate-docs.mjs` |
+| Инвентарь требований (машиночитаемый) | `scripts/spec-inventory.mjs` |
+| Сверка документации с кодом (spec ↔ code) | `skills/spec-verification/SKILL.md` |
+| Отчёты сверки документации с кодом | `reports/` (локально, не в Git) |
 | Работа с внешними (устанавливаемыми) skills | `docs/ai/external-skills.md` |
 | Исходный код сервисов (локально, не в Git) | `services/` |
 | Список репозиториев сервисов и их клонирование | `repos.json`, `scripts/repos.mjs` |
@@ -99,7 +102,12 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
 
 ## Когда анализировать services/
 
-Только при написании или проверке технической документации (`technical.md`), чтобы описать текущую реализацию. Не использовать код как источник продуктовых требований.
+Два случая, оба — только на чтение:
+
+1. написание или проверка технической документации (`technical.md`), чтобы описать текущую реализацию;
+2. двусторонняя сверка документации с кодом (`skills/spec-verification`).
+
+Не использовать код как источник продуктовых требований: код — правда о текущей реализации, а не о требуемом поведении. Ничего в `services/` не изменять — это чужие репозитории.
 
 Подключение кода: список репозиториев — `repos.json`; `npm run pull` клонирует отсутствующие в `services/` и переходит на главную ветку, `npm run update` актуализирует уже склонированные (см. `services/README.md`).
 
@@ -117,6 +125,8 @@ Review только формирует отчёт о находках; испр�
 
 - `node scripts/validate-docs.mjs` — механическая проверка frontmatter, ID, ссылок и структуры. Exit code `0` — ошибок нет, `1` — есть. Запускать после любого изменения `docs/` и перед commit.
 - Скрипт дополняет `skills/documentation-review`, но не заменяет его: противоречия, галлюцинации и терминологию проверяет review.
+- `node scripts/spec-inventory.mjs --scope <scope>` — машиночитаемый инвентарь требований (формулировки, acceptance criteria, связи, TBD/ASSUMPTION) и снимок подключённого кода. Основа сверки с кодом; сам по себе ничего не проверяет.
+- Соответствие документации коду проверяет `skills/spec-verification` — ни валидатор, ни review этого не делают: их трассируемость только doc↔doc.
 
 ## Как определить нужный skill
 
@@ -129,6 +139,7 @@ Review только формирует отчёт о находках; испр�
 Зафиксировать архитектурное решение → skills/architecture-decisions
 Проверить документацию              → skills/documentation-review
 Содержательно изменить утверждённый документ → skills/change-management
+Сверить документацию с кодом        → skills/spec-verification
 Комплексная новая feature           → skills/documentation-orchestrator
 ```
 
