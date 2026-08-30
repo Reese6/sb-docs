@@ -26,7 +26,6 @@ Review покрывает семь групп проверок: Structure, Requi
 | Описать контракт API | `skills/api-requirements` |
 | Описать реализацию решения | `skills/technical-documentation` |
 | Зафиксировать архитектурное решение (ADR) | `skills/architecture-decisions` |
-| Сверить документацию с кодом в `services/` | `skills/spec-verification` |
 
 Исправление найденных проблем — тоже не задача этого skill: по каждой группе находок рекомендуется пишущий skill из таблицы.
 
@@ -70,7 +69,7 @@ Review покрывает семь групп проверок: Structure, Requi
 
 ### Шаг 5. Traceability
 
-Покрытие здесь — только doc↔doc: реализован ли требование в коде, review не проверяет (это `skills/spec-verification`). Построить дерево покрытия по Traceability-таблицам и телам документов:
+Покрытие здесь — только doc↔doc: реализован ли требование в коде, review не проверяет. Построить дерево покрытия по Traceability-таблицам и телам документов:
 
 ```text
 FR-004

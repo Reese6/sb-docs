@@ -36,7 +36,7 @@ import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-export const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
+const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 
 // ---------------------------------------------------------------------------
 // Мини-парсер YAML-подмножества: key: value, вложенность по отступу,
@@ -83,7 +83,7 @@ function parseScalar(value) {
 
 // Возвращает { data, keyLines, dupKeys }; все скаляры — строки (без коэрции:
 // version: 0.1 обязан остаться строкой "0.1" для проверки pattern).
-export function parseYamlSubset(text) {
+function parseYamlSubset(text) {
   const rawLines = text.split('\n');
   const tokens = [];
   for (let i = 0; i < rawLines.length; i++) {
@@ -147,7 +147,7 @@ function die(message) {
   process.exit(2);
 }
 
-export function loadSchemas() {
+function loadSchemas() {
   const read = (p) => {
     const abs = path.join(ROOT, 'schemas', p);
     if (!existsSync(abs)) die(`schema not found: schemas/${p}`);
@@ -200,10 +200,8 @@ export function loadSchemas() {
 // ---------------------------------------------------------------------------
 
 const SKIP_DIRS = new Set(['.git', 'node_modules']);
-// Директории вне Git: содержимое не проверяется, только README.md.
-const LOCAL_DIRS = new Set(['services', 'reports']);
 
-export function collectFiles() {
+function collectFiles() {
   const files = [];
   (function walk(dir) {
     for (const name of readdirSync(dir).sort()) {
@@ -212,12 +210,10 @@ export function collectFiles() {
       const st = statSync(abs);
       if (st.isDirectory()) {
         if (SKIP_DIRS.has(name)) continue;
-        // services/ — локальные клоны чужих репозиториев, reports/ —
-        // артефакты прогонов верификации; оба в .gitignore, проверяется
-        // только README.md каждой директории.
-        if (LOCAL_DIRS.has(rel)) {
+        // services/ — локальные клоны чужих репозиториев (.gitignore)
+        if (rel === 'services') {
           const readme = path.join(abs, 'README.md');
-          if (existsSync(readme)) files.push(`${rel}/README.md`);
+          if (existsSync(readme)) files.push('services/README.md');
           continue;
         }
         walk(abs);
@@ -237,7 +233,7 @@ function blank(str) {
   return str.replace(/[^\t]/g, ' ');
 }
 
-export function parseFile(rel) {
+function parseFile(rel) {
   const raw = readFileSync(path.join(ROOT, rel), 'utf8');
   const lines = raw.split('\n');
 
@@ -370,7 +366,7 @@ function isFeatureRootReadme(rel) {
   return /^docs\/features\/[^/]+\/README\.md$/.test(rel);
 }
 
-export function featureNameOf(rel) {
+function featureNameOf(rel) {
   const m = rel.match(/^docs\/features\/([^/]+)\//);
   return m ? m[1] : null;
 }
@@ -463,17 +459,17 @@ function checkFrontmatter(f, schema) {
 // --- Проверки 2, 3, 6: requirement ID --------------------------------------
 
 // Scope уникальности ID (schemas/README.md): feature-директория или global.
-export function scopeOf(rel) {
+function scopeOf(rel) {
   const feature = featureNameOf(rel);
   return feature ? `feature:${feature}` : 'global';
 }
 
 // docs/changes/ — change proposals: reference-only для ID (см. шапку файла).
-export function isChangeDoc(rel) {
+function isChangeDoc(rel) {
   return rel.startsWith('docs/changes/');
 }
 
-export function isArchivedChange(rel) {
+function isArchivedChange(rel) {
   return rel.startsWith('docs/changes/archive/');
 }
 
@@ -485,10 +481,8 @@ function maskLinkTargets(maskedLines) {
   );
 }
 
-// scopeOverride — для scripts/spec-inventory.mjs: инвентарь считает
-// templates/examples/<name>/ отдельной областью, валидатор их не сканирует.
-export function collectDefinitions(f, schema, defs, scopeOverride) {
-  const scope = scopeOverride ?? scopeOf(f.rel);
+function collectDefinitions(f, schema, defs) {
+  const scope = scopeOf(f.rel);
   const referenceOnly = isChangeDoc(f.rel);
   const scan = maskLinkTargets(f.masked);
   const positions = new Set(); // "line:col" определений — исключаются из ссылок
@@ -508,7 +502,7 @@ export function collectDefinitions(f, schema, defs, scopeOverride) {
     seenInFile.add(id);
     positions.add(`${i}:${scan[i].indexOf(id)}`);
     (defs[scope] ??= {});
-    (defs[scope][id] ??= []).push({ file: f.rel, line: i, text: f.lines[i] });
+    (defs[scope][id] ??= []).push({ file: f.rel, line: i });
   }
   return { scan, positions, scope, referenceOnly };
 }
@@ -764,5 +758,4 @@ function main() {
   console.log(`OK: ${allMd.length} file(s) checked, 0 errors`);
 }
 
-// Модуль переиспользуется scripts/spec-inventory.mjs: запуск только напрямую.
-if (process.argv[1] === fileURLToPath(import.meta.url)) main();
+main();

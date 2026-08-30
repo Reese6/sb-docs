@@ -8,7 +8,6 @@
   "scripts": {
     "pull": "node scripts/repos.mjs pull",
     "update": "node scripts/repos.mjs update",
-    "validate": "node scripts/validate-docs.mjs",
-    "inventory": "node scripts/spec-inventory.mjs"
+    "validate": "node scripts/validate-docs.mjs"
   }
 }
