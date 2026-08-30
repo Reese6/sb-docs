@@ -34,3 +34,4 @@ SKILL.md; они же присваивают реальные ID вместо pl
 - [ ] Placeholders заменены реальными ID; секция Assigned IDs в proposal.md заполнена.
 - [ ] Затронутые документы: version MAJOR bump, статус `approved` → `review`.
 - [ ] Proposal архивирован в `docs/changes/archive/YYYY-MM-<change-name>/`.
+- [ ] `skills/test-cases` (режим change) — обновлён `test-cases/<feature-name>.md` по применённым дельтам.

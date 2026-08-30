@@ -25,6 +25,7 @@ Requirements формализуют ожидаемое поведение из `
 | Описать техническое решение | `skills/technical-documentation` |
 | Зафиксировать архитектурное решение | `skills/architecture-decisions` |
 | Проверить существующую документацию | `skills/documentation-review` |
+| Написать тест-кейсы ручного тестирования | `skills/test-cases` |
 
 ## Процесс
 

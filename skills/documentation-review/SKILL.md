@@ -26,6 +26,7 @@ Review покрывает семь групп проверок: Structure, Requi
 | Описать контракт API | `skills/api-requirements` |
 | Описать реализацию решения | `skills/technical-documentation` |
 | Зафиксировать архитектурное решение (ADR) | `skills/architecture-decisions` |
+| Написать тест-кейсы ручного тестирования | `skills/test-cases` |
 
 Исправление найденных проблем — тоже не задача этого skill: по каждой группе находок рекомендуется пишущий skill из таблицы.
 

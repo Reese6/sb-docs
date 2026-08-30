@@ -22,6 +22,7 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
 | Архитектура и ADR | `docs/architecture/`, `docs/architecture/adr/` |
 | Глобальные API-соглашения | `docs/api/` |
 | Шаблоны документов | `templates/` |
+| Тест-кейсы ручного тестирования | `test-cases/` |
 | Пример заполненной feature (reference) | `templates/examples/password-recovery/` |
 | Правила работы (обязательны к прочтению) | `rules/` |
 | Стандарт ID и frontmatter, схемы | `schemas/` |
@@ -60,6 +61,7 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
 | ADR глобальный | `templates/adr.md` | `docs/architecture/adr/adr-XXX-<short-kebab-title>.md` | при решении, затрагивающем несколько фич |
 | Change proposal | `templates/change-proposal.md` | `docs/changes/<change-name>/proposal.md` | при содержательном изменении approved-документа |
 | Change tasks | `templates/change-tasks.md` | `docs/changes/<change-name>/tasks.md` | опционален до apply proposal |
+| Test cases | `templates/test-cases.md` | `test-cases/<feature-name>.md` | опционален |
 
 Имена директорий фич — kebab-case. Решение уровня одной feature — в её `decisions/`; решение, влияющее на систему в целом, — в `docs/architecture/adr/`.
 
@@ -128,6 +130,7 @@ Review только формирует отчёт о находках; испр�
 Описать реализацию                  → skills/technical-documentation
 Зафиксировать архитектурное решение → skills/architecture-decisions
 Проверить документацию              → skills/documentation-review
+Написать тест-кейсы ручного тестирования → skills/test-cases
 Содержательно изменить утверждённый документ → skills/change-management
 Комплексная новая feature           → skills/documentation-orchestrator
 ```
