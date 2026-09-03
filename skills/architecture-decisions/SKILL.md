@@ -1,125 +1,88 @@
 ---
 name: architecture-decisions
-description: Фиксация важного архитектурного решения и его WHY в виде ADR (Architecture Decision Record) — контекст, решение, альтернативы, последствия; глобальные — в docs/architecture/adr/, feature-специфичные — в docs/features/<name>/decisions/. Использовать, когда решение существенно влияет на архитектуру, его сложно изменить, есть несколько разумных альтернатив. Не использовать для описания реализации (technical), формализации требований (requirements) или рядовых решений, которым место в Alternatives technical.md.
+description: Создаёт и изменяет ADR — контекст, решение, альтернативы, последствия; глобальные в docs/architecture/adr/, feature-специфичные в docs/features/<name>/decisions/. Триггеры — «оформи ADR», «зафиксируй архитектурное решение», «альтернативы», «supersede», кандидат на ADR из technical.md. Вход — требования и существующие ADR. Не для реализации (technical-documentation), требований (requirements) и рядовых решений — им место в Alternatives technical.md.
 ---
 
 # Skill: architecture-decisions
 
-Создаёт и изменяет ADR — записи важных архитектурных решений:
-
-- глобальные (несколько features или система целиком) — `docs/architecture/adr/`;
-- feature-специфичные — `docs/features/<feature-name>/decisions/` (директория создаётся при первом ADR — [schemas/feature.schema.yaml](../../schemas/feature.schema.yaml)).
-
-ADR отвечает на WHY: почему принято именно это решение, какие альтернативы рассмотрены и чего оно стоит. Реализация решения (HOW) остаётся в `technical.md`.
-
 ## Когда использовать
 
-- Существенный архитектурный выбор сделан или предстоит — его нужно зафиксировать с альтернативами и последствиями.
-- `skills/technical-documentation` пометил выбор в Alternatives как кандидата на ADR.
-- Принятое решение пересматривается — нужен новый ADR, заменяющий старый (supersede).
-- Пользователь просит оформить или обновить ADR.
+Создать или изменить ADR — запись важного архитектурного решения и его WHY: почему именно так, какие альтернативы рассмотрены, чего это стоит. Реализация (HOW) остаётся в `technical.md`. Поводы: существенный выбор сделан или предстоит; `technical-documentation` пометил кандидата в Alternatives; решение пересматривается (supersede); просят оформить или обновить ADR. Остальные документы — другие skills (AGENTS.md, «Как определить нужный skill»).
 
-## Когда не использовать
+## Вход и стоп-условия
 
-| Задача | Правильный skill |
-|--------|------------------|
-| Описать проблему, пользователей, сценарии, scope | `skills/product-documentation` |
-| Формализовать требования (FR/BR/NFR) | `skills/requirements` |
-| Описать поведение интерфейса | `skills/ui-requirements` |
-| Описать контракт API | `skills/api-requirements` |
-| Описать реализацию решения | `skills/technical-documentation` |
-| Проверить существующую документацию | `skills/documentation-review` |
+| Проверка | Если не выполнено |
+|----------|-------------------|
+| Прочитаны существующие ADR своей области и связанные требования | Стоп: ADR «из головы» не создаётся. Сначала «Прочитать». |
+| Решение проходит хотя бы один весомый критерий: существенно влияет на архитектуру; сложно изменить; есть несколько разумных альтернатив; создаёт важные ограничения; важно будущим разработчикам | Стоп. Ответ: «ADR не нужен: решению место в Alternatives technical.md или в комментарии к коду». |
+| Изменяемый ADR не `accepted`, либо это пересмотр через новый ADR (supersede) | Стоп. Ответ: «Принятый ADR неизменяем — пересмотр оформляется новым ADR». |
 
-## Процесс
+## Прочитать
 
-Шаги 1–2 — обязательная подготовка. ADR «из головы», без прочтения существующих ADR и связанных требований, не создаётся.
+1. Обязательно: существующие ADR — глобальные в [docs/architecture/adr/](../../docs/architecture/adr/README.md), для feature — `docs/features/<feature>/decisions/`; требования, обосновывающие решение — `requirements.md` feature и/или [business-rules.md](../../docs/product/business-rules.md), [non-functional-requirements.md](../../docs/product/non-functional-requirements.md); [schemas/README.md](../../schemas/README.md) — ID и статусы ADR. Правила — по AGENTS.md.
+2. Если есть: `technical.md` feature — контекст решения и уже рассмотренные альтернативы.
+3. Архитектурный контекст: [overview.md](../../docs/architecture/overview.md), [components.md](../../docs/architecture/components.md), [data-model.md](../../docs/architecture/data-model.md), [integrations.md](../../docs/architecture/integrations.md) — имена компонентов и сущностей брать оттуда.
+4. Образец: [adr-001-otp-vs-recovery-link.md](../../templates/examples/password-recovery/decisions/adr-001-otp-vs-recovery-link.md).
 
-### Шаг 1. Прочитать контекст
+## Правила
 
-До любых правок прочитать:
+Общие — AGENTS.md, `rules/ai-guardrails.md`. Ядро: текст документа — русский (заголовки секций, ID, статусы, `TBD`/`ASSUMPTION` — английские); факт — без пометки, только из требований, кода, `docs/architecture/` или слов человека; неизвестное — `TBD: <что неизвестно>`; предположение — `ASSUMPTION: <текст>. Requires confirmation.`; существующие ID не менять и не переиспользовать.
 
-1. [rules/ai-guardrails.md](../../rules/ai-guardrails.md) — обязательный документ защиты от галлюцинаций; также [rules/writing.md](../../rules/writing.md), [rules/linking.md](../../rules/linking.md), [rules/terminology.md](../../rules/terminology.md).
-2. Стандарт ID и frontmatter: [schemas/README.md](../../schemas/README.md).
-3. Существующие ADR: глобальные в [docs/architecture/adr/](../../docs/architecture/adr/README.md) и, для feature-решения, `docs/features/<feature-name>/decisions/`. Новый ADR не должен молча противоречить принятым; конфликт решается через supersede (шаг 6), не игнорированием.
-4. Требования, обосновывающие решение: `requirements.md` feature и/или глобальные [docs/product/business-rules.md](../../docs/product/business-rules.md), [docs/product/non-functional-requirements.md](../../docs/product/non-functional-requirements.md) — ADR ссылается на конкретные ID.
-5. Архитектурный контекст: [docs/architecture/overview.md](../../docs/architecture/overview.md), [docs/architecture/components.md](../../docs/architecture/components.md), [docs/architecture/data-model.md](../../docs/architecture/data-model.md), [docs/architecture/integrations.md](../../docs/architecture/integrations.md) — имена компонентов и сущностей брать оттуда.
-6. `technical.md` feature (если есть) — контекст решения и уже рассмотренные альтернативы.
+1. Размещение: решение затрагивает несколько features или систему целиком — `docs/architecture/adr/`, frontmatter без `feature`; одну feature — `docs/features/<feature>/decisions/` с `feature: <feature-name>` (директорию создать при первом ADR). Нумерация глобальных ADR и ADR каждой feature независима.
+2. Новый ID = наибольший `ADR-XXX` в своей области (включая deprecated) + 1; пропуски не заполнять. Формат — три цифры с ведущими нулями, после 999 — четыре.
+3. Имя файла `adr-XXX-<short-kebab-title>.md`; H1 — `# ADR-XXX: <Title>` (по H1 валидатор определяет ID); frontmatter `title: ADR-XXX <Title>` без двоеточия, `type: adr`.
+4. Один ADR — одно решение. Два решения — два ADR.
+5. Context — факты, не мнения: проблема, силы, ограничения, ссылки на требования. Decision — в активной форме: «Мы будем использовать X для Y».
+6. Alternatives — минимум одна реально рассмотренная альтернатива с причиной отклонения. Consequences — положительные, отрицательные и нейтральные: у каждого решения есть цена.
+7. Два статуса: frontmatter `status` — документ (`draft` у нового; `approved` ставит человек); секция Status — решение, ровно одно из `proposed`, `accepted`, `deprecated`, `superseded`, `rejected` (`proposed` у нового; `accepted`/`rejected` ставит человек).
+8. Принятый ADR неизменяем по существу. Пересмотр = новый ADR с двусторонней ссылкой: в старом — Status `superseded` и строка «superseded by ADR-YYY» в Related ADR со ссылкой на файл; в новом — «supersedes ADR-XXX» в Related ADR со ссылкой. `deprecated` без замены — причина в Related ADR или Consequences.
+9. Related requirements — только ID со ссылками на файлы-источники, направление `ADR-003 → NFR-002`; формулировки не копировать.
+10. Новый ADR не противоречит принятым молча: конфликт решается через supersede.
 
-### Шаг 2. Проверить, заслуживает ли решение ADR
+## Шаги
 
-ADR нужен, если решение:
+1. Проверить решение по критериям (стоп-условия); определить scope и размещение (правило 1).
+2. Присвоить ID и имя файла (правила 2–3).
+3. Написать ADR из [templates/adr.md](../../templates/adr.md): все секции (Status, Context, Decision, Alternatives, Consequences, Related requirements, Related ADR); комментарии `<!-- AI: -->` выполнить и удалить.
+4. Если supersede: обновить старый ADR по правилу 8.
+5. Если ADR глобальный: добавить его в «Список ADR» в [docs/architecture/adr/README.md](../../docs/architecture/adr/README.md) (при первом ADR снять там `TBD`).
+6. Если решение затрагивает утверждённый `technical.md`: не переписывать; предложить обновление через skill `technical-documentation`.
+7. Запустить `node scripts/validate-docs.mjs`; добиться exit 0.
 
-1. существенно влияет на архитектуру;
-2. сложно изменить;
-3. имеет несколько разумных альтернатив;
-4. создаёт важные ограничения;
-5. важно понимать будущим разработчикам.
+## Примеры
 
-Не создавать ADR на каждую мелочь. Достаточно одного-двух выполненных критериев, если они весомы; если не выполнен ни один — ADR не нужен: решению место в секции Alternatives `technical.md` или в комментарии к коду. В этом случае так и сообщить пользователю, ADR не создавать.
-
-### Шаг 3. Определить scope и размещение
-
-- Решение затрагивает несколько features или систему целиком — глобальный ADR в `docs/architecture/adr/`; frontmatter без поля `feature`.
-- Решение живёт в рамках одной feature — `docs/features/<feature-name>/decisions/`; frontmatter с `feature: <feature-name>`. Директории нет — создать (появляется при первом ADR).
-- Scope определяет область уникальности ID ([schemas/README.md](../../schemas/README.md)): нумерация глобальных ADR и ADR каждой feature независимы.
-
-### Шаг 4. Присвоить ID и имя файла
-
-- Найти максимальный существующий номер `ADR-XXX` в своей области — включая deprecated — и взять следующий. Deprecated-номера не переиспользуются, пропуски не заполняются.
-- Формат ID: `ADR-XXX` (три цифры с ведущими нулями, после 999 — четыре).
-- Имя файла: `adr-XXX-<short-kebab-title>.md`, например `adr-001-event-driven-notifications.md`.
-
-### Шаг 5. Написать ADR по шаблону
-
-- Строго по [templates/adr.md](../../templates/adr.md), включая все секции: Status, Context, Decision, Alternatives, Consequences, Related requirements, Related ADR — и YAML frontmatter (`type: adr`).
-- Одно решение — один ADR. Два решения — два ADR.
-- Context — факты, не мнения: проблема, силы, ограничения, ссылки на требования.
-- Decision — в активной форме: «Мы будем использовать X для Y».
-- Alternatives — минимум одна реально рассмотренная альтернатива с причиной отклонения; без альтернатив это не решение, а констатация.
-- Consequences — и положительные, и отрицательные, и нейтральные: у каждого решения есть цена; перечислить её честно.
-- Не выдумывать ([rules/ai-guardrails.md](../../rules/ai-guardrails.md)): числа, имена компонентов и факты — только из требований, кода, `docs/architecture/` или от человека; иначе `TBD` или `ASSUMPTION: ... Requires confirmation.`
-- Различать два статуса: frontmatter `status` — жизненный цикл документа (`draft` у нового; `approved` выставляет только человек), секция Status в теле — жизненный цикл решения (шаг 6, у нового — `proposed`).
-
-### Шаг 6. Жизненный цикл решения
-
-Статусы в секции Status (ровно эти пять):
+Неправильно — констатация без альтернатив, мнение вместо факта, выдуманное число:
 
 ```text
-proposed
-accepted
-deprecated
-superseded
-rejected
+Decision: Используем Kafka, потому что это лучшая практика. Пропускная способность — 10 000 сообщений в секунду.
+Alternatives: Не рассматривались.
 ```
 
-- Новый ADR — `proposed`. Переводы `accepted` / `rejected` делает человек, не skill.
-- ADR неизменяем после принятия: `accepted` ADR не редактируется по существу. Пересмотр решения = новый ADR, заменяющий старый.
-- При замене — **двусторонняя ссылка**, обе стороны обязательны:
-  - в старом ADR: статус `superseded` и в Related ADR строка «superseded by ADR-YYY» со ссылкой на файл;
-  - в новом ADR: в Related ADR строка «supersedes ADR-XXX» со ссылкой на файл.
-- `deprecated` — решение утратило актуальность без замены; причину указать в Related ADR или Consequences.
+Правильно:
 
-### Шаг 7. Traceability и ссылки
+```text
+Decision: Мы будем публиковать события отправки OTP через брокер сообщений (NFR-001).
+Alternatives: Синхронный вызов сервиса уведомлений — отклонён: недоступность уведомлений блокирует восстановление пароля.
+Consequences: Плюс — отправка не блокирует сценарий. Минус — отложенная доставка. TBD: допустимая задержка доставки.
+```
 
-- Related requirements — только ID со ссылками на файлы-источники, направление от решения к требованию: `ADR-003 → NFR-002`. Формулировки требований не копировать ([rules/linking.md](../../rules/linking.md)).
-- Глобальный ADR — добавить его в «Список ADR» в [docs/architecture/adr/README.md](../../docs/architecture/adr/README.md) (при первом ADR снять там `TBD`).
-- Решение затрагивает утверждённый `technical.md` — не переписывать его молча: предложить обновление через `skills/technical-documentation`.
+## Чеклист
 
-### Шаг 8. Проверить результат
-
-Перед завершением пройти чеклист:
-
-- [ ] Подготовка выполнена: прочитаны существующие ADR своей области и связанные требования; новый ADR не противоречит принятым молча.
-- [ ] Решение проверено по 5 критериям шага 2; мелочь на ADR не оформлена.
-- [ ] Размещение и область ID соответствуют scope (глобальный vs feature).
-- [ ] ID и имя файла — по стандарту: `ADR-XXX`, `adr-XXX-<short-kebab-title>.md`, номер следующий в своей области.
-- [ ] Все секции шаблона присутствуют; Alternatives содержит минимум одну альтернативу; Consequences — не только плюсы.
-- [ ] Один ADR — одно решение.
-- [ ] Статус решения нового ADR — `proposed`; frontmatter — `status: draft`; `accepted`/`approved` не выставлены самовольно.
+- [ ] Решение проверено по критериям; мелочь на ADR не оформлена.
+- [ ] Размещение и область ID соответствуют scope; ID следующий в своей области; имя файла и H1 по правилу 3.
+- [ ] Один ADR — одно решение; Alternatives содержит минимум одну альтернативу; Consequences — не только плюсы.
+- [ ] Статус решения нового ADR — `proposed`, frontmatter `status: draft`; `accepted`/`approved` не выставлены.
 - [ ] При supersede ссылка двусторонняя: «superseded by» в старом, «supersedes» в новом.
-- [ ] Related requirements — только ID со ссылками (`ADR-XXX → NFR-YYY`).
-- [ ] Глобальный ADR добавлен в список [docs/architecture/adr/README.md](../../docs/architecture/adr/README.md).
-- [ ] Ни одного выдуманного имени, числа или факта; `ASSUMPTION` не записан как факт.
-- [ ] Frontmatter валиден по [schemas/README.md](../../schemas/README.md).
+- [ ] Related requirements — только ID со ссылками.
+- [ ] Глобальный ADR добавлен в список `docs/architecture/adr/README.md`.
+- [ ] Ни одного выдуманного имени, числа или факта; каждый `ASSUMPTION` — с `Requires confirmation.`
 
-Завершая работу, сообщить пользователю: созданные/изменённые файлы, список `ASSUMPTION` (ждут подтверждения) и `TBD` (ждут ответа), какие ADR заменены (supersede), напоминание, что статусы `accepted`/`rejected` выставляет человек, и рекомендуемый следующий шаг (обычно `skills/documentation-review`; при затронутой реализации — `skills/technical-documentation`).
+## Отчёт
+
+```text
+Файлы: <созданные/изменённые пути>
+ASSUMPTION (ждут подтверждения): <список или none>
+TBD (ждут ответа): <список или none>
+Заменённые ADR (supersede): <ADR-XXX → ADR-YYY или none>; статусы accepted/rejected выставляет человек
+Следующий шаг: skills/documentation-review; при затронутой реализации — skills/technical-documentation
+```
