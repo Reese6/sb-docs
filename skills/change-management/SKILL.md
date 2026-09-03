@@ -1,69 +1,116 @@
 ---
 name: change-management
-description: Управление изменениями утверждённых документов через change proposals в docs/changes/ — создание proposal с дельтами требований (ADDED/MODIFIED/REMOVED), применение утверждённого человеком proposal к целевым документам силами пишущих skills, архивирование. Использовать при содержательном изменении approved-документа (добавление/изменение/удаление требований), применении или отклонении proposal. Не использовать для MINOR-правок approved-документов, любых правок draft/review-документов и новых features.
+description: Управляет изменениями approved-документов через change proposals в docs/changes/ — proposal с дельтами ADDED/MODIFIED/REMOVED, применение утверждённого человеком proposal пишущими skills, архивирование. Триггеры — «изменить approved-документ», «подготовь change proposal», «примени proposal», «отклонённый proposal». Вход — approved-документ или существующий proposal. Не для MINOR-правок approved, правок draft/review (пишущие skills), новых features (documentation-orchestrator).
 ---
 
 # Skill: change-management
 
-Управляет изменениями утверждённых (approved) документов через change proposals в `docs/changes/<change-name>/`. Сам не редактирует целевые документы: при apply содержательные правки выполняют пишущие skills по своим SKILL.md — по прецеденту `documentation-orchestrator`.
-
-Каноническое правило порога (когда proposal обязателен) — [CONTRIBUTING.md](../../CONTRIBUTING.md), раздел «Изменение утверждённых документов». Структура директории и жизненный цикл — [docs/changes/README.md](../../docs/changes/README.md), статусы — [schemas/README.md](../../schemas/README.md), раздел «Статусы change proposal».
-
 ## Когда использовать
 
-- Нужно содержательно изменить approved-документ: добавить, изменить или пометить deprecated требования (MAJOR-версия).
-- Человек утвердил существующий proposal (`## Status: approved`) — нужно применить его дельты.
-- Человек отклонил proposal (`## Status: rejected`) — нужно архивировать его без применения.
+Содержательно изменить `approved`-документ — добавить, изменить или пометить deprecated требования (MAJOR-версия) — через proposal в `docs/changes/<change-name>/`. Целевые документы skill сам не редактирует: при apply правки выполняют пишущие skills по своим SKILL.md. Поводы: нужно содержательное изменение approved-документа; человек утвердил proposal — применить; человек отклонил — архивировать. Порог — [CONTRIBUTING.md](../../CONTRIBUTING.md), «Изменение утверждённых документов»; структура и жизненный цикл — [docs/changes/README.md](../../docs/changes/README.md). MINOR-правки approved и правки `draft`/`review` — пишущий skill напрямую; новая feature — `documentation-orchestrator`; проверка — `documentation-review`.
 
-## Когда не использовать
+## Вход и стоп-условия
 
-| Задача | Правильный путь |
-|--------|-----------------|
-| MINOR-правка approved-документа (опечатки, ссылки, формулировки без изменения смысла) | соответствующий пишущий skill напрямую |
-| Любая правка `draft`/`review`-документа | соответствующий пишущий skill напрямую |
-| Новая feature целиком | `skills/documentation-orchestrator` |
-| Проверить документацию | `skills/documentation-review` |
+| Проверка | Если не выполнено |
+|----------|-------------------|
+| Целевой документ `approved` и изменение содержательное | Стоп. Ответ: «Proposal не нужен — обычный процесс через пишущий skill». |
+| Режим по body `## Status` существующего proposal: `approved` — apply, `rejected` — архивирование; proposal нет — propose | При `proposed` — Стоп. Ответ: «Proposal ждёт решения человека; не применяю и статус не меняю». |
+| Режим propose: в `docs/changes/` нет другого активного proposal с теми же целевыми документами или ID | Стоп. Ответ: «Пересечение с proposal <name> — сначала согласовать; параллельный proposal не создаю». |
 
-## Процесс
+## Прочитать
 
-### Шаг 0. Определить режим
+1. Обязательно: [CONTRIBUTING.md](../../CONTRIBUTING.md) (порог, версии, статусы); [schemas/README.md](../../schemas/README.md) («Статусы change proposal», «Жизненный цикл ID»); целевые документы целиком; связанные документы feature. Правила — по AGENTS.md.
+2. Глобальный контекст: [business-rules.md](../../docs/product/business-rules.md), [glossary.md](../../docs/product/glossary.md); «Активные изменения» в [docs/changes/README.md](../../docs/changes/README.md).
+3. Образец: [proposal.md](../../templates/examples/changes/password-recovery-otp-sms/proposal.md) и [tasks.md](../../templates/examples/changes/password-recovery-otp-sms/tasks.md) из `templates/examples/changes/`.
 
-- Proposal для запрошенного изменения не существует — режим **propose**.
-- Proposal существует, body `## Status` = `approved` — режим **apply**.
-- Proposal существует, body `## Status` = `rejected` — режим **архивирование rejected** (шаг 3 режима apply не выполняется, см. ниже).
-- Proposal существует, body `## Status` = `proposed` — остановиться: ждать решения человека, не применять и не «дозревать» статус самостоятельно.
+## Правила
+
+Общие — AGENTS.md, `rules/ai-guardrails.md`. Ядро: текст — русский, ключевые слова — английские; факт — без пометки, только из постановки, документов или слов человека; неизвестное — `TBD: <что неизвестно>`; предположение — `ASSUMPTION: <текст>. Requires confirmation.` Действует и внутри дельт.
+
+1. Статусы `approved`/`rejected` — только человек, ни у proposal, ни у целевых документов. `proposed`-proposal не применять и не «дозревать».
+2. Новые требования в дельтах — placeholder `<TYPE>-NEW-<n>` (`FR-NEW-1`), уникальный в пределах proposal; реальный ID присваивает пишущий skill при apply (следующий свободный, включая deprecated).
+3. MODIFIED «Было:» — дословная текущая формулировка; при apply сверяется с целевым документом.
+4. REMOVED при apply = пометка `deprecated` с причиной и заменяющим ID, не удаление; ID не переиспользуются.
+5. Статус proposal в frontmatter до решения человека — максимум `review`.
+6. Правки целевых документов выполняют пишущие skills по своим SKILL.md в порядке pipeline: requirements → ui/api → technical.
+7. Архив `docs/changes/archive/` после переноса не редактируется, даже если ссылки устарели; из валидации исключён.
+
+## Шаги
 
 ### Режим propose
 
-1. Прочитать контекст: [rules/ai-guardrails.md](../../rules/ai-guardrails.md), [schemas/README.md](../../schemas/README.md), [CONTRIBUTING.md](../../CONTRIBUTING.md), целевые документы целиком, связанные документы feature и глобальный контекст ([docs/product/business-rules.md](../../docs/product/business-rules.md), [docs/product/glossary.md](../../docs/product/glossary.md)).
-2. Проверить порог: изменение содержательное и целевой документ `approved`? Нет — направить в обычный процесс (пишущий skill); proposal «на всякий случай» не создавать.
-3. Проверить пересечение с активными proposals в `docs/changes/` по целевым документам и ID. Конфликт — остановиться и согласовать с пользователем, не создавать параллельный proposal молча.
-4. Создать `docs/changes/<change-name>/proposal.md` (и при необходимости `tasks.md`) из шаблонов [templates/change-proposal.md](../../templates/change-proposal.md) и [templates/change-tasks.md](../../templates/change-tasks.md). Дельты — по формату шаблона: новые требования — placeholders `<TYPE>-NEW-<n>`; в MODIFIED «Было:» — дословная текущая формулировка; правила FACT/ASSUMPTION/TBD действуют внутри дельт.
-5. Обновить список «Активные изменения» в [docs/changes/README.md](../../docs/changes/README.md).
-6. Прогнать `node scripts/validate-docs.mjs`. Сообщить пользователю: proposal создан и ждёт решения человека (`approved`/`rejected`); статус документа в frontmatter — максимум `review`.
+1. Создать `docs/changes/<change-name>/proposal.md` (kebab-case) из [templates/change-proposal.md](../../templates/change-proposal.md), при необходимости `tasks.md` из [templates/change-tasks.md](../../templates/change-tasks.md); дельты по формату шаблона (правила 2–4); комментарии `<!-- AI: -->` выполнить и удалить.
+2. Добавить proposal в «Активные изменения» в `docs/changes/README.md`.
+3. Запустить `node scripts/validate-docs.mjs`; добиться exit 0.
 
 ### Режим apply
 
-1. Проверить вход: body `## Status` = `approved` и frontmatter `status: approved` (оба выставляет только человек). Иначе — остановиться.
-2. Сверить каждое «Было:» из дельт с текущим текстом целевых документов — дословно. Расхождение (документ изменился после создания proposal) — остановиться, вернуть proposal в `review` и сообщить пользователю.
-3. Выполнить план (`tasks.md`, при его отсутствии — дельты по порядку pipeline: requirements → ui/api → technical): каждую правку выполняет соответствующий пишущий skill по своему SKILL.md. Пишущие skills присваивают реальные ID вместо placeholders (следующий свободный номер, включая deprecated); REMOVED — пометка deprecated с причиной и заменяющим ID, не удаление.
-4. Заполнить секцию `## Assigned IDs` в proposal.md (placeholder → реальный ID); сами дельты не переписывать.
-5. Целевые документы: version MAJOR bump, статус `approved` → `review` (по [schemas/README.md](../../schemas/README.md)).
-6. Запустить `skills/documentation-review` по затронутым feature; отчёт передать пользователю целиком, находки не устранять молча.
-7. Архивировать: body `## Status` → `applied`, frontmatter → `deprecated`, перенести директорию в `docs/changes/archive/YYYY-MM-<change-name>/` (`YYYY-MM` — дата применения, `git mv`), обновить «Активные изменения» в [docs/changes/README.md](../../docs/changes/README.md). После переноса файлы архива не редактируются, даже если относительные ссылки в них устарели, — архив исключён из валидации.
-8. Сообщить пользователю: применённые дельты и затронутые файлы, таблица Assigned IDs, итог review. Повторный перевод целевых документов в `approved` — отдельное решение человека, обычным процессом.
+1. Проверить: body `## Status` = `approved` и frontmatter `status: approved`. Иначе — стоп.
+2. Сверить каждое «Было:» с целевым документом дословно. Расхождение — стоп: frontmatter proposal → `status: review` (body не менять), сообщить пользователю.
+3. Выполнить план (`tasks.md`; нет — дельты по порядку pipeline): каждую правку — соответствующим пишущим skill; placeholders → реальные ID; REMOVED → deprecated.
+4. Заполнить `## Assigned IDs` в proposal.md (placeholder → реальный ID); сами дельты не переписывать.
+5. Целевые документы: `version` MAJOR bump, `status: approved` → `review`.
+6. Запустить `skills/documentation-review` по затронутым feature; отчёт передать целиком, находки не устранять молча.
+7. Архивировать: body `## Status` → `applied`, frontmatter → `deprecated`; `git mv docs/changes/<change-name> docs/changes/archive/YYYY-MM-<change-name>` (дата применения); обновить «Активные изменения».
+8. Запустить `node scripts/validate-docs.mjs`; добиться exit 0.
 
-Для rejected-proposal выполняются только шаги 7–8 без внесения правок: body `## Status` остаётся `rejected`, frontmatter → `deprecated`, директория архивируется.
+### Режим rejected
 
-## Проверить результат
+Только шаги 7–8 режима apply, без правок целевых документов: body `## Status` остаётся `rejected`, frontmatter → `deprecated`, директория архивируется.
 
-Перед завершением пройти чеклист:
+## Примеры
 
-- [ ] Порог соблюдён: proposal создан только для содержательного изменения approved-документа.
-- [ ] Статусы `approved`/`rejected` не выставлены AI — ни у proposal, ни у целевых документов.
-- [ ] При apply каждое «Было:» сверено дословно с целевым документом.
-- [ ] Реальные ID присвоены пишущими skills; placeholders `<TYPE>-NEW-<n>` не остались в целевых документах.
-- [ ] REMOVED-требования помечены deprecated, не удалены; их ID не переиспользованы.
+Неправильно — реальный ID до apply, «Было:» пересказано:
+
+```text
+#### ADDED
+- FR-006: Пользователь может выбрать канал доставки кода.
+#### MODIFIED
+- FR-002:
+  - Было: система шлёт код на email.
+```
+
+Правильно:
+
+```text
+#### ADDED
+- FR-NEW-1: Пользователь может выбрать канал доставки OTP — email или SMS. Trace: указание product owner.
+#### MODIFIED
+- FR-002:
+  - Было: Система должна отправить OTP на указанный email, если учётная запись с таким email существует.
+  - Станет: Система должна отправить OTP по выбранному каналу, если учётная запись существует.
+  - Причина: добавлен канал SMS.
+```
+
+## Чеклист
+
+- [ ] Порог соблюдён: proposal только для содержательного изменения approved-документа.
+- [ ] `approved`/`rejected` не выставлены AI — ни у proposal, ни у целевых документов.
+- [ ] При apply каждое «Было:» сверено дословно.
+- [ ] Реальные ID присвоены пишущими skills; placeholders `<TYPE>-NEW-<n>` в целевых документах не остались.
+- [ ] REMOVED помечены deprecated, не удалены; ID не переиспользованы.
 - [ ] `skills/documentation-review` запущен, отчёт передан целиком.
-- [ ] Список «Активные изменения» в `docs/changes/README.md` актуален.
-- [ ] Архивные директории не редактировались; `node scripts/validate-docs.mjs` — exit 0.
+- [ ] «Активные изменения» в `docs/changes/README.md` актуален; архив не редактировался.
+- [ ] `node scripts/validate-docs.mjs` — exit 0.
+
+## Отчёт
+
+Режим propose:
+
+```text
+Файлы: docs/changes/<change-name>/proposal.md [, tasks.md]
+ASSUMPTION (ждут подтверждения): <список или none>
+TBD (ждут ответа): <список или none>
+Статус: proposed — ждёт решения человека: `## Status` approved или rejected в body; при approved — и frontmatter `status: approved`
+Следующий шаг: после approved — «примени proposal <change-name>»
+```
+
+Режим apply:
+
+```text
+Файлы: <изменённые целевые документы; архив docs/changes/archive/YYYY-MM-<change-name>/>
+Assigned IDs: <placeholder → ID, …>
+Дельты: <применённые ADDED/MODIFIED/REMOVED>
+Итог review: <n ERROR, m WARNING; четыре списка>
+Следующий шаг: повторный перевод целевых документов в approved — решение человека
+```
