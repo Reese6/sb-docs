@@ -17,7 +17,7 @@ docs/changes/
     └── YYYY-MM-<change-name>/
 ```
 
-Шаблоны — [templates/change-proposal.md](../../templates/change-proposal.md) и [templates/change-tasks.md](../../templates/change-tasks.md). Пример заполнения — [templates/examples/changes/password-recovery-otp-sms](../../templates/examples/changes/password-recovery-otp-sms/proposal.md). Состав директории проверяет `scripts/validate-docs.mjs` по [schemas/change.schema.yaml](../../schemas/change.schema.yaml).
+Шаблоны — [templates/change-proposal.md](../../templates/change-proposal.md) и [templates/change-tasks.md](../../templates/change-tasks.md). Состав директории проверяет `scripts/validate-docs.mjs` по [schemas/change.schema.yaml](../../schemas/change.schema.yaml).
 
 Директория `archive/` создаётся при первом архивировании. Архив заморожен: файлы после переноса не редактируются (ссылки в них могут устареть — это допустимо), из валидации frontmatter, ID и ссылок архив исключён.
 

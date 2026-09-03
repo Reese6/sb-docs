@@ -8,7 +8,7 @@
 - [CONTRIBUTING.md](CONTRIBUTING.md) — правила процесса: статусы, порог change proposal, формат коммитов.
 - Этот документ — сценарии работы для человека: что писать агенту и что проверять в его ответах.
 
-Сквозной пример в промптах — вымышленная feature `password-recovery`; заполненный эталон такой feature — `templates/examples/password-recovery/`.
+Сквозной пример в промптах — вымышленная feature `password-recovery`.
 
 ## Принципы работы
 
@@ -281,4 +281,3 @@ API-требование на проверку кода. WARNING про сино
 - [CONTRIBUTING.md](CONTRIBUTING.md) — статусы, порог change proposal, формат коммитов.
 - [rules/ai-guardrails.md](rules/ai-guardrails.md) — FACT / ASSUMPTION / TBD, запреты.
 - [schemas/README.md](schemas/README.md) — стандарт ID, frontmatter, версии.
-- [templates/examples/password-recovery/README.md](templates/examples/password-recovery/README.md) — эталонный пример заполненной feature.

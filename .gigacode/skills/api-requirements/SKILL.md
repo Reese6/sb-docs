@@ -20,7 +20,6 @@ description: Создаёт и изменяет api.md feature — челове�
 
 1. Обязательно: `product.md` и `requirements.md` feature целиком; соглашения [docs/api/overview.md](../../../docs/api/overview.md), [conventions.md](../../../docs/api/conventions.md), [authentication.md](../../../docs/api/authentication.md), [errors.md](../../../docs/api/errors.md) — контракт feature обязан им следовать; [schemas/README.md](../../../schemas/README.md) — ID и frontmatter. Правила — по AGENTS.md.
 2. Если есть: текущий `api.md` целиком, включая deprecated (они занимают номера); `ui.md` и `technical.md` — валидация и ошибки в API обязаны совпадать с UI; документация сервисов [docs/api/services/](../../../docs/api/services/README.md).
-3. Образец: [templates/examples/password-recovery/api.md](../../../templates/examples/password-recovery/api.md).
 
 ## Правила
 

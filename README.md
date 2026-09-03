@@ -36,7 +36,6 @@ docs/
 └── ai/             # Справочные материалы для AI: рекомендуемые external skills
 
 templates/          # Шаблоны документов (source of truth для структуры);
-                    # examples/ — пример заполненной feature (password-recovery)
 rules/              # Глобальные правила для AI и людей (стиль, ID, ссылки, guardrails)
 schemas/            # Стандарт метаданных, ID и простые YAML-схемы
 scripts/            # Локальные автоматические проверки документации
@@ -110,7 +109,7 @@ node scripts/validate-docs.mjs
 ## Как добавить новую feature
 
 1. Создать директорию `docs/features/<feature-name>/` (kebab-case).
-2. Скопировать нужные шаблоны из `templates/` (не все файлы обязательны — см. `docs/features/README.md`). Пример заполнения — `templates/examples/password-recovery/`.
+2. Скопировать нужные шаблоны из `templates/` (не все файлы обязательны — см. `docs/features/README.md`).
 3. Заполнить `product.md` (WHAT + WHY), затем `requirements.md`, затем `ui.md` / `api.md`, затем `technical.md`.
 4. Присвоить требованиям ID по стандарту `schemas/README.md`.
 5. Связать документы cross-reference (`UI-004 → FR-012`).

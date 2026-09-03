@@ -20,7 +20,7 @@ description: Создаёт и изменяет product.md feature (и README.md
 
 1. Обязательно: [overview.md](../../../docs/product/overview.md), [vision.md](../../../docs/product/vision.md), [glossary.md](../../../docs/product/glossary.md) — единственный источник терминов, [personas.md](../../../docs/product/personas.md), [business-rules.md](../../../docs/product/business-rules.md), [non-functional-requirements.md](../../../docs/product/non-functional-requirements.md); [schemas/README.md](../../../schemas/README.md) — frontmatter. Правила — по AGENTS.md.
 2. Если есть: все файлы `docs/features/<feature>/` целиком, в том числе `requirements.md`; при изменении — текущий `product.md` полностью до правок.
-3. Структура feature: [docs/features/README.md](../../../docs/features/README.md). Образец: [product.md](../../../templates/examples/password-recovery/product.md) и [README.md](../../../templates/examples/password-recovery/README.md) из `templates/examples/password-recovery/`.
+3. Структура feature: [docs/features/README.md](../../../docs/features/README.md).
 
 ## Правила
 

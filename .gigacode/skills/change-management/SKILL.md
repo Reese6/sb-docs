@@ -21,7 +21,6 @@ description: Управляет изменениями approved-документ
 
 1. Обязательно: [CONTRIBUTING.md](../../../CONTRIBUTING.md) (порог, версии, статусы); [schemas/README.md](../../../schemas/README.md) («Статусы change proposal», «Жизненный цикл ID»); целевые документы целиком; связанные документы feature. Правила — по AGENTS.md.
 2. Глобальный контекст: [business-rules.md](../../../docs/product/business-rules.md), [glossary.md](../../../docs/product/glossary.md); «Активные изменения» в [docs/changes/README.md](../../../docs/changes/README.md).
-3. Образец: [proposal.md](../../../templates/examples/changes/password-recovery-otp-sms/proposal.md) и [tasks.md](../../../templates/examples/changes/password-recovery-otp-sms/tasks.md) из `templates/examples/changes/`.
 
 ## Правила
 

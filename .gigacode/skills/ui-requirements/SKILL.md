@@ -21,7 +21,6 @@ description: Создаёт и изменяет ui.md feature — поведен
 1. Обязательно: `product.md` и `requirements.md` feature целиком; [schemas/README.md](../../../schemas/README.md) — ID и frontmatter. Правила — по AGENTS.md.
 2. Если есть: текущий `ui.md` целиком, включая deprecated (они занимают номера); `api.md` и `technical.md` — валидация и ошибки в UI обязаны совпадать с контрактом API; существующая дизайн-система.
 3. Глобальный контекст: [glossary.md](../../../docs/product/glossary.md) — термины интерфейса; [docs/api/errors.md](../../../docs/api/errors.md) — семантика ошибок.
-4. Образец: [templates/examples/password-recovery/ui.md](../../../templates/examples/password-recovery/ui.md).
 
 ## Правила
 

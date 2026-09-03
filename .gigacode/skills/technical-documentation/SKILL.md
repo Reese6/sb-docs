@@ -22,7 +22,6 @@ description: Создаёт и изменяет technical.md feature — HOW (к
 1. Обязательно: `product.md` и `requirements.md` feature целиком; [services/README.md](../../../services/README.md); [schemas/README.md](../../../schemas/README.md) — frontmatter. Правила — по AGENTS.md.
 2. Если есть: `ui.md` и `api.md` целиком — решение реализует их контракт и поведение, не переопределяет; текущий `technical.md`; ADR — глобальные в [docs/architecture/adr/](../../../docs/architecture/adr/README.md) и `docs/features/<feature>/decisions/`.
 3. Архитектурный контекст: [overview.md](../../../docs/architecture/overview.md), [components.md](../../../docs/architecture/components.md), [data-model.md](../../../docs/architecture/data-model.md), [integrations.md](../../../docs/architecture/integrations.md) — имена компонентов и сущностей брать оттуда.
-4. Образец: [templates/examples/password-recovery/technical.md](../../../templates/examples/password-recovery/technical.md).
 
 ## Правила
 
