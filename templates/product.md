@@ -1,5 +1,5 @@
 ---
-title: <Feature name>
+title: <Название фичи> — продуктовое описание
 type: product
 status: draft
 feature: <feature-name>
@@ -10,7 +10,7 @@ related:
   - requirements.md
 ---
 
-# <Feature name> — product
+# <Название фичи> — продуктовое описание
 
 <!-- AI: документ отвечает на WHAT + WHY. Никаких деталей реализации: ни технологий,
 ни таблиц БД, ни структуры API. Неизвестное — TBD, предположения — ASSUMPTION

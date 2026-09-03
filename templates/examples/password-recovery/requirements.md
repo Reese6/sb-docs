@@ -1,5 +1,5 @@
 ---
-title: Password recovery — requirements
+title: Восстановление пароля — требования
 type: requirements
 status: draft
 feature: password-recovery
@@ -10,7 +10,7 @@ related:
   - product.md
 ---
 
-# Password recovery — requirements
+# Восстановление пароля — требования
 
 ## Context
 

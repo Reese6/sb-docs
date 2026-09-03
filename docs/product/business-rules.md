@@ -1,5 +1,5 @@
 ---
-title: Global business rules
+title: Глобальные бизнес-правила
 type: product
 status: draft
 version: 0.2
@@ -7,7 +7,7 @@ owners:
   - product
 ---
 
-# Global business rules
+# Глобальные бизнес-правила
 
 Глобальные бизнес-правила продукта, действующие для всех features. Правило, специфичное для одной feature, живёт в её `requirements.md`; правило, затрагивающее несколько features, живёт здесь — features ссылаются на него по ID, не копируют.
 

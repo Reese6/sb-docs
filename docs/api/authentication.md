@@ -1,5 +1,5 @@
 ---
-title: API authentication
+title: Аутентификация API
 type: api
 status: draft
 version: 0.1
@@ -7,7 +7,7 @@ owners:
   - backend
 ---
 
-# API authentication
+# Аутентификация API
 
 Глобальная схема аутентификации и авторизации API. Feature `api.md` не описывает механизм auth заново — ссылается сюда и указывает только требуемые права для конкретного endpoint.
 

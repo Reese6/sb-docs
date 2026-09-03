@@ -1,5 +1,5 @@
 ---
-title: Components
+title: Компоненты
 type: architecture
 status: draft
 version: 0.1
@@ -7,7 +7,7 @@ owners:
   - architecture
 ---
 
-# Components
+# Компоненты
 
 Компоненты (сервисы) системы и их ответственность. Для каждого сервиса, чей код подключён локально, указывается путь в `services/`.
 

@@ -1,5 +1,5 @@
 ---
-title: API conventions
+title: Соглашения API
 type: api
 status: draft
 version: 0.1
@@ -7,7 +7,7 @@ owners:
   - backend
 ---
 
-# API conventions
+# Соглашения API
 
 Единые соглашения для всех API продукта. Endpoint, нарушающий соглашение, должен иметь явное обоснование (ADR или пометка в своём `api.md`).
 

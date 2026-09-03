@@ -1,5 +1,5 @@
 ---
-title: <Feature name> — technical
+title: <Название фичи> — техническое описание
 type: technical
 status: draft
 feature: <feature-name>
@@ -11,7 +11,7 @@ related:
   - api.md
 ---
 
-# <Feature name> — technical
+# <Название фичи> — техническое описание
 
 <!-- AI: документ отвечает на HOW. Перед написанием: прочитать product.md,
 requirements.md, ui.md/api.md; проверить services/ и изучить код затронутых

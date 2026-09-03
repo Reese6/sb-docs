@@ -1,5 +1,5 @@
 ---
-title: Password recovery — API
+title: Восстановление пароля — API
 type: api
 status: draft
 feature: password-recovery
@@ -11,7 +11,7 @@ related:
   - requirements.md
 ---
 
-# Password recovery — API
+# Восстановление пароля — API
 
 ## Purpose
 

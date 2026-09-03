@@ -1,5 +1,5 @@
 ---
-title: <Feature name> — UI
+title: <Название фичи> — UI
 type: ui
 status: draft
 feature: <feature-name>
@@ -11,7 +11,7 @@ related:
   - requirements.md
 ---
 
-# <Feature name> — UI
+# <Название фичи> — UI
 
 <!-- AI: спецификация ПОВЕДЕНИЯ интерфейса, а не только внешнего вида.
 Источник — product.md и requirements.md. Каждое существенное UI-требование

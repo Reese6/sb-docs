@@ -1,5 +1,5 @@
 ---
-title: Password recovery — UI
+title: Восстановление пароля — UI
 type: ui
 status: draft
 feature: password-recovery
@@ -11,7 +11,7 @@ related:
   - requirements.md
 ---
 
-# Password recovery — UI
+# Восстановление пароля — UI
 
 ## Purpose
 

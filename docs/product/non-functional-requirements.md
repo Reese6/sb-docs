@@ -1,5 +1,5 @@
 ---
-title: Global non-functional requirements
+title: Глобальные нефункциональные требования
 type: product
 status: draft
 version: 0.1
@@ -7,7 +7,7 @@ owners:
   - product
 ---
 
-# Global non-functional requirements
+# Глобальные нефункциональные требования
 
 Глобальные нефункциональные требования (NFR), действующие для всего продукта: производительность, надёжность, безопасность, доступность. NFR конкретной feature живёт в её `requirements.md` и ссылается сюда, если уточняет глобальное требование.
 

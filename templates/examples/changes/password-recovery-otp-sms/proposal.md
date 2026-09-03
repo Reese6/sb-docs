@@ -1,5 +1,5 @@
 ---
-title: Password recovery — OTP via SMS
+title: Доставка OTP по SMS
 type: change
 status: draft
 version: 0.1

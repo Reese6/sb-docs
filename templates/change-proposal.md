@@ -1,5 +1,5 @@
 ---
-title: <Change title>
+title: <Название изменения>
 type: change
 status: draft
 version: 0.1

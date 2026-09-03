@@ -1,5 +1,5 @@
 ---
-title: <Feature name> — requirements
+title: <Название фичи> — требования
 type: requirements
 status: draft
 feature: <feature-name>
@@ -10,7 +10,7 @@ related:
   - product.md
 ---
 
-# <Feature name> — requirements
+# <Название фичи> — требования
 
 <!-- AI: формализация product.md в проверяемые требования. Каждое требование —
 атомарное, однозначное, проверяемое, со стабильным ID (rules/requirements.md,

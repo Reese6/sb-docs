@@ -1,5 +1,5 @@
 ---
-title: Architecture overview
+title: Обзор архитектуры
 type: architecture
 status: draft
 version: 0.1
@@ -7,7 +7,7 @@ owners:
   - architecture
 ---
 
-# Architecture overview
+# Обзор архитектуры
 
 Верхнеуровневое описание архитектуры системы: стиль (монолит/микросервисы), ключевые технологии, основные принципы. Отправная точка раздела `docs/architecture/`; детали — в соседних файлах.
 

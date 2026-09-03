@@ -1,5 +1,5 @@
 ---
-title: <Feature name> — API
+title: <Название фичи> — API
 type: api
 status: draft
 feature: <feature-name>
@@ -11,7 +11,7 @@ related:
   - requirements.md
 ---
 
-# <Feature name> — API
+# <Название фичи> — API
 
 <!-- AI: человекочитаемый контракт API. Источник — requirements.md; придумывать
 endpoints, поля и коды запрещено (rules/ai-guardrails.md): неизвестный контракт — TBD.

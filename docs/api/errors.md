@@ -1,5 +1,5 @@
 ---
-title: API errors
+title: Ошибки API
 type: api
 status: draft
 version: 0.1
@@ -7,7 +7,7 @@ owners:
   - backend
 ---
 
-# API errors
+# Ошибки API
 
 Единый формат ошибок для всех API. Feature `api.md` описывает только специфичные для endpoint ошибки; формат и общие коды — здесь, один раз.
 

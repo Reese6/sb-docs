@@ -26,7 +26,7 @@ description: Создаёт и изменяет technical.md feature — HOW (к
 
 ## Правила
 
-Общие — AGENTS.md, `rules/ai-guardrails.md`. Ядро: текст документа — русский (заголовки секций, ID, статусы, `TBD`/`ASSUMPTION` — английские); факт — без пометки, только из `requirements.md`, `ui.md`/`api.md`, кода в `services/`, `docs/architecture/` или слов человека; неизвестное — `TBD: <что неизвестно>`; предположение — `ASSUMPTION: <текст>. Requires confirmation.`; у `technical.md` своих ID нет — только ссылки на FR/BR/NFR/UI/API.
+Общие — AGENTS.md, `rules/ai-guardrails.md`. Ядро: текст документа, `title` и H1 — русский (заголовки секций, ID, статусы, `TBD`/`ASSUMPTION` — английские); факт — без пометки, только из `requirements.md`, `ui.md`/`api.md`, кода в `services/`, `docs/architecture/` или слов человека; неизвестное — `TBD: <что неизвестно>`; предположение — `ASSUMPTION: <текст>. Requires confirmation.`; у `technical.md` своих ID нет — только ссылки на FR/BR/NFR/UI/API.
 
 1. Два источника правды: `requirements.md` (и `ui.md`/`api.md`) — требуемое поведение; код в `services/` — текущая реализация. Уровни не смешивать.
 2. Код противоречит требованию — записать в Current implementation: какой ID нарушен, что делает код. Требование под код не переписывать; код как соответствующий не описывать. Непонятно, что верно, — `TBD` или вопрос в Open questions, решает человек.

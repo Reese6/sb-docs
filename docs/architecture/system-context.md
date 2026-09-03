@@ -1,5 +1,5 @@
 ---
-title: System context
+title: Контекст системы
 type: architecture
 status: draft
 version: 0.1
@@ -7,7 +7,7 @@ owners:
   - architecture
 ---
 
-# System context
+# Контекст системы
 
 Границы системы и её окружение (уровень C4 System Context): кто и что взаимодействует с системой извне. Не содержит внутреннего устройства — оно в [components.md](components.md).
 

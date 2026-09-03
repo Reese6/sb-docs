@@ -1,5 +1,5 @@
 ---
-title: Password recovery — OTP via SMS — tasks
+title: Доставка OTP по SMS — задачи
 type: change
 status: draft
 version: 0.1
@@ -9,7 +9,7 @@ related:
   - proposal.md
 ---
 
-# Доставка OTP по SMS — tasks
+# Доставка OTP по SMS — задачи
 
 <!-- Пример заполненного плана применения (reference implementation).
 Выполняется skill'ом change-management после того, как человек выставил

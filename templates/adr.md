@@ -1,5 +1,5 @@
 ---
-title: ADR-XXX <short decision title>
+title: ADR-XXX <Название решения>
 type: adr
 status: draft
 feature: <feature-name>   # удалить для глобального ADR в docs/architecture/adr/
@@ -8,7 +8,7 @@ owners:
   - architecture
 ---
 
-# ADR-XXX: <Title>
+# ADR-XXX: <Название решения>
 
 <!-- AI: ADR фиксирует ВАЖНОЕ техническое решение и его WHY. Создавать только
 если решение: существенно влияет на архитектуру / сложно изменить / имеет

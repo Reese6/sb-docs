@@ -6,9 +6,11 @@
 //   2. ID-DUP  — дубликаты requirement ID в пределах scope;
 //   3. ID-MALFORMED — некорректный формат ID (FR-01, FR-001a, FR-XXX, fr-001);
 //   4. FM-*    — отсутствующий/незакрытый frontmatter, обязательные поля;
-//   5. FM-TYPE / FM-ENUM / FM-PATTERN / FM-UNKNOWN-KEY — валидация по схеме;
+//   5. FM-TYPE / FM-ENUM / FM-PATTERN / FM-UNKNOWN-KEY — валидация по схеме
+//      (в том числе язык title: кириллица по pattern из схемы);
 //   6. ID-UNRESOLVED — ссылки на несуществующие FR/BR/NFR/UI/API/ADR;
-//   7. MD-*    — базовая структура Markdown (rules/markdown.md).
+//   7. MD-*    — базовая структура Markdown (rules/markdown.md);
+//      MD-H1-LANG — H1 документа с frontmatter на русском языке.
 // Бонус: FEATURE-FILES — состав feature-директорий (schemas/feature.schema.yaml);
 //        CHANGE-FILES — состав change-директорий (schemas/change.schema.yaml).
 //
@@ -167,6 +169,7 @@ function loadSchemas() {
     ownersEnum: props?.owners?.items?.enum,
     ownersMinItems: Number(props?.owners?.minItems ?? 1),
     titleMinLength: Number(props?.title?.minLength ?? 0),
+    titlePattern: props?.title?.pattern,
     featurePattern: props?.feature?.pattern,
     versionPattern: props?.version?.pattern,
     idPattern: req.properties?.id?.pattern,
@@ -405,6 +408,9 @@ function checkFrontmatter(f, schema) {
   if (Object.hasOwn(fm, 'title')) {
     if (typeof fm.title !== 'string' || fm.title.length < schema.titleMinLength) {
       report(f.rel, lineOf('title'), 'FM-PATTERN', `title is shorter than ${schema.titleMinLength} characters`);
+    } else if (!new RegExp(schema.titlePattern).test(fm.title)) {
+      report(f.rel, lineOf('title'), 'FM-PATTERN',
+        `title "${fm.title}" must be in Russian (does not match ${schema.titlePattern})`);
     }
   }
   if (Object.hasOwn(fm, 'version')) {
@@ -454,6 +460,18 @@ function checkFrontmatter(f, schema) {
     }
   }
   return fm;
+}
+
+// Правило репозитория: H1 документа с frontmatter — на русском языке
+// (rules/markdown.md); критерий тот же, что для title — pattern схемы.
+function checkH1Language(f, schema) {
+  const re = new RegExp(schema.titlePattern);
+  for (const h of f.headings) {
+    if (h.level === 1 && !re.test(h.text)) {
+      report(f.rel, h.line, 'MD-H1-LANG',
+        `H1 "${h.text}" must be in Russian (does not match ${schema.titlePattern})`);
+    }
+  }
 }
 
 // --- Проверки 2, 3, 6: requirement ID --------------------------------------
@@ -733,6 +751,7 @@ function main() {
     const f = fileCache.get(rel);
     const fm = checkFrontmatter(f, schema);
     if (f.fmText !== null && !f.fmUnclosed && fm !== null) {
+      checkH1Language(f, schema);
       idContexts.set(rel, collectDefinitions(f, schema, defs));
     }
   }

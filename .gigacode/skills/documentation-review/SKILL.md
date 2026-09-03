@@ -41,6 +41,7 @@ description: Проверяет документацию без изменени
 |--------|---------|----------|-----------|
 | Structure | Нет обязательного файла `README.md`, `product.md`, `requirements.md` (`schemas/feature.schema.yaml`) | ERROR | product-documentation, requirements |
 | Structure | Нет frontmatter или обязательного поля `title`, `type`, `status`, `version`, `owners`; для feature-документов — `feature` (`schemas/metadata.schema.yaml`) | ERROR | пишущий skill документа |
+| Structure | `title` или H1 не на русском языке (`schemas/metadata.schema.yaml`, `rules/markdown.md`) | ERROR | пишущий skill документа |
 | Structure | Секция шаблона отсутствует или переставлена; содержимое не потеряно | WARNING | пишущий skill документа |
 | Structure | Секция отсутствует, содержимое потеряно | ERROR | пишущий skill документа |
 | Structure | Пустая секция без `TBD: …` или `Not applicable: <причина>` | WARNING | пишущий skill документа |

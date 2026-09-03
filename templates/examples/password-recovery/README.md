@@ -1,5 +1,5 @@
 ---
-title: Password recovery
+title: Восстановление пароля
 type: feature-readme
 status: draft
 feature: password-recovery
@@ -8,7 +8,7 @@ owners:
   - product
 ---
 
-# Password recovery
+# Восстановление пароля
 
 > Демонстрационный пример заполнения шаблонов `templates/`, а не реальная feature продукта. Относительные ссылки и пути в `related:` во всех файлах примера написаны так, как если бы feature лежала в `docs/features/password-recovery/` — при чтении из `templates/examples/` они не кликабельны.
 

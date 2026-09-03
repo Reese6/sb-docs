@@ -1,5 +1,5 @@
 ---
-title: Password recovery — technical
+title: Восстановление пароля — техническое описание
 type: technical
 status: draft
 feature: password-recovery
@@ -11,7 +11,7 @@ related:
   - api.md
 ---
 
-# Password recovery — technical
+# Восстановление пароля — техническое описание
 
 ## Context
 

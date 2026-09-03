@@ -1,5 +1,5 @@
 ---
-title: Personas
+title: Персоны
 type: product
 status: draft
 version: 0.1
@@ -7,7 +7,7 @@ owners:
   - product
 ---
 
-# Personas
+# Персоны
 
 Типовые пользователи продукта. Feature-документация ссылается на personas отсюда, а не описывает пользователей заново.
 

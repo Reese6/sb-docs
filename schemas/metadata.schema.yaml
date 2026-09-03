@@ -13,6 +13,8 @@ properties:
   title:
     type: string
     minLength: 3
+    # На русском языке: хотя бы одна буква кириллицы (rules/markdown.md)
+    pattern: "[А-Яа-яЁё]"
   type:
     enum:
       - product

@@ -1,5 +1,5 @@
 ---
-title: Integrations
+title: Интеграции
 type: architecture
 status: draft
 version: 0.1
@@ -7,7 +7,7 @@ owners:
   - architecture
 ---
 
-# Integrations
+# Интеграции
 
 Интеграции с внешними системами: провайдеры, партнёрские API, инфраструктурные сервисы. Внутреннее взаимодействие компонентов — в [components.md](components.md).
 

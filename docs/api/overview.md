@@ -1,5 +1,5 @@
 ---
-title: API overview
+title: Обзор API
 type: api
 status: draft
 version: 0.1
@@ -7,7 +7,7 @@ owners:
   - backend
 ---
 
-# API overview
+# Обзор API
 
 Обзор API продукта: какие API существуют, где документированы, каким глобальным соглашениям подчиняются. Контракты конкретных endpoints — в `api.md` соответствующих features и в `services/` этого раздела.
 

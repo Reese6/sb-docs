@@ -66,7 +66,7 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
 
 ## Frontmatter и статусы
 
-- YAML frontmatter обязателен в каждом документе `docs/`: `title`, `type`, `status`, `version`, `owners`; для feature-документов также `feature`. Стандарт и допустимые значения — `schemas/README.md`.
+- YAML frontmatter обязателен в каждом документе `docs/`: `title`, `type`, `status`, `version`, `owners`; для feature-документов также `feature`. `title` и H1 — на русском языке. Стандарт и допустимые значения — `schemas/README.md`.
 - Жизненный цикл документа: `draft → review → approved → deprecated`. Новый документ — `status: draft`.
 - `approved` выставляет только человек. AI переводит документ максимум в `review`.
 

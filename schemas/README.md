@@ -71,7 +71,7 @@ ADR-003 → NFR-002
 
 ```yaml
 ---
-title: Password recovery
+title: Восстановление пароля — требования
 type: requirements
 status: draft
 feature: password-recovery
@@ -90,7 +90,7 @@ related:
 
 | Поле | Обязательно | Значения |
 |------|-------------|----------|
-| `title` | да | название документа, человекочитаемое |
+| `title` | да | название документа на русском языке, совпадает с H1; латиница — только для ID (`ADR-001`), аббревиатур (API, UI, OTP) и терминов glossary, зафиксированных на английском |
 | `type` | да | `product`, `requirements`, `ui`, `api`, `technical`, `adr`, `architecture`, `feature-readme`, `change` |
 | `status` | да | `draft`, `review`, `approved`, `deprecated` |
 | `feature` | для документов feature | имя директории feature (kebab-case) |

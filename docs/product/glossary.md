@@ -1,5 +1,5 @@
 ---
-title: Glossary
+title: Глоссарий
 type: product
 status: draft
 version: 0.2
@@ -7,7 +7,7 @@ owners:
   - product
 ---
 
-# Glossary
+# Глоссарий
 
 Единый словарь терминов продукта. **Единственный** источник терминологии: все документы используют термины отсюда и в этих же формулировках (см. `rules/terminology.md`).
 

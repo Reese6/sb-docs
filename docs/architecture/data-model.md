@@ -1,5 +1,5 @@
 ---
-title: Data model
+title: Модель данных
 type: architecture
 status: draft
 version: 0.1
@@ -7,7 +7,7 @@ owners:
   - architecture
 ---
 
-# Data model
+# Модель данных
 
 Доменная модель данных: ключевые сущности, их атрибуты и связи. Уровень — доменный, не физическая схема БД; изменения схемы конкретной feature описываются в её `technical.md` со ссылкой сюда.
 

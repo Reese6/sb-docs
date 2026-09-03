@@ -1,5 +1,5 @@
 ---
-title: <Feature name>
+title: <Название фичи>
 type: feature-readme
 status: draft
 feature: <feature-name>
@@ -8,7 +8,7 @@ owners:
   - product
 ---
 
-# <Feature name>
+# <Название фичи>
 
 <!-- AI: README feature — точка входа. Один абзац: что делает feature и зачем.
 Без деталей реализации и без дублирования product.md — только суть и навигация. -->

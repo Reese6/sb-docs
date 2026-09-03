@@ -1,5 +1,5 @@
 ---
-title: <Change title> — tasks
+title: <Название изменения> — задачи
 type: change
 status: draft
 version: 0.1
@@ -9,7 +9,7 @@ related:
   - proposal.md
 ---
 
-# <Название изменения> — tasks
+# <Название изменения> — задачи
 
 <!-- AI: план применения утверждённого proposal.md. Файл опционален до apply;
 статус в frontmatter повторяет статус proposal.md. Выполняется skill'ом

@@ -93,6 +93,7 @@ node scripts/validate-docs.mjs
 - некорректный формат ID (`FR-01`, `FR-001a`, `FR-XXX`, `fr-001`);
 - ссылки на несуществующие FR/BR/NFR/UI/API/ADR ID;
 - отсутствующий или невалидный YAML frontmatter (правила — из `schemas/`);
+- `title` и H1 не на русском языке;
 - неизвестные типы документов;
 - базовую структуру Markdown (`rules/markdown.md`) и состав feature-директорий.
 

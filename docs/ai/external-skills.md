@@ -1,5 +1,5 @@
 ---
-title: Recommended external skills
+title: Рекомендуемые внешние skills
 type: technical
 status: draft
 version: 0.1
@@ -7,7 +7,7 @@ owners:
   - architecture
 ---
 
-# Recommended external skills
+# Рекомендуемые внешние skills
 
 Справочник рекомендуемых внешних Agent Skills из реестра [skills.sh](https://skills.sh). Внешние skills — концептуальные ориентиры: на них можно смотреть при развитии собственных skills, у них можно заимствовать подходы и структуру.
 
