@@ -18,9 +18,9 @@ description: Проверяет документацию без изменени
 
 ## Прочитать
 
-1. Обязательно: все `rules/*.md` (эталон, на который ссылается каждая находка); [schemas/README.md](../../schemas/README.md) и схемы `schemas/*.yaml`; шаблоны `templates/*.md` — эталон секций; [glossary.md](../../docs/product/glossary.md).
+1. Обязательно: все `rules/*.md` (эталон, на который ссылается каждая находка); [schemas/README.md](../../../schemas/README.md) и схемы `schemas/*.yaml`; шаблоны `templates/*.md` — эталон секций; [glossary.md](../../../docs/product/glossary.md).
 2. Документы scope целиком; при проверке одного документа — связанные документы feature тоже.
-3. Глобальные документы, на которые ссылается feature: [business-rules.md](../../docs/product/business-rules.md), [non-functional-requirements.md](../../docs/product/non-functional-requirements.md), `docs/api/`, `docs/architecture/` — без них не проверить ссылки и противоречия.
+3. Глобальные документы, на которые ссылается feature: [business-rules.md](../../../docs/product/business-rules.md), [non-functional-requirements.md](../../../docs/product/non-functional-requirements.md), `docs/api/`, `docs/architecture/` — без них не проверить ссылки и противоречия.
 
 ## Правила
 

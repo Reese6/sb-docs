@@ -13,10 +13,10 @@ owners:
 
 ## Ключевое правило
 
-- Source of truth для процессов этого репозитория — **локальные** `skills/*/SKILL.md`.
+- Source of truth для процессов этого репозитория — **локальные** `.gigacode/skills/*/SKILL.md`.
 - Внешние skills носят исключительно справочный характер: репозиторий **не имеет runtime dependency** от skills.sh или любых внешних skills.
 - Установка внешних skills опциональна и не требуется для работы с документацией.
-- При конфликте рекомендаций внешнего skill и локальных правил (`rules/`, `skills/`) приоритет всегда у локальных.
+- При конфликте рекомендаций внешнего skill и локальных правил (`rules/`, `.gigacode/skills/`) приоритет всегда у локальных.
 
 ## Концептуальные ориентиры
 
@@ -24,11 +24,11 @@ owners:
 
 | Ориентир | Пример в реестре skills.sh | Локальный source of truth |
 |----------|----------------------------|---------------------------|
-| prd-development | `deanpeters/product-manager-skills@prd-development` | `skills/product-documentation/` |
-| user-story | `deanpeters/product-manager-skills@user-story` | `skills/requirements/` |
-| documentation | `anthropics/knowledge-work-plugins@documentation` | `skills/documentation-orchestrator/`, `skills/documentation-review/` |
-| api-documentation-generator | `sickn33/agentic-awesome-skills@api-documentation-generator` | `skills/api-requirements/` |
-| architecture-decision-records | `wshobson/agents@architecture-decision-records` | `skills/architecture-decisions/` |
+| prd-development | `deanpeters/product-manager-skills@prd-development` | `.gigacode/skills/product-documentation/` |
+| user-story | `deanpeters/product-manager-skills@user-story` | `.gigacode/skills/requirements/` |
+| documentation | `anthropics/knowledge-work-plugins@documentation` | `.gigacode/skills/documentation-orchestrator/`, `.gigacode/skills/documentation-review/` |
+| api-documentation-generator | `sickn33/agentic-awesome-skills@api-documentation-generator` | `.gigacode/skills/api-requirements/` |
+| architecture-decision-records | `wshobson/agents@architecture-decision-records` | `.gigacode/skills/architecture-decisions/` |
 
 Страницы в реестре:
 

@@ -24,7 +24,7 @@ CONTRIBUTING.md, раздел «Изменение утверждённых до
 Не путать со статусом ДОКУМЕНТА в frontmatter (draft/review/approved/deprecated);
 соответствие — schemas/README.md, раздел «Статусы change proposal».
 Статусы approved и rejected выставляет только человек; applied — после
-внесения всех правок в целевые документы (skills/change-management). -->
+внесения всех правок в целевые документы (.gigacode/skills/change-management). -->
 
 proposed
 

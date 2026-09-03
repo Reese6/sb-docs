@@ -27,7 +27,7 @@
 
 ## Изменение утверждённых документов
 
-Содержательное изменение документа со статусом `approved` — добавление, изменение или удаление требований (MAJOR-версия) — вносится только через change proposal в `docs/changes/<change-name>/` (процесс — skill `skills/change-management`, структура — `docs/changes/README.md`):
+Содержательное изменение документа со статусом `approved` — добавление, изменение или удаление требований (MAJOR-версия) — вносится только через change proposal в `docs/changes/<change-name>/` (процесс — skill `.gigacode/skills/change-management`, структура — `docs/changes/README.md`):
 
 - MINOR-правки approved-документов (опечатки, ссылки, формулировки без изменения смысла) и любые правки `draft`/`review`-документов — обычный процесс, без proposal.
 - Жизненный цикл proposal: `proposed → approved → applied` (или `rejected`); `approved`/`rejected` выставляет только человек.

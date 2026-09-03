@@ -119,7 +119,7 @@ requirements.md, ui.md/api.md; проверить services/ и изучить к
 ## Alternatives
 
 <!-- AI: рассмотренные альтернативы и почему отклонены (кратко). Существенный
-выбор — кандидат на ADR (skills/architecture-decisions). -->
+выбор — кандидат на ADR (.gigacode/skills/architecture-decisions). -->
 
 ## Risks
 

@@ -25,7 +25,8 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
 | Пример заполненной feature (reference) | `templates/examples/password-recovery/` |
 | Правила работы (обязательны к прочтению) | `rules/` |
 | Стандарт ID и frontmatter, схемы | `schemas/` |
-| Пошаговые процессы работы с документацией | `skills/*/SKILL.md` |
+| Пошаговые процессы работы с документацией | `.gigacode/skills/*/SKILL.md` |
+| Базовые правила агента GigaCode CLI | `.gigacode/rules/` (подключаются через `GIGACODE.md`) |
 | Процесс изменений, commit-конвенция, статусы | `CONTRIBUTING.md` |
 | Workflow человека: сценарии и промпты | `WORKFLOW.md` |
 | Механическая валидация документации | `scripts/validate-docs.mjs` |
@@ -116,22 +117,22 @@ Review только формирует отчёт о находках; испр�
 ## Проверка результата
 
 - `node scripts/validate-docs.mjs` — механическая проверка frontmatter, ID, ссылок и структуры. Exit code `0` — ошибок нет, `1` — есть. Запускать после любого изменения `docs/` и перед commit.
-- Скрипт дополняет `skills/documentation-review`, но не заменяет его: противоречия, галлюцинации и терминологию проверяет review.
+- Скрипт дополняет `.gigacode/skills/documentation-review`, но не заменяет его: противоречия, галлюцинации и терминологию проверяет review.
 
 ## Как определить нужный skill
 
 ```text
-Создать/изменить описание функции   → skills/product-documentation
-Формализовать требования            → skills/requirements
-Описать интерфейс                   → skills/ui-requirements
-Описать API                         → skills/api-requirements
-Описать реализацию                  → skills/technical-documentation
-Зафиксировать архитектурное решение → skills/architecture-decisions
-Проверить документацию              → skills/documentation-review
-Содержательно изменить утверждённый документ → skills/change-management
-Комплексная новая feature           → skills/documentation-orchestrator
+Создать/изменить описание функции   → .gigacode/skills/product-documentation
+Формализовать требования            → .gigacode/skills/requirements
+Описать интерфейс                   → .gigacode/skills/ui-requirements
+Описать API                         → .gigacode/skills/api-requirements
+Описать реализацию                  → .gigacode/skills/technical-documentation
+Зафиксировать архитектурное решение → .gigacode/skills/architecture-decisions
+Проверить документацию              → .gigacode/skills/documentation-review
+Содержательно изменить утверждённый документ → .gigacode/skills/change-management
+Комплексная новая feature           → .gigacode/skills/documentation-orchestrator
 ```
 
-Правило выбора: запрос укладывается в один документ — работать напрямую специализированным skill; комплексный запрос (новая feature целиком или изменение нескольких типов документов) — `skills/documentation-orchestrator`.
+Правило выбора: запрос укладывается в один документ — работать напрямую специализированным skill; комплексный запрос (новая feature целиком или изменение нескольких типов документов) — `.gigacode/skills/documentation-orchestrator`.
 
 При сомнении сверяться с разделами «Когда использовать» / «Когда не использовать» в `SKILL.md` соответствующего skill.

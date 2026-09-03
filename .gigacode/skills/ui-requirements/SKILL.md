@@ -18,10 +18,10 @@ description: Создаёт и изменяет ui.md feature — поведен
 
 ## Прочитать
 
-1. Обязательно: `product.md` и `requirements.md` feature целиком; [schemas/README.md](../../schemas/README.md) — ID и frontmatter. Правила — по AGENTS.md.
+1. Обязательно: `product.md` и `requirements.md` feature целиком; [schemas/README.md](../../../schemas/README.md) — ID и frontmatter. Правила — по AGENTS.md.
 2. Если есть: текущий `ui.md` целиком, включая deprecated (они занимают номера); `api.md` и `technical.md` — валидация и ошибки в UI обязаны совпадать с контрактом API; существующая дизайн-система.
-3. Глобальный контекст: [glossary.md](../../docs/product/glossary.md) — термины интерфейса; [docs/api/errors.md](../../docs/api/errors.md) — семантика ошибок.
-4. Образец: [templates/examples/password-recovery/ui.md](../../templates/examples/password-recovery/ui.md).
+3. Глобальный контекст: [glossary.md](../../../docs/product/glossary.md) — термины интерфейса; [docs/api/errors.md](../../../docs/api/errors.md) — семантика ошибок.
+4. Образец: [templates/examples/password-recovery/ui.md](../../../templates/examples/password-recovery/ui.md).
 
 ## Правила
 
@@ -46,7 +46,7 @@ description: Создаёт и изменяет ui.md feature — поведен
 2. Описать entry points (экраны, deep links, уведомления), экраны, компоненты, действия с реакцией (правило 3), навигацию («назад», выход из сценария, сохранение состояния), edge cases (правило 7).
 3. Присвоить `UI-XXX` каждому существенному требованию (правила 4–5).
 4. Описать состояния (правило 6), валидацию (правило, момент — ввод/blur/submit, текст ошибки), loading, empty, error states (сеть, сервер, бизнес-ошибки; возможен ли повтор), responsive, accessibility (клавиатура, фокус, screen reader, контраст) — применимо к этой feature, без пересказа общих стандартов.
-5. Новый документ — из [templates/ui.md](../../templates/ui.md): каждая секция заполнена или `Not applicable: <причина>`; комментарии `<!-- AI: -->` выполнить и удалить.
+5. Новый документ — из [templates/ui.md](../../../templates/ui.md): каждая секция заполнена или `Not applicable: <причина>`; комментарии `<!-- AI: -->` выполнить и удалить.
 6. Заполнить Traceability: строка на каждый `UI-XXX`, включая deprecated, с минимум одной связью; затем обновить колонку «Покрыто (UI / API / technical)» в Traceability `requirements.md` (часть UI).
 7. Если изменён существующий `UI-XXX`: `grep -rn "UI-004" docs/` → проверить расхождение с `requirements.md` и `api.md` → конфликт пометить `TBD`/`ASSUMPTION` → обновить Traceability затронутых документов. Связанные документы молча не переписывать.
 8. Запустить `node scripts/validate-docs.mjs`; добиться exit 0.
@@ -83,5 +83,5 @@ description: Создаёт и изменяет ui.md feature — поведен
 ASSUMPTION (ждут подтверждения): <список или none>
 TBD (ждут ответа, включая задачи дизайна): <список или none>
 FR/BR/NFR без UI-покрытия: <ID или none>
-Следующий шаг: skills/api-requirements, затем skills/technical-documentation и skills/documentation-review
+Следующий шаг: .gigacode/skills/api-requirements, затем .gigacode/skills/technical-documentation и .gigacode/skills/documentation-review
 ```

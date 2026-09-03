@@ -7,7 +7,7 @@ description: Управляет изменениями approved-документ
 
 ## Когда использовать
 
-Содержательно изменить `approved`-документ — добавить, изменить или пометить deprecated требования (MAJOR-версия) — через proposal в `docs/changes/<change-name>/`. Целевые документы skill сам не редактирует: при apply правки выполняют пишущие skills по своим SKILL.md. Поводы: нужно содержательное изменение approved-документа; человек утвердил proposal — применить; человек отклонил — архивировать. Порог — [CONTRIBUTING.md](../../CONTRIBUTING.md), «Изменение утверждённых документов»; структура и жизненный цикл — [docs/changes/README.md](../../docs/changes/README.md). MINOR-правки approved и правки `draft`/`review` — пишущий skill напрямую; новая feature — `documentation-orchestrator`; проверка — `documentation-review`.
+Содержательно изменить `approved`-документ — добавить, изменить или пометить deprecated требования (MAJOR-версия) — через proposal в `docs/changes/<change-name>/`. Целевые документы skill сам не редактирует: при apply правки выполняют пишущие skills по своим SKILL.md. Поводы: нужно содержательное изменение approved-документа; человек утвердил proposal — применить; человек отклонил — архивировать. Порог — [CONTRIBUTING.md](../../../CONTRIBUTING.md), «Изменение утверждённых документов»; структура и жизненный цикл — [docs/changes/README.md](../../../docs/changes/README.md). MINOR-правки approved и правки `draft`/`review` — пишущий skill напрямую; новая feature — `documentation-orchestrator`; проверка — `documentation-review`.
 
 ## Вход и стоп-условия
 
@@ -19,9 +19,9 @@ description: Управляет изменениями approved-документ
 
 ## Прочитать
 
-1. Обязательно: [CONTRIBUTING.md](../../CONTRIBUTING.md) (порог, версии, статусы); [schemas/README.md](../../schemas/README.md) («Статусы change proposal», «Жизненный цикл ID»); целевые документы целиком; связанные документы feature. Правила — по AGENTS.md.
-2. Глобальный контекст: [business-rules.md](../../docs/product/business-rules.md), [glossary.md](../../docs/product/glossary.md); «Активные изменения» в [docs/changes/README.md](../../docs/changes/README.md).
-3. Образец: [proposal.md](../../templates/examples/changes/password-recovery-otp-sms/proposal.md) и [tasks.md](../../templates/examples/changes/password-recovery-otp-sms/tasks.md) из `templates/examples/changes/`.
+1. Обязательно: [CONTRIBUTING.md](../../../CONTRIBUTING.md) (порог, версии, статусы); [schemas/README.md](../../../schemas/README.md) («Статусы change proposal», «Жизненный цикл ID»); целевые документы целиком; связанные документы feature. Правила — по AGENTS.md.
+2. Глобальный контекст: [business-rules.md](../../../docs/product/business-rules.md), [glossary.md](../../../docs/product/glossary.md); «Активные изменения» в [docs/changes/README.md](../../../docs/changes/README.md).
+3. Образец: [proposal.md](../../../templates/examples/changes/password-recovery-otp-sms/proposal.md) и [tasks.md](../../../templates/examples/changes/password-recovery-otp-sms/tasks.md) из `templates/examples/changes/`.
 
 ## Правила
 
@@ -39,7 +39,7 @@ description: Управляет изменениями approved-документ
 
 ### Режим propose
 
-1. Создать `docs/changes/<change-name>/proposal.md` (kebab-case) из [templates/change-proposal.md](../../templates/change-proposal.md), при необходимости `tasks.md` из [templates/change-tasks.md](../../templates/change-tasks.md); дельты по формату шаблона (правила 2–4); комментарии `<!-- AI: -->` выполнить и удалить.
+1. Создать `docs/changes/<change-name>/proposal.md` (kebab-case) из [templates/change-proposal.md](../../../templates/change-proposal.md), при необходимости `tasks.md` из [templates/change-tasks.md](../../../templates/change-tasks.md); дельты по формату шаблона (правила 2–4); комментарии `<!-- AI: -->` выполнить и удалить.
 2. Добавить proposal в «Активные изменения» в `docs/changes/README.md`.
 3. Запустить `node scripts/validate-docs.mjs`; добиться exit 0.
 
@@ -50,7 +50,7 @@ description: Управляет изменениями approved-документ
 3. Выполнить план (`tasks.md`; нет — дельты по порядку pipeline): каждую правку — соответствующим пишущим skill; placeholders → реальные ID; REMOVED → deprecated.
 4. Заполнить `## Assigned IDs` в proposal.md (placeholder → реальный ID); сами дельты не переписывать.
 5. Целевые документы: `version` MAJOR bump, `status: approved` → `review`.
-6. Запустить `skills/documentation-review` по затронутым feature; отчёт передать целиком, находки не устранять молча.
+6. Запустить `.gigacode/skills/documentation-review` по затронутым feature; отчёт передать целиком, находки не устранять молча.
 7. Архивировать: body `## Status` → `applied`, frontmatter → `deprecated`; `git mv docs/changes/<change-name> docs/changes/archive/YYYY-MM-<change-name>` (дата применения); обновить «Активные изменения».
 8. Запустить `node scripts/validate-docs.mjs`; добиться exit 0.
 
@@ -89,7 +89,7 @@ description: Управляет изменениями approved-документ
 - [ ] При apply каждое «Было:» сверено дословно.
 - [ ] Реальные ID присвоены пишущими skills; placeholders `<TYPE>-NEW-<n>` в целевых документах не остались.
 - [ ] REMOVED помечены deprecated, не удалены; ID не переиспользованы.
-- [ ] `skills/documentation-review` запущен, отчёт передан целиком.
+- [ ] `.gigacode/skills/documentation-review` запущен, отчёт передан целиком.
 - [ ] «Активные изменения» в `docs/changes/README.md` актуален; архив не редактировался.
 - [ ] `node scripts/validate-docs.mjs` — exit 0.
 

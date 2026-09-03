@@ -20,9 +20,9 @@ description: Координирует полный цикл документир
 
 ## Прочитать
 
-1. Обязательно: `rules/ai-guardrails.md` (остальные `rules/` читают стадии); [overview.md](../../docs/product/overview.md) и [glossary.md](../../docs/product/glossary.md) — понять продукт и термины запроса.
-2. Структура feature: [docs/features/README.md](../../docs/features/README.md), [schemas/feature.schema.yaml](../../schemas/feature.schema.yaml) — обязательные `README.md`, `product.md`, `requirements.md`; опциональные `ui.md`, `api.md`, `technical.md`, `decisions/`.
-3. Статусы и версии: [schemas/README.md](../../schemas/README.md).
+1. Обязательно: `rules/ai-guardrails.md` (остальные `rules/` читают стадии); [overview.md](../../../docs/product/overview.md) и [glossary.md](../../../docs/product/glossary.md) — понять продукт и термины запроса.
+2. Структура feature: [docs/features/README.md](../../../docs/features/README.md), [schemas/feature.schema.yaml](../../../schemas/feature.schema.yaml) — обязательные `README.md`, `product.md`, `requirements.md`; опциональные `ui.md`, `api.md`, `technical.md`, `decisions/`.
+3. Статусы и версии: [schemas/README.md](../../../schemas/README.md).
 4. Если feature есть: состав `docs/features/<feature>/` и frontmatter каждого файла (`status`, `version`); содержание читают стадии.
 
 ## Правила

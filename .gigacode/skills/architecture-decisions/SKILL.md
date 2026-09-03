@@ -19,10 +19,10 @@ description: Создаёт и изменяет ADR — контекст, реш
 
 ## Прочитать
 
-1. Обязательно: существующие ADR — глобальные в [docs/architecture/adr/](../../docs/architecture/adr/README.md), для feature — `docs/features/<feature>/decisions/`; требования, обосновывающие решение — `requirements.md` feature и/или [business-rules.md](../../docs/product/business-rules.md), [non-functional-requirements.md](../../docs/product/non-functional-requirements.md); [schemas/README.md](../../schemas/README.md) — ID и статусы ADR. Правила — по AGENTS.md.
+1. Обязательно: существующие ADR — глобальные в [docs/architecture/adr/](../../../docs/architecture/adr/README.md), для feature — `docs/features/<feature>/decisions/`; требования, обосновывающие решение — `requirements.md` feature и/или [business-rules.md](../../../docs/product/business-rules.md), [non-functional-requirements.md](../../../docs/product/non-functional-requirements.md); [schemas/README.md](../../../schemas/README.md) — ID и статусы ADR. Правила — по AGENTS.md.
 2. Если есть: `technical.md` feature — контекст решения и уже рассмотренные альтернативы.
-3. Архитектурный контекст: [overview.md](../../docs/architecture/overview.md), [components.md](../../docs/architecture/components.md), [data-model.md](../../docs/architecture/data-model.md), [integrations.md](../../docs/architecture/integrations.md) — имена компонентов и сущностей брать оттуда.
-4. Образец: [adr-001-otp-vs-recovery-link.md](../../templates/examples/password-recovery/decisions/adr-001-otp-vs-recovery-link.md).
+3. Архитектурный контекст: [overview.md](../../../docs/architecture/overview.md), [components.md](../../../docs/architecture/components.md), [data-model.md](../../../docs/architecture/data-model.md), [integrations.md](../../../docs/architecture/integrations.md) — имена компонентов и сущностей брать оттуда.
+4. Образец: [adr-001-otp-vs-recovery-link.md](../../../templates/examples/password-recovery/decisions/adr-001-otp-vs-recovery-link.md).
 
 ## Правила
 
@@ -43,9 +43,9 @@ description: Создаёт и изменяет ADR — контекст, реш
 
 1. Проверить решение по критериям (стоп-условия); определить scope и размещение (правило 1).
 2. Присвоить ID и имя файла (правила 2–3).
-3. Написать ADR из [templates/adr.md](../../templates/adr.md): все секции (Status, Context, Decision, Alternatives, Consequences, Related requirements, Related ADR); комментарии `<!-- AI: -->` выполнить и удалить.
+3. Написать ADR из [templates/adr.md](../../../templates/adr.md): все секции (Status, Context, Decision, Alternatives, Consequences, Related requirements, Related ADR); комментарии `<!-- AI: -->` выполнить и удалить.
 4. Если supersede: обновить старый ADR по правилу 8.
-5. Если ADR глобальный: добавить его в «Список ADR» в [docs/architecture/adr/README.md](../../docs/architecture/adr/README.md) (при первом ADR снять там `TBD`).
+5. Если ADR глобальный: добавить его в «Список ADR» в [docs/architecture/adr/README.md](../../../docs/architecture/adr/README.md) (при первом ADR снять там `TBD`).
 6. Если решение затрагивает утверждённый `technical.md`: не переписывать; предложить обновление через skill `technical-documentation`.
 7. Запустить `node scripts/validate-docs.mjs`; добиться exit 0.
 
@@ -84,5 +84,5 @@ Consequences: Плюс — отправка не блокирует сценар
 ASSUMPTION (ждут подтверждения): <список или none>
 TBD (ждут ответа): <список или none>
 Заменённые ADR (supersede): <ADR-XXX → ADR-YYY или none>; статусы accepted/rejected выставляет человек
-Следующий шаг: skills/documentation-review; при затронутой реализации — skills/technical-documentation
+Следующий шаг: .gigacode/skills/documentation-review; при затронутой реализации — .gigacode/skills/technical-documentation
 ```

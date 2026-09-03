@@ -40,7 +40,9 @@ templates/          # Шаблоны документов (source of truth дл�
 rules/              # Глобальные правила для AI и людей (стиль, ID, ссылки, guardrails)
 schemas/            # Стандарт метаданных, ID и простые YAML-схемы
 scripts/            # Локальные автоматические проверки документации
-skills/             # Agent Skills для работы с документацией
+.gigacode/skills/   # Agent Skills для работы с документацией (GigaCode CLI)
+.gigacode/rules/    # Базовые правила поведения агента GigaCode
+GIGACODE.md         # Entry point GigaCode CLI: импорты .gigacode/rules/
 services/           # Локально подключённые репозитории сервисов (не коммитятся)
 ```
 
@@ -126,9 +128,11 @@ node scripts/validate-docs.mjs
 5. Сохранять существующие requirement ID, не переиспользовать удалённые.
 6. После изменений обновлять cross-reference и запускать review.
 
+GigaCode CLI: entry point `GIGACODE.md` подключает базовые правила `.gigacode/rules/`, skills читаются из `.gigacode/skills/`.
+
 ## Рекомендуемые external skills
 
-Помимо собственных skills (`skills/`), существуют внешние Agent Skills из реестра skills.sh, которые можно использовать как концептуальные ориентиры:
+Помимо собственных skills (`.gigacode/skills/`), существуют внешние Agent Skills из реестра skills.sh, которые можно использовать как концептуальные ориентиры:
 
 - `prd-development` — разработка PRD;
 - `user-story` — формулирование user stories;
@@ -136,7 +140,7 @@ node scripts/validate-docs.mjs
 - `api-documentation-generator` — генерация API-документации;
 - `architecture-decision-records` — ведение ADR.
 
-Ключевое правило: source of truth — **локальные** `skills/*/SKILL.md`; внешние skills носят справочный характер, репозиторий не имеет runtime dependency от skills.sh. Соответствие ориентиров локальным skills и команды установки — в `docs/ai/external-skills.md`.
+Ключевое правило: source of truth — **локальные** `.gigacode/skills/*/SKILL.md`; внешние skills носят справочный характер, репозиторий не имеет runtime dependency от skills.sh. Соответствие ориентиров локальным skills и команды установки — в `docs/ai/external-skills.md`.
 
 ## services/
 

@@ -18,10 +18,10 @@ description: Создаёт и изменяет requirements.md feature — фо
 
 ## Прочитать
 
-1. Обязательно: `product.md` feature целиком; [rules/requirements.md](../../rules/requirements.md); [schemas/README.md](../../schemas/README.md) и [requirement.schema.yaml](../../schemas/requirement.schema.yaml) — ID, frontmatter, структура требования. Остальные `rules/` — по AGENTS.md.
+1. Обязательно: `product.md` feature целиком; [rules/requirements.md](../../../rules/requirements.md); [schemas/README.md](../../../schemas/README.md) и [requirement.schema.yaml](../../../schemas/requirement.schema.yaml) — ID, frontmatter, структура требования. Остальные `rules/` — по AGENTS.md.
 2. Если есть: текущий `requirements.md` целиком, включая deprecated (они занимают номера); `ui.md`, `api.md`, `technical.md` — изменение требований их затрагивает.
-3. Глобальный контекст: [business-rules.md](../../docs/product/business-rules.md), [non-functional-requirements.md](../../docs/product/non-functional-requirements.md), [glossary.md](../../docs/product/glossary.md) — ссылаться на существующие BR/NFR.
-4. Образец: [templates/examples/password-recovery/requirements.md](../../templates/examples/password-recovery/requirements.md).
+3. Глобальный контекст: [business-rules.md](../../../docs/product/business-rules.md), [non-functional-requirements.md](../../../docs/product/non-functional-requirements.md), [glossary.md](../../../docs/product/glossary.md) — ссылаться на существующие BR/NFR.
+4. Образец: [templates/examples/password-recovery/requirements.md](../../../templates/examples/password-recovery/requirements.md).
 
 ## Правила
 
@@ -45,7 +45,7 @@ description: Создаёт и изменяет requirements.md feature — фо
 2. Присвоить ID (правило 6); проверить каждый пункт по правилам 1–5.
 3. Для каждого FR/BR написать `AC для FR-001: Given … When … Then …`, включая негативные пути из `product.md`.
 4. Собрать все `TBD` и `ASSUMPTION` в Open Questions; заполнить Dependencies и Constraints.
-5. Новый документ — из [templates/requirements.md](../../templates/requirements.md): все секции, неприменимые — `Not applicable: <причина>`; Context — 2–3 предложения со ссылкой на `product.md`; комментарии `<!-- AI: -->` выполнить и удалить.
+5. Новый документ — из [templates/requirements.md](../../../templates/requirements.md): все секции, неприменимые — `Not applicable: <причина>`; Context — 2–3 предложения со ссылкой на `product.md`; комментарии `<!-- AI: -->` выполнить и удалить.
 6. Заполнить Traceability: строка на каждый ID, включая deprecated; источник — сценарий или пункт scope `product.md`, либо BR; колонка «Покрыто» у новой feature пустая — это нормально.
 7. Если изменён существующий ID: `grep -rn "FR-007" docs/` → обновить затронутые UI/API/technical или пометить конфликт `TBD`/`ASSUMPTION` → обновить их Traceability. Связанные документы молча не переписывать.
 8. Запустить `node scripts/validate-docs.mjs`; добиться exit 0.
@@ -86,5 +86,5 @@ BR-002: Повторная отправка OTP допускается толь�
 ASSUMPTION (ждут подтверждения): <список или none>
 TBD (ждут ответа): <список или none>
 FR/BR без acceptance criteria: <ID или none>
-Следующий шаг: skills/ui-requirements и/или skills/api-requirements, затем skills/documentation-review
+Следующий шаг: .gigacode/skills/ui-requirements и/или .gigacode/skills/api-requirements, затем .gigacode/skills/documentation-review
 ```

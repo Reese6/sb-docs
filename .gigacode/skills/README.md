@@ -4,7 +4,7 @@
 
 ## Адресат
 
-Skills исполняют слабые модели (DeepSeek Flash, Qwen). Отсюда форма: короткие директивы, правила отдельно от шагов, буквальные шаблоны ответов, минимум дублей с [AGENTS.md](../AGENTS.md) (он всегда в контексте агента) и с комментариями `<!-- AI: -->` в `templates/`.
+Skills исполняют слабые модели (DeepSeek Flash, Qwen). Отсюда форма: короткие директивы, правила отдельно от шагов, буквальные шаблоны ответов, минимум дублей с [AGENTS.md](../../AGENTS.md) (он всегда в контексте агента) и с комментариями `<!-- AI: -->` в `templates/`.
 
 ## Структура SKILL.md
 
@@ -71,7 +71,7 @@ TBD (ждут ответа): <список или none>
 | documentation-review | только отчёт | документы feature | пишущие skills |
 | documentation-orchestrator | только план | запрос пользователя | все стадии, затем review |
 
-Выбор skill по задаче — раздел «Как определить нужный skill» в [AGENTS.md](../AGENTS.md).
+Выбор skill по задаче — раздел «Как определить нужный skill» в [AGENTS.md](../../AGENTS.md).
 
 ## Точные формы, которые проверяет валидатор
 
@@ -82,13 +82,13 @@ TBD (ждут ответа): <список или none>
 
 ## Проверка skills
 
-[scripts/validate-docs.mjs](../scripts/validate-docs.mjs) проверяет в `skills/` структуру Markdown и ссылки. Дополнительно:
+[scripts/validate-docs.mjs](../../scripts/validate-docs.mjs) проверяет в `.gigacode/skills/` структуру Markdown и ссылки. Дополнительно:
 
 ```sh
-for f in skills/*/SKILL.md; do printf '%s: ' "$f"; awk '/^```/{c=!c} !c && /^## /{sub(/^## /,""); print}' "$f" | paste -sd'|' -; done
-for f in skills/*/SKILL.md; do printf '%s ' "$(grep -m1 '^description:' "$f" | sed 's/^description: //' | wc -m)"; echo "$f"; done
-grep -n 'description:.*: ' skills/*/SKILL.md
-wc -m skills/*/SKILL.md
+for f in .gigacode/skills/*/SKILL.md; do printf '%s: ' "$f"; awk '/^```/{c=!c} !c && /^## /{sub(/^## /,""); print}' "$f" | paste -sd'|' -; done
+for f in .gigacode/skills/*/SKILL.md; do printf '%s ' "$(grep -m1 '^description:' "$f" | sed 's/^description: //' | wc -m)"; echo "$f"; done
+grep -n 'description:.*: ' .gigacode/skills/*/SKILL.md
+wc -m .gigacode/skills/*/SKILL.md
 ```
 
 При любом сокращении skill — матрица покрытия: каждая директива старой версии указывает на место в новой версии, в AGENTS.md, в шаблоне или в `rules/`.

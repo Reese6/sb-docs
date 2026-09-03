@@ -16,3 +16,6 @@ Thumbs.db
 *.log
 *.tmp
 node_modules/
+
+# GigaCode CLI: личные настройки проекта
+.gigacode/GIGACODE.local.md

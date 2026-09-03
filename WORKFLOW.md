@@ -51,7 +51,7 @@
 
 ## Сценарий 1. Новая feature с нуля
 
-Комплексная задача: постановка, требования, интерфейс, API. Работает skill `documentation-orchestrator` ([skills/documentation-orchestrator/SKILL.md](skills/documentation-orchestrator/SKILL.md)); называть его в промпте не обязательно — агент выберет его сам по комплексному запросу.
+Комплексная задача: постановка, требования, интерфейс, API. Работает skill `documentation-orchestrator` ([.gigacode/skills/documentation-orchestrator/SKILL.md](.gigacode/skills/documentation-orchestrator/SKILL.md)); называть его в промпте не обязательно — агент выберет его сам по комплексному запросу.
 
 ### Промпт
 
@@ -155,7 +155,7 @@ FR-004 сформулирован неатомарно: запрос кода и
 
 ### Когда обязателен proposal
 
-При содержательном изменении `approved`-документа: добавление, изменение или удаление требований. Порог — раздел «Изменение утверждённых документов» в [CONTRIBUTING.md](CONTRIBUTING.md), процесс — [skills/change-management/SKILL.md](skills/change-management/SKILL.md).
+При содержательном изменении `approved`-документа: добавление, изменение или удаление требований. Порог — раздел «Изменение утверждённых документов» в [CONTRIBUTING.md](CONTRIBUTING.md), процесс — [.gigacode/skills/change-management/SKILL.md](.gigacode/skills/change-management/SKILL.md).
 
 ### Этап 1. Создать proposal
 
@@ -207,7 +207,7 @@ Proposal docs/changes/password-recovery-email-otp/proposal.md я утверди�
 
 ### Как читать отчёт
 
-Формат отчёта — [skills/documentation-review/SKILL.md](skills/documentation-review/SKILL.md). Что означают находки для человека:
+Формат отчёта — [.gigacode/skills/documentation-review/SKILL.md](.gigacode/skills/documentation-review/SKILL.md). Что означают находки для человека:
 
 - `ERROR` — нарушение правил: битая ссылка, противоречие, непокрытое требование, подозрение на галлюцинацию. Требует решения до коммита.
 - `WARNING` — качество: неатомарность, неизмеримая формулировка, отклонение от glossary. Решить: исправить сейчас или осознанно отложить.

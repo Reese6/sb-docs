@@ -18,9 +18,9 @@ description: Создаёт и изменяет product.md feature (и README.md
 
 ## Прочитать
 
-1. Обязательно: [overview.md](../../docs/product/overview.md), [vision.md](../../docs/product/vision.md), [glossary.md](../../docs/product/glossary.md) — единственный источник терминов, [personas.md](../../docs/product/personas.md), [business-rules.md](../../docs/product/business-rules.md), [non-functional-requirements.md](../../docs/product/non-functional-requirements.md); [schemas/README.md](../../schemas/README.md) — frontmatter. Правила — по AGENTS.md.
+1. Обязательно: [overview.md](../../../docs/product/overview.md), [vision.md](../../../docs/product/vision.md), [glossary.md](../../../docs/product/glossary.md) — единственный источник терминов, [personas.md](../../../docs/product/personas.md), [business-rules.md](../../../docs/product/business-rules.md), [non-functional-requirements.md](../../../docs/product/non-functional-requirements.md); [schemas/README.md](../../../schemas/README.md) — frontmatter. Правила — по AGENTS.md.
 2. Если есть: все файлы `docs/features/<feature>/` целиком, в том числе `requirements.md`; при изменении — текущий `product.md` полностью до правок.
-3. Структура feature: [docs/features/README.md](../../docs/features/README.md). Образец: [product.md](../../templates/examples/password-recovery/product.md) и [README.md](../../templates/examples/password-recovery/README.md) из `templates/examples/password-recovery/`.
+3. Структура feature: [docs/features/README.md](../../../docs/features/README.md). Образец: [product.md](../../../templates/examples/password-recovery/product.md) и [README.md](../../../templates/examples/password-recovery/README.md) из `templates/examples/password-recovery/`.
 
 ## Правила
 
@@ -40,8 +40,8 @@ description: Создаёт и изменяет product.md feature (и README.md
 ## Шаги
 
 1. Определить проблему, пользователей, сценарии, ожидаемое поведение, scope и out of scope (правила 1–4).
-2. Если директории feature нет: создать `docs/features/<feature-name>/` (kebab-case) и `README.md` из [templates/feature.md](../../templates/feature.md); в таблице Documents — только существующие файлы, для ненужных — «not planned» с причиной.
-3. Новый `product.md` — из [templates/product.md](../../templates/product.md): все секции, неприменимые — `Not applicable: <причина>`; комментарии `<!-- AI: -->` выполнить и удалить; в `related` — только существующие файлы.
+2. Если директории feature нет: создать `docs/features/<feature-name>/` (kebab-case) и `README.md` из [templates/feature.md](../../../templates/feature.md); в таблице Documents — только существующие файлы, для ненужных — «not planned» с причиной.
+3. Новый `product.md` — из [templates/product.md](../../../templates/product.md): все секции, неприменимые — `Not applicable: <причина>`; комментарии `<!-- AI: -->` выполнить и удалить; в `related` — только существующие файлы.
 4. Заполнить Business value, Success criteria, Dependencies, Constraints (правила 5, 7).
 5. Собрать все `TBD` и `ASSUMPTION` в Open questions, включая impact на существующие FR (правило 9).
 6. Запустить `node scripts/validate-docs.mjs`; добиться exit 0.
@@ -78,5 +78,5 @@ Problem: Пользователь, не получивший код подтве
 ASSUMPTION (ждут подтверждения): <список или none>
 TBD (ждут ответа): <список или none>
 Пункты Scope, не подтверждённые пользователем: <список или none>
-Следующий шаг: skills/requirements, затем skills/documentation-review
+Следующий шаг: .gigacode/skills/requirements, затем .gigacode/skills/documentation-review
 ```

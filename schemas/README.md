@@ -128,4 +128,4 @@ deprecated  устарел; требования не действуют, фай
 - **статус документа** — frontmatter `status` (`draft`/`review`/`approved`/`deprecated`), общий жизненный цикл выше;
 - **статус изменения** — секция `## Status` в теле `proposal.md` (`proposed`, `approved`, `applied`, `rejected`).
 
-Соответствие: `proposed` ↔ `draft`/`review`, `approved` ↔ `approved`, `applied`/`rejected` ↔ `deprecated` (выставляется при архивировании). Статусы `approved` и `rejected` выставляет только человек; `applied` выставляется после внесения всех правок proposal в целевые документы. Полный процесс — `skills/change-management`.
+Соответствие: `proposed` ↔ `draft`/`review`, `approved` ↔ `approved`, `applied`/`rejected` ↔ `deprecated` (выставляется при архивировании). Статусы `approved` и `rejected` выставляет только человек; `applied` выставляется после внесения всех правок proposal в целевые документы. Полный процесс — `.gigacode/skills/change-management`.

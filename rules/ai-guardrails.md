@@ -57,7 +57,7 @@ AI не изобретает то, чего нет в source of truth:
 ## Перед изменением документа
 
 1. Прочитать изменяемый документ целиком.
-2. Проверить `status` изменяемого документа: содержательное изменение `approved`-документа выполняется только в рамках утверждённого change proposal (`docs/changes/`, правило порога — `CONTRIBUTING.md`). Нет утверждённого proposal — остановиться и предложить `skills/change-management`.
+2. Проверить `status` изменяемого документа: содержательное изменение `approved`-документа выполняется только в рамках утверждённого change proposal (`docs/changes/`, правило порога — `CONTRIBUTING.md`). Нет утверждённого proposal — остановиться и предложить `.gigacode/skills/change-management`.
 3. Прочитать связанные документы feature: `product.md`, `requirements.md`, `ui.md`, `api.md`, `technical.md`.
 4. Проверить глобальный контекст: `docs/product/business-rules.md`, `docs/product/glossary.md`.
 5. При изменении требования — найти все связанные UI/API/technical требования (по cross-reference и обратным ссылкам) и определить impact.

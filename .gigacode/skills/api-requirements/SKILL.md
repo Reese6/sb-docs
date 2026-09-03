@@ -18,9 +18,9 @@ description: Создаёт и изменяет api.md feature — челове�
 
 ## Прочитать
 
-1. Обязательно: `product.md` и `requirements.md` feature целиком; соглашения [docs/api/overview.md](../../docs/api/overview.md), [conventions.md](../../docs/api/conventions.md), [authentication.md](../../docs/api/authentication.md), [errors.md](../../docs/api/errors.md) — контракт feature обязан им следовать; [schemas/README.md](../../schemas/README.md) — ID и frontmatter. Правила — по AGENTS.md.
-2. Если есть: текущий `api.md` целиком, включая deprecated (они занимают номера); `ui.md` и `technical.md` — валидация и ошибки в API обязаны совпадать с UI; документация сервисов [docs/api/services/](../../docs/api/services/README.md).
-3. Образец: [templates/examples/password-recovery/api.md](../../templates/examples/password-recovery/api.md).
+1. Обязательно: `product.md` и `requirements.md` feature целиком; соглашения [docs/api/overview.md](../../../docs/api/overview.md), [conventions.md](../../../docs/api/conventions.md), [authentication.md](../../../docs/api/authentication.md), [errors.md](../../../docs/api/errors.md) — контракт feature обязан им следовать; [schemas/README.md](../../../schemas/README.md) — ID и frontmatter. Правила — по AGENTS.md.
+2. Если есть: текущий `api.md` целиком, включая deprecated (они занимают номера); `ui.md` и `technical.md` — валидация и ошибки в API обязаны совпадать с UI; документация сервисов [docs/api/services/](../../../docs/api/services/README.md).
+3. Образец: [templates/examples/password-recovery/api.md](../../../templates/examples/password-recovery/api.md).
 
 ## Правила
 
@@ -43,7 +43,7 @@ description: Создаёт и изменяет api.md feature — челове�
 1. Из `requirements.md` выбрать требования с серверным проявлением (правило 1); проверить проходимость сценариев (правило 2).
 2. Для каждого endpoint — подраздел `###` с методом, путём, назначением и `API-XXX` (правила 4–5). Контракты различаются — секции заполнять per-endpoint внутри подразделов.
 3. Для каждого endpoint заполнить каждую секцию шаблона (request, validation, response, authentication, authorization, errors, idempotency, pagination, filtering, sorting, rate limits, security, side effects, events, examples) или `Not applicable: <причина>`. Конкурентные запросы — в Idempotency.
-4. Новый документ — из [templates/api.md](../../templates/api.md): комментарии `<!-- AI: -->` выполнить и удалить.
+4. Новый документ — из [templates/api.md](../../../templates/api.md): комментарии `<!-- AI: -->` выполнить и удалить.
 5. Заполнить Traceability: строка на каждый `API-XXX`, включая deprecated, с минимум одной связью; затем обновить колонку «Покрыто (UI / API / technical)» в Traceability `requirements.md` (часть API).
 6. Если изменён существующий `API-XXX`: `grep -rn "API-003" docs/` → проверить расхождение с `requirements.md` и `ui.md` (валидация, ошибки) → конфликт пометить `TBD`/`ASSUMPTION` → обновить Traceability затронутых документов. Связанные документы молча не переписывать.
 7. Запустить `node scripts/validate-docs.mjs`; добиться exit 0.
@@ -80,5 +80,5 @@ description: Создаёт и изменяет api.md feature — челове�
 ASSUMPTION (ждут подтверждения): <список или none>
 TBD (ждут ответа): <список или none>
 FR/BR/NFR без API-покрытия: <ID или none>
-Следующий шаг: skills/technical-documentation, затем skills/documentation-review
+Следующий шаг: .gigacode/skills/technical-documentation, затем .gigacode/skills/documentation-review
 ```

@@ -19,10 +19,10 @@ description: Создаёт и изменяет technical.md feature — HOW (к
 
 ## Прочитать
 
-1. Обязательно: `product.md` и `requirements.md` feature целиком; [services/README.md](../../services/README.md); [schemas/README.md](../../schemas/README.md) — frontmatter. Правила — по AGENTS.md.
-2. Если есть: `ui.md` и `api.md` целиком — решение реализует их контракт и поведение, не переопределяет; текущий `technical.md`; ADR — глобальные в [docs/architecture/adr/](../../docs/architecture/adr/README.md) и `docs/features/<feature>/decisions/`.
-3. Архитектурный контекст: [overview.md](../../docs/architecture/overview.md), [components.md](../../docs/architecture/components.md), [data-model.md](../../docs/architecture/data-model.md), [integrations.md](../../docs/architecture/integrations.md) — имена компонентов и сущностей брать оттуда.
-4. Образец: [templates/examples/password-recovery/technical.md](../../templates/examples/password-recovery/technical.md).
+1. Обязательно: `product.md` и `requirements.md` feature целиком; [services/README.md](../../../services/README.md); [schemas/README.md](../../../schemas/README.md) — frontmatter. Правила — по AGENTS.md.
+2. Если есть: `ui.md` и `api.md` целиком — решение реализует их контракт и поведение, не переопределяет; текущий `technical.md`; ADR — глобальные в [docs/architecture/adr/](../../../docs/architecture/adr/README.md) и `docs/features/<feature>/decisions/`.
+3. Архитектурный контекст: [overview.md](../../../docs/architecture/overview.md), [components.md](../../../docs/architecture/components.md), [data-model.md](../../../docs/architecture/data-model.md), [integrations.md](../../../docs/architecture/integrations.md) — имена компонентов и сущностей брать оттуда.
+4. Образец: [templates/examples/password-recovery/technical.md](../../../templates/examples/password-recovery/technical.md).
 
 ## Правила
 
@@ -46,7 +46,7 @@ description: Создаёт и изменяет technical.md feature — HOW (к
 2. Определить охват: из `requirements.md`, `ui.md`, `api.md` выбрать FR/BR/NFR/UI/API, которые реализует решение (правила 5–6).
 3. Описать Current implementation (правила 2–4) и Proposed solution: суть подхода в нескольких абзацах, достаточно детально для реализации.
 4. Заполнить каждую секцию шаблона (components; data flow — Mermaid sequenceDiagram или нумерованный список; services involved с путём в `services/`; data model changes — согласовать с `docs/architecture/data-model.md`; API changes; events; caching; transactions; error handling; security; observability; performance; backward compatibility; migration; deployment; testing considerations; alternatives; risks) или `Not applicable: <причина>`.
-5. Новый документ — из [templates/technical.md](../../templates/technical.md): комментарии `<!-- AI: -->` выполнить и удалить; в `related` — только существующие файлы.
+5. Новый документ — из [templates/technical.md](../../../templates/technical.md): комментарии `<!-- AI: -->` выполнить и удалить; в `related` — только существующие файлы.
 6. Обновить колонку «Покрыто (UI / API / technical)» в Traceability `requirements.md` (часть technical) для всех ID из Related requirements.
 7. Если изменено существующее решение: `grep -rn` по затронутым ID и именам компонентов в `docs/` → проверить расхождение с `requirements.md`, `ui.md`, `api.md`, ADR → конфликт пометить `TBD`/`ASSUMPTION` → обновить Traceability и cross-references. Связанные документы молча не переписывать.
 8. Запустить `node scripts/validate-docs.mjs`; добиться exit 0.
@@ -83,5 +83,5 @@ Current implementation: Сервис X (`services/x`) хранит OTP в отк
 ASSUMPTION (ждут подтверждения): <список или none>
 TBD (ждут ответа, включая неподключённые сервисы): <список или none>
 Расхождения кода и требований: <ID и суть, или none>
-Следующий шаг: skills/architecture-decisions при существенном выборе, затем skills/documentation-review
+Следующий шаг: .gigacode/skills/architecture-decisions при существенном выборе, затем .gigacode/skills/documentation-review
 ```
