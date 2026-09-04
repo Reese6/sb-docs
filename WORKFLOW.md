@@ -86,13 +86,17 @@ Feature собирается по одному документу за вызо�
 не более 3 запросов кода в час
 ```
 
-4. `/feature-model` — сущности и поля; только если feature вводит или меняет сущности.
+4. `/feature-model` — одна сущность за вызов; только если feature вводит или меняет сущности. Без имени сущности команда составляет список из требований и останавливается; файлы при этом не меняются.
 
 ```text
 /feature-model password-recovery
 ```
 
-Контроль: существующие сущности из [docs/architecture/data-model/](docs/architecture/data-model/) переиспользованы ссылкой, а не переписаны в feature.
+```text
+/feature-model password-recovery otp-code
+```
+
+Контроль: создан ровно один файл `model/<entity>.md` плюс строка в индексе `model/README.md`; существующие сущности из [docs/architecture/data-model/](docs/architecture/data-model/) переиспользованы ссылкой, а не переписаны в feature.
 
 5. `/feature-ui` — экраны, состояния, валидация; только при наличии интерфейса.
 
@@ -110,7 +114,7 @@ Feature собирается по одному документу за вызо�
 /feature-api password-recovery POST /auth/password-reset/request
 ```
 
-Контроль: заполнен ровно один блок `## <METHOD> <path>`, остальные не тронуты; роли — только из [docs/product/roles.md](docs/product/roles.md).
+Контроль: создан ровно один файл `api/<method>-<имя>.md` плюс строка в индексе `api/README.md`, остальные файлы не тронуты; роли — только из [docs/product/roles.md](docs/product/roles.md).
 
 7. `/feature-technical` — реализация, интеграции, хранение. Шаг можно отложить до согласования требований.
 
@@ -164,7 +168,7 @@ Skill `documentation-orchestrator` ([.gigacode/skills/documentation-orchestrator
 
 ```text
 /feature-requirements password-recovery формализуй требования по product.md.
-Работай только с requirements.md — ui.md и api.md не трогай.
+Работай только с requirements.md — ui.md и api/ не трогай.
 ```
 
 ```text
@@ -273,7 +277,7 @@ Proposal docs/changes/password-recovery-email-otp/proposal.md я утверди�
 
 ### Промоут в глобальные документы
 
-`/feature-apply` переносит результаты `approved`-документов feature наружу: новые сущности из `model.md` — в `docs/architecture/data-model/<entity>.md`, сервисные и внешние API из `api.md` — в `docs/api/services/<service>.md`, плюс обновляет индексы.
+`/feature-apply` переносит результаты `approved`-документов feature наружу: новые сущности из `model/` — в `docs/architecture/data-model/<entity>.md`, сервисные и внешние API из `api/` — в `docs/api/services/<service>.md`, плюс обновляет индексы.
 
 ```text
 /feature-apply password-recovery
@@ -281,7 +285,7 @@ Proposal docs/changes/password-recovery-email-otp/proposal.md я утверди�
 
 - Цель ещё не существует — создаётся файл в статусе `draft`.
 - Цель уже `approved` — команда не правит её, а готовит change proposal; применяет его `change-management` (этапы 2–3 выше).
-- Исходные `model.md` и `api.md` не в статусе `approved` — команда останавливается: статус ставит человек.
+- Индексы или файлы `model/` и `api/` не в статусе `approved` — команда останавливается: статус ставит человек.
 
 ## Сценарий 5. Ревью и работа с замечаниями
 

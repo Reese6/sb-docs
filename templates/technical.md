@@ -8,13 +8,13 @@ owners:
   - backend
 related:
   - requirements.md
-  - api.md
+  - api/README.md
 ---
 
 # <Название фичи> — техническое описание
 
 <!-- AI: документ отвечает на HOW. Перед написанием: прочитать product.md,
-requirements.md, ui.md/api.md; проверить services/ и изучить код затронутых
+requirements.md, ui.md и файлы api/; проверить services/ и изучить код затронутых
 сервисов, если подключён. requirements = source of truth для требуемого
 поведения; код = source of truth для текущей реализации — не путать.
 Противоречие кода утверждённому требованию помечать явно, не «исправлять» молча.
@@ -23,7 +23,7 @@ requirements.md, ui.md/api.md; проверить services/ и изучить к
 
 ## Context
 
-<!-- AI: 2–3 предложения: что реализуем, ссылки на requirements.md/api.md. -->
+<!-- AI: 2–3 предложения: что реализуем, ссылки на requirements.md и api/. -->
 
 ## Related requirements
 
@@ -61,7 +61,7 @@ requirements.md, ui.md/api.md; проверить services/ и изучить к
 
 ## API changes
 
-<!-- AI: новые/изменённые endpoints — ссылкой на api.md; внутренние API — здесь.
+<!-- AI: новые/изменённые endpoints — ссылкой на файл метода в api/; внутренние API — здесь.
 Ломающие изменения выделять явно. -->
 
 ## Events
@@ -80,7 +80,7 @@ requirements.md, ui.md/api.md; проверить services/ и изучить к
 ## Error handling
 
 <!-- AI: обработка ошибок: повторы, тайм-ауты, fallback, идемпотентность
-обработчиков. Пользовательские ошибки — уровень ui.md/api.md. -->
+обработчиков. Пользовательские ошибки — уровень ui.md и api/. -->
 
 ## Security
 

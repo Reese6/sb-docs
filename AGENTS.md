@@ -43,7 +43,7 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
    - `rules/linking.md` — связывание документов, «одно требование — один файл», impact-анализ;
    - `rules/terminology.md` — термины только из `docs/product/glossary.md`;
    - `rules/markdown.md` — структура документов и секций.
-2. Прочитать связанные документы затрагиваемой feature: `product.md`, `requirements.md`, `ui.md`, `api.md`, `technical.md`.
+2. Прочитать связанные документы затрагиваемой feature: `product.md`, `requirements.md`, `ui.md`, `api/`, `technical.md`.
 3. Проверить глобальный контекст: `docs/product/business-rules.md`, `docs/product/glossary.md`.
 4. Новые feature-документы создавать только из шаблонов `templates/` (см. таблицу ниже). Для глобальных документов `docs/product/`, `docs/api/`, `docs/architecture/` шаблонов нет — редактировать существующие файлы, сохраняя их структуру. Исключение: новый файл сущности в `docs/architecture/data-model/` создаётся из `templates/entity.md`.
 
@@ -54,17 +54,20 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
 | README feature | `templates/feature.md` | `docs/features/<feature-name>/README.md` | обязателен |
 | Product | `templates/product.md` | `docs/features/<feature-name>/product.md` | обязателен |
 | Requirements | `templates/requirements.md` | `docs/features/<feature-name>/requirements.md` | обязателен |
-| Model | `templates/model.md` | `docs/features/<feature-name>/model.md` | если feature вводит или меняет сущности |
+| Индекс модели данных | `templates/model-index.md` | `docs/features/<feature-name>/model/README.md` | если feature вводит или меняет сущности |
+| Сущность feature | `templates/model-entity.md` | `docs/features/<feature-name>/model/<entity>.md` | файл на каждую новую или изменяемую сущность |
 | UI | `templates/ui.md` | `docs/features/<feature-name>/ui.md` | если есть интерфейс |
-| API | `templates/api.md` | `docs/features/<feature-name>/api.md` | если есть API |
+| Индекс API | `templates/api-index.md` | `docs/features/<feature-name>/api/README.md` | если есть API |
+| Метод API | `templates/api-method.md` | `docs/features/<feature-name>/api/<method>-<имя>.md` | файл на каждый метод |
 | Technical | `templates/technical.md` | `docs/features/<feature-name>/technical.md` | при описании реализации |
 | ADR feature | `templates/adr.md` | `docs/features/<feature-name>/decisions/adr-XXX-<short-kebab-title>.md` | при значимом решении |
 | ADR глобальный | `templates/adr.md` | `docs/architecture/adr/adr-XXX-<short-kebab-title>.md` | при решении, затрагивающем несколько фич |
 | Сущность модели данных | `templates/entity.md` | `docs/architecture/data-model/<entity>.md` | при новой сущности (через `/feature-apply`) |
+| Сервисный API | `templates/service-api.md` | `docs/api/services/<service>.md` | при API шире одной feature (через `/feature-apply`) |
 | Change proposal | `templates/change-proposal.md` | `docs/changes/<change-name>/proposal.md` | при содержательном изменении approved-документа |
 | Change tasks | `templates/change-tasks.md` | `docs/changes/<change-name>/tasks.md` | опционален до apply proposal |
 
-Имена директорий фич — kebab-case. Решение уровня одной feature — в её `decisions/`; решение, влияющее на систему в целом, — в `docs/architecture/adr/`.
+Имена директорий фич — kebab-case. `api/` и `model/` — директории: один метод и одна сущность — один файл, сводка в их `README.md`. Решение уровня одной feature — в её `decisions/`; решение, влияющее на систему в целом, — в `docs/architecture/adr/`.
 
 ## Frontmatter и статусы
 
@@ -110,7 +113,7 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
 
 Skill `documentation-review` запускается:
 
-- после содержательного изменения `requirements.md`, `ui.md`, `api.md` или `technical.md`;
+- после содержательного изменения `requirements.md`, `ui.md`, `api/` или `technical.md`;
 - перед переводом документа в статус `approved`;
 - как финальная стадия работы над feature (в pipeline `documentation-orchestrator` — автоматически).
 

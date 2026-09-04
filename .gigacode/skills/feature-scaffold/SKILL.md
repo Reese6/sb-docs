@@ -33,7 +33,7 @@ description: Создаёт директорию feature и три загото�
 4. Комментарии `<!-- AI: -->` из шаблонов сохранить: их выполняет skill, который заполняет документ.
 5. Плейсхолдеры `FR-XXX`, `BR-XXX`, `NFR-XXX`, `UI-XXX`, `API-XXX` из шаблона в файл не переносить — валидатор считает их malformed ID.
 6. В таблице Documents `README.md` — только три созданных файла. Строка на несозданный файл даёт битую ссылку; такие строки удалить.
-7. `ui.md`, `api.md`, `model.md`, `technical.md`, `decisions/` не создавать — их создают свои skills по мере надобности.
+7. `ui.md`, `api/`, `model/`, `technical.md`, `decisions/` не создавать — их создают свои skills по мере надобности.
 8. Секцию «Список features» в `docs/features/README.md` пополнить одной строкой; содержание самого README feature туда не копировать.
 9. `related` frontmatter — только уже созданные файлы (`rules/linking.md`).
 10. Frontmatter трёх файлов: `type` по шаблону (`feature-readme`, `product`, `requirements`), `status: draft`, `version: 0.1`, `feature: <feature-name>`, `owners` по шаблону.

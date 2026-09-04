@@ -22,7 +22,7 @@ properties:
       - ui
       - api
       - technical
-      # model — модель данных feature (docs/features/<name>/model.md)
+      # model — модель данных feature (docs/features/<name>/model/)
       - model
       - adr
       - architecture

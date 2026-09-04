@@ -14,7 +14,7 @@ FR-XXX   Functional Requirement       feature requirements.md
 BR-XXX   Business Rule                feature requirements.md | docs/product/business-rules.md
 NFR-XXX  Non-functional Requirement   feature requirements.md | docs/product/non-functional-requirements.md
 UI-XXX   UI Requirement               feature ui.md
-API-XXX  API Requirement              feature api.md
+API-XXX  API Requirement              feature api/<method>-<имя>.md
 ADR-XXX  Architecture Decision        feature decisions/ | docs/architecture/adr/
 ```
 
@@ -26,10 +26,10 @@ ADR-XXX  Architecture Decision        feature decisions/ | docs/architecture/adr
 
 | Документ | `type` | Назначение |
 |---|---|---|
-| `docs/features/<feature>/model.md` | `model` | Черновик уровня feature: новые сущности и дельта существующих. Опционален. |
+| `docs/features/<feature>/model/` | `model` | Черновик уровня feature: индекс `README.md` и файл на каждую новую или изменяемую сущность. Опционален. |
 | `docs/architecture/data-model/<entity>.md` | `architecture` | Source of truth: одна сущность — один файл. |
 
-Сущности из `model.md` попадают в `docs/architecture/data-model/` через `/feature-apply`; сама feature глобальные файлы сущностей не правит.
+Сущности из `model/` попадают в `docs/architecture/data-model/` через `/feature-apply`; сама feature глобальные файлы сущностей не правит.
 
 ## Формат
 
@@ -40,6 +40,7 @@ ADR-XXX  Architecture Decision        feature decisions/ | docs/architecture/adr
 ## Область уникальности
 
 - **ID уникальны в пределах своей области (scope)**. Областей две категории: каждая feature (`docs/features/<feature-name>/`) — отдельная область для определённых в ней ID; вся остальная документация (`docs/product/`, `docs/architecture/`, `docs/api/`) — единая глобальная область. Так проверяет и `scripts/validate-docs.mjs`.
+- Область — вся директория feature, включая поддиректории: `API-XXX` уникальны по всем файлам `api/`, а не по одному файлу.
 - Внутри области один номер используется одним требованием за всю историю.
 - При ссылке между областями ID указывается со ссылкой на файл-источник при первом упоминании (см. `rules/linking.md`); неоднозначность (`FR-003` из другой feature без ссылки) — ошибка review.
 - Глобальный документ ссылается на ID любой feature: так `docs/api/services/<service>.md` после промоута (`feature-apply`) трассирует метод на требование feature. Валидатор такие ссылки резолвит; отсутствие ссылки на файл-источник ловит `documentation-review`.
@@ -76,12 +77,12 @@ ADR-003 → NFR-002
 ```
 
 - В тексте требования: `UI-004 (→ FR-012): ...` или отдельной строкой `Trace: FR-012`.
-- Сводно — в секции `Traceability` документа (в `model.md` — «Трассируемость»).
+- Сводно — в секции `Traceability` документа (в `model/README.md` — «Трассируемость»).
 - Полные правила ссылок — `rules/linking.md`.
 
 ## YAML frontmatter
 
-Обязателен для документов feature и `docs/` (кроме README.md директорий). Пример:
+Обязателен для документов feature и `docs/` (кроме README.md директорий; `README.md` внутри feature, включая индексы `api/` и `model/`, frontmatter обязан иметь). Пример:
 
 ```yaml
 ---
@@ -95,7 +96,7 @@ owners:
 related:
   - product.md
   - ui.md
-  - api.md
+  - api/README.md
   - technical.md
 ---
 ```

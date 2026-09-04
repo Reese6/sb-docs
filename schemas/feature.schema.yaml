@@ -12,6 +12,15 @@ properties:
     # Имя директории feature, kebab-case
     type: string
     pattern: "^[a-z0-9]+(-[a-z0-9]+)*$"
+  # Директории feature, у которых обязателен индекс README.md
+  # и хотя бы один файл кроме него. Читает scripts/validate-docs.mjs.
+  indexDirs:
+    type: array
+    default:
+      - "api/"
+      - "model/"
+    items:
+      type: string
   files:
     type: object
     required:
@@ -29,14 +38,16 @@ properties:
         # requirements.md — FR/BR/NFR; обязателен
         const: "requirements.md"
       model:
-        # model.md — опционален (feature без новых или изменённых сущностей)
-        const: "model.md"
+        # model/ — опциональна (feature без новых или изменённых сущностей);
+        # внутри README.md — индекс и файл на каждую новую или изменяемую сущность
+        const: "model/"
       ui:
         # ui.md — опционален (backend-only feature может не иметь UI)
         const: "ui.md"
       api:
-        # api.md — опционален (feature без внешнего API)
-        const: "api.md"
+        # api/ — опциональна (feature без внешнего API);
+        # внутри README.md — индекс и файл на каждый метод
+        const: "api/"
       technical:
         # technical.md — опционален до начала проработки реализации
         const: "technical.md"

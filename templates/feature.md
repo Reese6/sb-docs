@@ -18,6 +18,8 @@ TBD: краткое описание feature (1–2 предложения).
 ## Documents
 
 <!-- AI: перечислить существующие документы feature с их статусами из frontmatter.
+Директории api/ и model/ — одной строкой со ссылкой на их README.md; статус берётся
+из индекса. Файлы методов и сущностей в эту таблицу не выносить.
 Не создавать строки для файлов, которых нет и которые не нужны (backend-only — без ui.md);
 для ненужных указать "not planned" с причиной. -->
 
@@ -25,8 +27,9 @@ TBD: краткое описание feature (1–2 предложения).
 |----------|--------|------------|
 | [product.md](product.md) | draft | WHAT + WHY |
 | [requirements.md](requirements.md) | draft | FR / BR / NFR |
+| [model/](model/README.md) | draft | Модель данных: сущности feature |
 | [ui.md](ui.md) | draft | Поведение интерфейса |
-| [api.md](api.md) | draft | Контракт API |
+| [api/](api/README.md) | draft | Контракт API |
 | [technical.md](technical.md) | draft | Техническое решение |
 | `decisions/` | — | ADR feature |
 

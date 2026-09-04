@@ -19,7 +19,7 @@ description: Создаёт и изменяет requirements.md feature — фо
 ## Прочитать
 
 1. Обязательно: `product.md` feature целиком; [rules/requirements.md](../../../rules/requirements.md); [schemas/README.md](../../../schemas/README.md) и [requirement.schema.yaml](../../../schemas/requirement.schema.yaml) — ID, frontmatter, структура требования. Остальные `rules/` — по AGENTS.md.
-2. Если есть: текущий `requirements.md` целиком, включая deprecated (они занимают номера); `ui.md`, `api.md`, `technical.md` — изменение требований их затрагивает.
+2. Если есть: текущий `requirements.md` целиком, включая deprecated (они занимают номера); `ui.md`, `api/`, `technical.md` — изменение требований их затрагивает.
 3. Глобальный контекст: [business-rules.md](../../../docs/product/business-rules.md), [non-functional-requirements.md](../../../docs/product/non-functional-requirements.md), [glossary.md](../../../docs/product/glossary.md) — ссылаться на существующие BR/NFR.
 
 ## Правила

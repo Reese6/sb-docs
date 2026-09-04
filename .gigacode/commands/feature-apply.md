@@ -10,6 +10,6 @@ description: Промоутит approved-документы feature в глоб�
 
 Первое слово аргументов — имя feature в kebab-case, остальное — запрос пользователя.
 Имя не указано или директории `docs/features/<feature-name>/` нет — остановись и ответь: «Укажи имя feature: /feature-apply <feature-name>».
-Исходные `model.md` и `api.md` не в статусе `approved` — остановись и ответь: «Промоут только из approved-документов; статус ставит человек».
+Индексы и файлы `model/` и `api/` не в статусе `approved` — остановись и ответь: «Промоут только из approved-документов; статус ставит человек».
 
 Отчёт — по секции «Отчёт» из SKILL.md; последнюю строку замени на «Следующая команда: skill change-management при наличии proposal, иначе /feature-review <feature-name>».

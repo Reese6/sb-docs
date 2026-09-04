@@ -72,7 +72,7 @@ default / hover / focus / active / disabled / loading / success / error / empty.
 ## Error states
 
 <!-- AI: поведение при ошибках (сеть, сервер, бизнес-ошибки): что показывается,
-возможность повтора. Коды/семантика ошибок — из api.md и docs/api/errors.md. -->
+возможность повтора. Коды/семантика ошибок — из api/ и docs/api/errors.md. -->
 
 ## Navigation
 

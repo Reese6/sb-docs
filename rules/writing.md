@@ -38,7 +38,7 @@
 ## Разделение WHAT/WHY и HOW
 
 - **Product documentation** (`product.md`) — WHAT + WHY: проблема, цель, сценарии, ценность. Без деталей реализации.
-- **Requirements** (`requirements.md`, `ui.md`, `api.md`) — формализованное ожидаемое поведение. Без выбора технологий.
+- **Requirements** (`requirements.md`, `ui.md`, `api/`) — формализованное ожидаемое поведение. Без выбора технологий.
 - **Technical documentation** (`technical.md`) — HOW: решение, компоненты, data flow.
 - **ADR** — WHY принято важное техническое решение.
 

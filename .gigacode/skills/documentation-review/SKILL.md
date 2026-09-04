@@ -7,14 +7,14 @@ description: Проверяет документацию без изменени
 
 ## Когда использовать
 
-Проверить документы feature и сформировать отчёт — единственный артефакт skill. Ни один документ не создаётся, не изменяется и не «исправляется», даже очевидная опечатка: каждая находка адресована человеку, устраняет её пишущий skill по его решению. Поводы: после содержательного изменения `requirements.md`, `ui.md`, `api.md`, `technical.md`; перед переводом документа в `approved` (переводит человек); финальная стадия `documentation-orchestrator` и `change-management`; просят проверить. Создание и правка документов — пишущие skills (AGENTS.md, «Как определить нужный skill»).
+Проверить документы feature и сформировать отчёт — единственный артефакт skill. Ни один документ не создаётся, не изменяется и не «исправляется», даже очевидная опечатка: каждая находка адресована человеку, устраняет её пишущий skill по его решению. Поводы: после содержательного изменения `requirements.md`, `ui.md`, `api/`, `technical.md`; перед переводом документа в `approved` (переводит человек); финальная стадия `documentation-orchestrator` и `change-management`; просят проверить. Создание и правка документов — пишущие skills (AGENTS.md, «Как определить нужный skill»).
 
 ## Вход и стоп-условия
 
 | Проверка | Если не выполнено |
 |----------|-------------------|
 | Запрос — проверить, а не исправить | Стоп для правок. Ответ: «Review только формирует отчёт; исправления — пишущий skill по решению человека». |
-| Scope определён: по умолчанию одна feature — все файлы `docs/features/<feature>/`, включая `decisions/`; по явному запросу — весь `docs/` или один документ | Спросить пользователя, какую feature проверять. |
+| Scope определён: по умолчанию одна feature — все файлы `docs/features/<feature>/`, включая `api/`, `model/`, `decisions/`; по явному запросу — весь `docs/` или один документ | Спросить пользователя, какую feature проверять. |
 
 ## Прочитать
 
@@ -29,7 +29,7 @@ description: Проверяет документацию без изменени
 1. Каждая находка опирается на конкретное правило, схему, шаблон или расхождение между документами; находки не выдумываются.
 2. Каждая находка — одна строка: severity, файл, ID (если есть), суть, правило, пишущий skill для устранения.
 3. `ERROR` — нарушение правил или схем, битая ссылка, несуществующий или malformed ID, дубль требования, непокрытый FR, висячий acceptance criterion, противоречие, подозрение на галлюцинацию. `WARNING` — качество: неатомарность, неизмеримая формулировка, отклонение от шаблона или glossary, висячее UI/API-требование, рассинхрон Traceability.
-4. Не находка: отсутствие опциональных `model.md`, `ui.md`, `api.md`, `technical.md`, `decisions/`; пустая колонка «Покрыто» у feature без этих документов. Документ с `version: 0.1`, `status: draft` и телом каждой секции `TBD` — заготовка skill `feature-scaffold`: его `TBD` идут в отчёт одной строкой, находками не считаются.
+4. Не находка: отсутствие опциональных `model/`, `ui.md`, `api/`, `technical.md`, `decisions/`; пустая колонка «Покрыто» у feature без этих документов. Документ с `version: 0.1`, `status: draft` и телом каждой секции `TBD` — заготовка skill `feature-scaffold`: его `TBD` идут в отчёт одной строкой, находками не считаются.
 5. Подозрение на галлюцинацию — конкретное значение (число, формат, код ошибки, лимит), которого нет ни в одном связанном документе и которое не дал человек. Review помечает подозрение; подтверждает или опровергает человек.
 6. Конфликт терминов и расхождение кода с требованием review только фиксирует; решает человек.
 7. `TBD` и `ASSUMPTION` — не нарушения, а обязательные списки открытых вопросов в отчёте.
@@ -45,9 +45,12 @@ description: Проверяет документацию без изменени
 | Structure | Секция шаблона отсутствует или переставлена; содержимое не потеряно | WARNING | пишущий skill документа |
 | Structure | Секция отсутствует, содержимое потеряно | ERROR | пишущий skill документа |
 | Structure | Пустая секция без `TBD: …` или `Not applicable: <причина>` | WARNING | пишущий skill документа |
-| Structure | Поля существующей сущности скопированы в `model.md` вместо ссылки на `docs/architecture/data-model/<entity>.md` | ERROR | data-model |
-| Structure | Роль в `api.md` отсутствует в `docs/product/roles.md` | ERROR | api-requirements |
-| Structure | `api.md` не по шаблону: метод без блока `## <METHOD> <path>` или без подсекций Роли, Параметры, Request, Response, Errors | WARNING | api-requirements |
+| Structure | Поля существующей сущности скопированы в файл `model/<entity>.md` вместо ссылки на `docs/architecture/data-model/<entity>.md` | ERROR | data-model |
+| Structure | Роль в файле метода `api/` отсутствует в `docs/product/roles.md` | ERROR | api-requirements |
+| Structure | Файл метода не по шаблону: нет определения `- API-XXX (→ FR-XXX): …` первой строкой или нет секций Роли, Параметры, Request, Response, Errors | WARNING | api-requirements |
+| Structure | Директория `api/` или `model/` без индекса `README.md` либо без документов кроме него (`schemas/feature.schema.yaml`) | ERROR | api-requirements, data-model |
+| Structure | Строка в таблице индекса `api/` или `model/` есть, а файла нет; либо файл есть, а строки в таблице нет | ERROR | api-requirements, data-model |
+| Structure | `status` файла метода или сущности расходится со `status` индекса своей директории | WARNING | api-requirements, data-model |
 | Requirements quality | Неатомарное требование: «и» между независимыми действиями | WARNING | requirements, ui-requirements, api-requirements |
 | Requirements quality | Слово из чёрного списка (`rules/writing.md`) без измеримого определения | WARNING | тот же |
 | Requirements quality | Формулировка непроверяема тестировщиком | WARNING | тот же |
@@ -58,9 +61,9 @@ description: Проверяет документацию без изменени
 | Traceability | UI/API-требование без ссылки на FR/BR/NFR | WARNING | ui-requirements, api-requirements |
 | Traceability | Ссылка на несуществующий ID; битая относительная ссылка; ID другой области без ссылки на файл-источник | ERROR | пишущий skill документа |
 | Traceability | Traceability-таблица не совпадает с телом документа | WARNING | пишущий skill документа |
-| Traceability | Новая сущность или изменение сущности в `model.md` без связи с FR или BR | WARNING | data-model |
+| Traceability | Новая сущность или изменение сущности в `model/` без связи с FR или BR в файле сущности или в индексе | WARNING | data-model |
 | Contradictions | Одно значение (лимит, срок, формат, статусная модель) описано по-разному в двух документах | ERROR | requirements и зависимые |
-| Contradictions | `ui.md`/`api.md` описывают поведение, отсутствующее в `requirements.md` | ERROR | requirements или ui/api — решает человек |
+| Contradictions | `ui.md` или файл метода `api/` описывают поведение, отсутствующее в `requirements.md` | ERROR | requirements или ui/api — решает человек |
 | Contradictions | `technical.md` противоречит approved-требованию | ERROR | technical-documentation |
 | Contradictions | Нарушение уровней: HOW в product/requirements («хранить в Redis»), новое требование в `technical.md` | WARNING | product-documentation, requirements, technical-documentation |
 | Hallucination | Конкретное значение без источника в связанных документах и без указания человека | ERROR (подозрение) | пишущий skill документа |
@@ -98,7 +101,7 @@ FR-004
 Правильно:
 
 ```text
-ERROR: requirements.md FR-007 — не покрыт ни UI, ни API при наличии ui.md и api.md (rules/linking.md) → ui-requirements / api-requirements
+ERROR: requirements.md FR-007 — не покрыт ни UI, ни API при наличии ui.md и api/ (rules/linking.md) → ui-requirements / api-requirements
 WARNING: ui.md UI-003 — «быстро» без измеримого определения (rules/writing.md) → ui-requirements
 ```
 

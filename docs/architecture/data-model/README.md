@@ -18,11 +18,11 @@ owners:
 - Сущность описывается один раз; features ссылаются на файл сущности, не копируют поля.
 - Сущности не получают ID.
 - Диаграммы — Mermaid (`erDiagram`), если применимо.
-- Новая сущность попадает сюда из `model.md` feature через `/feature-apply`.
+- Новая сущность попадает сюда из `model/` feature через `/feature-apply`.
 
 ## Как сюда попадают сущности
 
-1. Feature описывает свои сущности в `docs/features/<feature-name>/model.md` (шаблон `templates/model.md`).
+1. Feature описывает свои сущности в `docs/features/<feature-name>/model/` — файл на сущность (шаблон `templates/model-entity.md`).
 2. Документы feature переводит в `approved` человек.
 3. `/feature-apply` создаёт файл сущности из `templates/entity.md` со `status: draft` и добавляет строку в раздел «Сущности» ниже.
 4. Изменение сущности, чей файл уже `approved`, напрямую не вносится: `/feature-apply` готовит change proposal в [../../changes/](../../changes/) (skill `change-management`).

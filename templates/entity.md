@@ -14,7 +14,7 @@ Source of truth по составу полей: features ссылаются сю
 Имя файла — kebab-case, имя сущности и полей — из docs/product/glossary.md.
 Уровень доменный: физическая схема БД, индексы и миграции — в technical.md feature.
 Сущности ID не получают (schemas/README.md).
-Файл создаётся из model.md feature командой /feature-apply.
+Файл создаётся из файла сущности model/<entity>.md feature командой /feature-apply.
 Неприменимые секции помечать «Not applicable: <причина>», не удалять. -->
 
 ## Назначение
@@ -43,6 +43,6 @@ Source of truth по составу полей: features ссылаются сю
 
 ## Используется в features
 
-<!-- AI: список features, работающих с сущностью, ссылками на их model.md:
-- [Восстановление пароля](../../features/password-recovery/model.md).
+<!-- AI: список features, работающих с сущностью, ссылками на их model/README.md:
+- [Восстановление пароля](../../features/password-recovery/model/README.md).
 Обновляется при каждом /feature-apply. -->

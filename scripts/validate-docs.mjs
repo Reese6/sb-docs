@@ -11,7 +11,9 @@
 //   6. ID-UNRESOLVED — ссылки на несуществующие FR/BR/NFR/UI/API/ADR;
 //   7. MD-*    — базовая структура Markdown (rules/markdown.md);
 //      MD-H1-LANG — H1 документа с frontmatter на русском языке.
-// Бонус: FEATURE-FILES — состав feature-директорий (schemas/feature.schema.yaml);
+// Бонус: FEATURE-FILES — состав feature-директорий (schemas/feature.schema.yaml):
+//        обязательные файлы, а также индекс README.md и хотя бы один документ
+//        в каждой существующей директории из indexDirs (api/, model/);
 //        CHANGE-FILES — состав change-директорий (schemas/change.schema.yaml).
 //
 // Область видимости ID при проверке 6: документ feature видит свою область и
@@ -183,6 +185,7 @@ function loadSchemas() {
     featureRequiredFiles: (feat.properties?.files?.required ?? []).map(
       (key) => feat.properties?.files?.properties?.[key]?.const
     ),
+    featureIndexDirs: feat.properties?.indexDirs?.default,
     changeNamePattern: change.properties?.name?.pattern,
     changeArchivePattern: change.properties?.archiveName?.pattern,
     changeRequiredFiles: (change.properties?.files?.required ?? []).map(
@@ -371,8 +374,11 @@ function checkStructure(f) {
 
 // --- Проверки 4, 5: frontmatter --------------------------------------------
 
-function isFeatureRootReadme(rel) {
-  return /^docs\/features\/[^/]+\/README\.md$/.test(rel);
+// README.md внутри feature — обязательный документ с frontmatter: и корневой,
+// и индексы поддиректорий api/ и model/ (schemas/feature.schema.yaml).
+// docs/features/README.md — список features, под шаблон не подпадает.
+function isFeatureReadme(rel) {
+  return /^docs\/features\/[^/]+\/(?:[^/]+\/)?README\.md$/.test(rel);
 }
 
 function featureNameOf(rel) {
@@ -381,7 +387,7 @@ function featureNameOf(rel) {
 }
 
 function checkFrontmatter(f, schema) {
-  const required = path.basename(f.rel) !== 'README.md' || isFeatureRootReadme(f.rel);
+  const required = path.basename(f.rel) !== 'README.md' || isFeatureReadme(f.rel);
   if (f.fmText === null) {
     if (required) report(f.rel, 0, 'FM-MISSING', 'required YAML frontmatter is missing');
     return null;
@@ -691,6 +697,22 @@ function checkFeatureDirs(schema) {
     for (const file of schema.featureRequiredFiles) {
       if (!existsSync(path.join(abs, file))) {
         report(`docs/features/${name}`, -1, 'FEATURE-FILES', `required file "${file}" is missing`);
+      }
+    }
+    // Директория api/ или model/ существует — в ней обязателен индекс README.md
+    // и хотя бы один файл кроме него (schemas/feature.schema.yaml, indexDirs).
+    for (const dir of schema.featureIndexDirs) {
+      const dirName = dir.replace(/\/$/, '');
+      const dirAbs = path.join(abs, dirName);
+      if (!existsSync(dirAbs) || !statSync(dirAbs).isDirectory()) continue;
+      const md = readdirSync(dirAbs).filter((n) => n.endsWith('.md'));
+      const relDir = `docs/features/${name}/${dirName}`;
+      if (!md.includes('README.md')) {
+        report(relDir, -1, 'FEATURE-FILES', 'required file "README.md" is missing');
+      }
+      if (md.filter((n) => n !== 'README.md').length === 0) {
+        report(relDir, -1, 'FEATURE-FILES',
+          'directory has no documents besides README.md');
       }
     }
   }

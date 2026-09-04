@@ -1,6 +1,6 @@
 ---
 name: feature-apply
-description: Промоутит результаты approved-feature в глобальные документы — новые сущности в docs/architecture/data-model/ и сервисные API в docs/api/services/, с change proposal вместо правки approved-целей. Триггеры — «примени feature», «промоут», «вынеси сущности в глобальную модель», «сервисный API», стадия apply оркестратора. Вход — approved model.md и api.md feature. Не для apply утверждённого proposal (change-management), содержания документов feature (пишущие skills), вызовов чужих систем (technical-documentation).
+description: Промоутит результаты approved-feature в глобальные документы — новые сущности в docs/architecture/data-model/ и сервисные API в docs/api/services/, с change proposal вместо правки approved-целей. Триггеры — «примени feature», «промоут», «вынеси сущности в глобальную модель», «сервисный API», стадия apply оркестратора. Вход — approved директории model/ и api/ feature. Не для apply утверждённого proposal (change-management), содержания документов feature (пишущие skills), вызовов чужих систем (technical-documentation).
 ---
 
 # Skill: feature-apply
@@ -13,13 +13,13 @@ description: Промоутит результаты approved-feature в гло�
 
 | Проверка | Если не выполнено |
 |----------|-------------------|
-| Исходные `model.md` и `api.md` feature — в статусе `approved` | Стоп. Ответ: «Промоут только из approved-документов; статус ставит человек». |
+| Индексы и все файлы `model/` и `api/` feature — в статусе `approved` | Стоп. Ответ: «Промоут только из approved-документов; статус ставит человек». Расхождение статусов внутри директории назвать поимённо. |
 | Целевой глобальный файл отсутствует либо его `status` — `draft` или `review` | Целевой `approved`: на месте не править. Подготовить change proposal (`change-management`, режим propose). |
 | В `docs/changes/` нет активного proposal на те же целевые документы | Стоп. Ответ: «Пересечение с proposal `<change-name>` — сначала согласовать». |
 
 ## Прочитать
 
-1. Обязательно: `model.md` и `api.md` feature целиком; [data-model/](../../../docs/architecture/data-model/README.md) и все файлы сущностей в этой директории; [services/](../../../docs/api/services/README.md) и все файлы сервисов; [components.md](../../../docs/architecture/components.md) — имена сервисов; [schemas/README.md](../../../schemas/README.md) — frontmatter и нумерация ID. Правила — по AGENTS.md.
+1. Обязательно: `model/README.md` и все файлы сущностей `model/`, `api/README.md` и все файлы методов `api/` целиком; [data-model/](../../../docs/architecture/data-model/README.md) и все файлы сущностей в этой директории; [services/](../../../docs/api/services/README.md) и все файлы сервисов; [components.md](../../../docs/architecture/components.md) — имена сервисов; [schemas/README.md](../../../schemas/README.md) — frontmatter и нумерация ID. Правила — по AGENTS.md.
 2. Если есть: активные proposal в [docs/changes/](../../../docs/changes/README.md).
 3. Куда идут вызовы чужих систем: [integrations.md](../../../docs/architecture/integrations.md).
 
@@ -30,7 +30,7 @@ description: Промоутит результаты approved-feature в гло�
 1. Промоут переносит содержание дословно. Новых полей, методов и значений при переносе не появляется.
 2. Новая сущность — файл `docs/architecture/data-model/<entity>.md` из `templates/entity.md`, имя kebab-case, `type: architecture`, `status: draft`, без ключа `feature`.
 3. Секция «Используется в features» файла сущности — ссылка на feature; при повторном промоуте строка добавляется, прежние сохраняются.
-4. Сервисный API — файл `docs/api/services/<service>.md` из `templates/api.md`, ключ `feature` из frontmatter удалить. Имя файла совпадает с именем сервиса в `components.md`.
+4. Сервисный API — файл `docs/api/services/<service>.md` из `templates/service-api.md`, ключ `feature` из frontmatter удалить. Имя файла совпадает с именем сервиса в `components.md`.
 5. API, которые feature вызывает у чужих систем, — в `docs/architecture/integrations.md`, не в `services/`.
 6. `API-XXX` сервисного документа — новый номер глобальной области: максимум по документации вне `docs/features/`, включая deprecated, плюс один. Номер из feature не переносить.
 7. Форма определения метода — `- API-001 (→ FR-012): <специфика>` первой строкой блока `##`; ID в заголовок не выносить.
@@ -42,11 +42,11 @@ description: Промоутит результаты approved-feature в гло�
 
 ## Шаги
 
-1. Проверить `status` исходных `model.md` и `api.md` по таблице «Вход и стоп-условия».
-2. Выписать промоутируемое: новые сущности и изменения из `model.md`; методы `api.md`, которые шире одной feature (правило 5).
+1. Проверить `status` индексов и всех файлов `model/` и `api/` по таблице «Вход и стоп-условия».
+2. Выписать промоутируемое: сущности из файлов `model/`; методы из файлов `api/`, которые шире одной feature (правило 5).
 3. Для каждой цели определить развилку: файла нет — создать; `draft` или `review` — дополнить; `approved` — proposal.
 4. Создать файлы сущностей из [templates/entity.md](../../../templates/entity.md); заполнить «Назначение», «Поля», «Связи», «Правила», «Используется в features».
-5. Создать или дополнить сервисные документы из [templates/api.md](../../../templates/api.md) без ключа `feature`; присвоить новые `API-XXX` (правила 6–7).
+5. Создать или дополнить сервисные документы из [templates/service-api.md](../../../templates/service-api.md) без ключа `feature`; присвоить новые `API-XXX` (правила 6–7).
 6. Если есть цель в статусе `approved`: создать `docs/changes/<change-name>/proposal.md` из [templates/change-proposal.md](../../../templates/change-proposal.md) и добавить его в «Активные изменения» [docs/changes/README.md](../../../docs/changes/README.md).
 7. Обновить индексы в форме `- [<Сущность>](<entity>.md) — <назначение одной фразой>` и `- [<service-name>](<service-name>.md) — <назначение одной фразой>`; строку `TBD` при первой записи удалить.
 8. Запустить `node scripts/validate-docs.mjs`; добиться exit 0.

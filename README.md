@@ -29,6 +29,7 @@ docs/
 ├── product/        # Глобальный продуктовый контекст: overview, vision, glossary,
 │                   # personas, roles, business-rules, non-functional-requirements
 ├── features/       # Документация по фичам: одна директория = одна feature
+│                   # (внутри api/ и model/ — файл на метод и на сущность)
 ├── changes/        # Change proposals: изменения утверждённых документов
 │                   # (+ archive/ применённых и отклонённых)
 ├── architecture/   # Архитектура системы, доменная модель данных (data-model/) и ADR
@@ -54,9 +55,9 @@ services/           # Локально подключённые репозито
 |-----|------|-------------|----------|
 | Product | `product.md` | WHAT + WHY | Проблема, цель, пользователи, сценарии, scope |
 | Requirements | `requirements.md` | Ожидаемое поведение | FR-XXX, BR-XXX, NFR-XXX, acceptance criteria |
-| Model | `model.md` | Какие данные | Сущности feature, поля, связи, дельта существующих |
+| Model | `model/` | Какие данные | Индекс и файл на сущность: поля, связи, дельта существующих |
 | UI | `ui.md` | Поведение интерфейса | UI-XXX, экраны, состояния, валидация |
-| API | `api.md` | Контракт взаимодействия | API-XXX, endpoints, request/response, errors |
+| API | `api/` | Контракт взаимодействия | Индекс и файл на метод: API-XXX, request/response, errors |
 | Technical | `technical.md` | HOW | Решение, компоненты, data flow, миграции |
 | ADR | `decisions/adr-XXX-*.md` | WHY (техническое решение) | Контекст, решение, альтернативы, последствия |
 
@@ -112,7 +113,7 @@ node scripts/validate-docs.mjs
 
 1. Создать директорию `docs/features/<feature-name>/` (kebab-case).
 2. Скопировать нужные шаблоны из `templates/` (не все файлы обязательны — см. `docs/features/README.md`).
-3. Заполнить `product.md` (WHAT + WHY), затем `requirements.md`, затем `model.md` (если feature вводит или меняет сущности), затем `ui.md` / `api.md`, затем `technical.md`.
+3. Заполнить `product.md` (WHAT + WHY), затем `requirements.md`, затем `model/` (если feature вводит или меняет сущности), затем `ui.md` / `api/`, затем `technical.md`. В `model/` и `api/` — по одному файлу на сущность и на метод.
 4. Присвоить требованиям ID по стандарту `schemas/README.md`.
 5. Связать документы cross-reference (`UI-004 → FR-012`).
 6. Прогнать review (skill `documentation-review`).

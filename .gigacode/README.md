@@ -64,11 +64,11 @@ description: <что делает команда одной строкой>
 | `/feature-create` | `feature-scaffold` | `/feature-product` |
 | `/feature-product` | `product-documentation` | `/feature-requirements` |
 | `/feature-requirements` | `requirements` | `/feature-model`, иначе `/feature-ui` или `/feature-api` |
-| `/feature-model` | `data-model` | `/feature-ui`, иначе `/feature-api` |
+| `/feature-model` | `data-model` | `/feature-model` для следующей сущности, затем `/feature-ui` или `/feature-api` |
 | `/feature-ui` | `ui-requirements` | `/feature-api` |
 | `/feature-api` | `api-requirements` | `/feature-api` для следующего метода, затем `/feature-technical` |
 | `/feature-technical` | `technical-documentation` | `/feature-review` |
 | `/feature-review` | `documentation-review` | команда документа с находкой, иначе `/feature-apply` |
 | `/feature-apply` | `feature-apply` | skill `change-management` при наличии proposal, иначе `/feature-review` |
 
-Один вызов — один документ. Автоматический маршрут по всем стадиям — skill `documentation-orchestrator`.
+Один вызов — один документ; для `/feature-model` и `/feature-api` — одна сущность и один метод, файл на каждый в `model/` и `api/`. Автоматический маршрут по всем стадиям — skill `documentation-orchestrator`.
