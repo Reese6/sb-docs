@@ -28,6 +28,9 @@ properties:
       requirements:
         # requirements.md — FR/BR/NFR; обязателен
         const: "requirements.md"
+      model:
+        # model.md — опционален (feature без новых или изменённых сущностей)
+        const: "model.md"
       ui:
         # ui.md — опционален (backend-only feature может не иметь UI)
         const: "ui.md"

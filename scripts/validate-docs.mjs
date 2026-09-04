@@ -14,6 +14,12 @@
 // Бонус: FEATURE-FILES — состав feature-директорий (schemas/feature.schema.yaml);
 //        CHANGE-FILES — состав change-директорий (schemas/change.schema.yaml).
 //
+// Область видимости ID при проверке 6: документ feature видит свою область и
+// глобальную; глобальный документ (docs/product/, docs/architecture/, docs/api/)
+// видит ID всех областей — он ссылается на требования feature при промоуте
+// (skill feature-apply). Ссылка сопровождается ссылкой на файл-источник
+// (rules/linking.md); её отсутствие ловит documentation-review, не валидатор.
+//
 // docs/changes/ (change proposals) обрабатывается особо:
 //   - активные proposals — reference-only для ID: строки-определения не
 //     регистрируются (нет ID-DUP и загрязнения глобальной области), упоминания
@@ -530,13 +536,11 @@ function checkIds(f, schema, ctx, defs) {
   const prefixes = schema.idPrefixes.join('|');
 
   // Проверка 6: все упоминания ID должны резолвиться в своей области видимости.
-  // Change proposal ссылается на ID любых областей — видимость: объединение.
-  const visible = referenceOnly
+  // Change proposal и глобальные документы ссылаются на ID любых областей
+  // (schemas/README.md, «Область уникальности») — видимость: объединение.
+  const visible = referenceOnly || scope === 'global'
     ? new Set(Object.values(defs).flatMap((byId) => Object.keys(byId)))
-    : new Set([
-        ...Object.keys(defs[scope] ?? {}),
-        ...(scope !== 'global' ? Object.keys(defs.global ?? {}) : []),
-      ]);
+    : new Set([...Object.keys(defs[scope] ?? {}), ...Object.keys(defs.global ?? {})]);
   const refRe = new RegExp(`\\b(?:${prefixes})-\\d{3,}\\b`, 'g');
   for (let i = 0; i < scan.length; i++) {
     for (const m of scan[i].matchAll(refRe)) {

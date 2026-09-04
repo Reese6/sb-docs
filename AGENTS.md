@@ -25,6 +25,7 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
 | Правила работы (обязательны к прочтению) | `rules/` |
 | Стандарт ID и frontmatter, схемы | `schemas/` |
 | Пошаговые процессы работы с документацией | `.gigacode/skills/*/SKILL.md` |
+| Пошаговые команды человека | `.gigacode/commands/*.md` (по одной на документ feature) |
 | Базовые правила агента GigaCode CLI | `.gigacode/rules/` (подключаются через `GIGACODE.md`) |
 | Процесс изменений, commit-конвенция, статусы | `CONTRIBUTING.md` |
 | Workflow человека: сценарии и промпты | `WORKFLOW.md` |
@@ -44,7 +45,7 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
    - `rules/markdown.md` — структура документов и секций.
 2. Прочитать связанные документы затрагиваемой feature: `product.md`, `requirements.md`, `ui.md`, `api.md`, `technical.md`.
 3. Проверить глобальный контекст: `docs/product/business-rules.md`, `docs/product/glossary.md`.
-4. Новые feature-документы создавать только из шаблонов `templates/` (см. таблицу ниже). Для глобальных документов `docs/product/`, `docs/api/`, `docs/architecture/` шаблонов нет — редактировать существующие файлы, сохраняя их структуру.
+4. Новые feature-документы создавать только из шаблонов `templates/` (см. таблицу ниже). Для глобальных документов `docs/product/`, `docs/api/`, `docs/architecture/` шаблонов нет — редактировать существующие файлы, сохраняя их структуру. Исключение: новый файл сущности в `docs/architecture/data-model/` создаётся из `templates/entity.md`.
 
 ## Какие файлы создавать
 
@@ -53,11 +54,13 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
 | README feature | `templates/feature.md` | `docs/features/<feature-name>/README.md` | обязателен |
 | Product | `templates/product.md` | `docs/features/<feature-name>/product.md` | обязателен |
 | Requirements | `templates/requirements.md` | `docs/features/<feature-name>/requirements.md` | обязателен |
+| Model | `templates/model.md` | `docs/features/<feature-name>/model.md` | если feature вводит или меняет сущности |
 | UI | `templates/ui.md` | `docs/features/<feature-name>/ui.md` | если есть интерфейс |
 | API | `templates/api.md` | `docs/features/<feature-name>/api.md` | если есть API |
 | Technical | `templates/technical.md` | `docs/features/<feature-name>/technical.md` | при описании реализации |
 | ADR feature | `templates/adr.md` | `docs/features/<feature-name>/decisions/adr-XXX-<short-kebab-title>.md` | при значимом решении |
 | ADR глобальный | `templates/adr.md` | `docs/architecture/adr/adr-XXX-<short-kebab-title>.md` | при решении, затрагивающем несколько фич |
+| Сущность модели данных | `templates/entity.md` | `docs/architecture/data-model/<entity>.md` | при новой сущности (через `/feature-apply`) |
 | Change proposal | `templates/change-proposal.md` | `docs/changes/<change-name>/proposal.md` | при содержательном изменении approved-документа |
 | Change tasks | `templates/change-tasks.md` | `docs/changes/<change-name>/tasks.md` | опционален до apply proposal |
 
@@ -121,13 +124,16 @@ Review только формирует отчёт о находках; испр�
 ## Как определить нужный skill
 
 ```text
+Завести новую feature               → .gigacode/skills/feature-scaffold
 Создать/изменить описание функции   → .gigacode/skills/product-documentation
 Формализовать требования            → .gigacode/skills/requirements
+Описать сущности и поля             → .gigacode/skills/data-model
 Описать интерфейс                   → .gigacode/skills/ui-requirements
 Описать API                         → .gigacode/skills/api-requirements
 Описать реализацию                  → .gigacode/skills/technical-documentation
 Зафиксировать архитектурное решение → .gigacode/skills/architecture-decisions
 Проверить документацию              → .gigacode/skills/documentation-review
+Перенести результаты в глобальные   → .gigacode/skills/feature-apply
 Содержательно изменить утверждённый документ → .gigacode/skills/change-management
 Комплексная новая feature           → .gigacode/skills/documentation-orchestrator
 ```

@@ -18,6 +18,19 @@ API-XXX  API Requirement              feature api.md
 ADR-XXX  Architecture Decision        feature decisions/ | docs/architecture/adr/
 ```
 
+Сущности модели данных ID не получают: идентификатор сущности — имя её файла в `docs/architecture/data-model/` (см. [data-model/README.md](../docs/architecture/data-model/README.md)).
+
+## Документы модели данных
+
+Два уровня, разные типы:
+
+| Документ | `type` | Назначение |
+|---|---|---|
+| `docs/features/<feature>/model.md` | `model` | Черновик уровня feature: новые сущности и дельта существующих. Опционален. |
+| `docs/architecture/data-model/<entity>.md` | `architecture` | Source of truth: одна сущность — один файл. |
+
+Сущности из `model.md` попадают в `docs/architecture/data-model/` через `/feature-apply`; сама feature глобальные файлы сущностей не правит.
+
 ## Формат
 
 - `<TYPE>-<NNN>`: тип заглавными латинскими, дефис, три цифры с ведущими нулями: `FR-001`, `API-042`.
@@ -29,6 +42,7 @@ ADR-XXX  Architecture Decision        feature decisions/ | docs/architecture/adr
 - **ID уникальны в пределах своей области (scope)**. Областей две категории: каждая feature (`docs/features/<feature-name>/`) — отдельная область для определённых в ней ID; вся остальная документация (`docs/product/`, `docs/architecture/`, `docs/api/`) — единая глобальная область. Так проверяет и `scripts/validate-docs.mjs`.
 - Внутри области один номер используется одним требованием за всю историю.
 - При ссылке между областями ID указывается со ссылкой на файл-источник при первом упоминании (см. `rules/linking.md`); неоднозначность (`FR-003` из другой feature без ссылки) — ошибка review.
+- Глобальный документ ссылается на ID любой feature: так `docs/api/services/<service>.md` после промоута (`feature-apply`) трассирует метод на требование feature. Валидатор такие ссылки резолвит; отсутствие ссылки на файл-источник ловит `documentation-review`.
 
 ## Жизненный цикл ID
 
@@ -62,7 +76,7 @@ ADR-003 → NFR-002
 ```
 
 - В тексте требования: `UI-004 (→ FR-012): ...` или отдельной строкой `Trace: FR-012`.
-- Сводно — в секции `Traceability` документа.
+- Сводно — в секции `Traceability` документа (в `model.md` — «Трассируемость»).
 - Полные правила ссылок — `rules/linking.md`.
 
 ## YAML frontmatter
@@ -91,7 +105,7 @@ related:
 | Поле | Обязательно | Значения |
 |------|-------------|----------|
 | `title` | да | название документа на русском языке, совпадает с H1; латиница — только для ID (`ADR-001`), аббревиатур (API, UI, OTP) и терминов glossary, зафиксированных на английском |
-| `type` | да | `product`, `requirements`, `ui`, `api`, `technical`, `adr`, `architecture`, `feature-readme`, `change` |
+| `type` | да | `product`, `requirements`, `ui`, `api`, `technical`, `model`, `adr`, `architecture`, `feature-readme`, `change` |
 | `status` | да | `draft`, `review`, `approved`, `deprecated` |
 | `feature` | для документов feature | имя директории feature (kebab-case) |
 | `version` | да | версия документа, `MAJOR.MINOR` |

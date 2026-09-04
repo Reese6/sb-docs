@@ -8,7 +8,7 @@ Skills исполняют слабые модели (DeepSeek Flash, Qwen). От
 
 ## Структура SKILL.md
 
-Все девять skills имеют одинаковый набор секций в этом порядке:
+Все двенадцать skills имеют одинаковый набор секций в этом порядке:
 
 | Секция | Содержание | Лимит, симв. |
 |--------|------------|--------------|
@@ -38,7 +38,7 @@ Skills исполняют слабые модели (DeepSeek Flash, Qwen). От
 Абзац «Ядро» в `## Правила` пишущих skills:
 
 ```text
-Общие — AGENTS.md, rules/ai-guardrails.md. Ядро: текст документа, `title` и H1 — русский (заголовки секций, ID, статусы, `TBD`/`ASSUMPTION` — английские); факт — без пометки, только из <источники skill> или слов человека; неизвестное — `TBD: <что неизвестно>`; предположение — `ASSUMPTION: <текст>. Requires confirmation.`; существующие ID не менять и не переиспользовать.
+Общие — AGENTS.md, rules/ai-guardrails.md. Ядро: текст документа, `title` и H1 — русский (заголовки секций — дословно по шаблону; ID, статусы, `TBD`/`ASSUMPTION` — английские); факт — без пометки, только из <источники skill> или слов человека; неизвестное — `TBD: <что неизвестно>`; предположение — `ASSUMPTION: <текст>. Requires confirmation.`; существующие ID не менять и не переиспользовать.
 ```
 
 Общая стоп-строка пишущих skills:
@@ -61,14 +61,17 @@ TBD (ждут ответа): <список или none>
 
 | Skill | Создаёт / меняет | Вход | Следующий |
 |-------|------------------|------|-----------|
-| product-documentation | `README.md`, `product.md` feature | `docs/product/` | requirements |
-| requirements | `requirements.md` | `product.md` | ui-requirements, api-requirements |
+| feature-scaffold | директория feature, заготовки `README.md`, `product.md`, `requirements.md` | имя feature | product-documentation |
+| product-documentation | `product.md` feature | директория feature, `docs/product/` | requirements |
+| requirements | `requirements.md` | `product.md` | data-model, ui-requirements, api-requirements |
+| data-model | `model.md` | `product.md`, `requirements.md` | ui-requirements, api-requirements |
 | ui-requirements | `ui.md` | `product.md`, `requirements.md` | api-requirements, technical-documentation |
-| api-requirements | `api.md` | `product.md`, `requirements.md` | technical-documentation |
-| technical-documentation | `technical.md` | `product.md`, `requirements.md`, `services/` | architecture-decisions |
+| api-requirements | `api.md` | `product.md`, `requirements.md`, `roles.md` | technical-documentation |
+| technical-documentation | `technical.md` | `product.md`, `requirements.md`, `model.md`, `services/` | architecture-decisions |
 | architecture-decisions | `decisions/adr-XXX-*.md`, `docs/architecture/adr/` | требования, существующие ADR | documentation-review |
-| change-management | `docs/changes/<name>/` | approved-документ | пишущие skills, documentation-review |
 | documentation-review | только отчёт | документы feature | пишущие skills |
+| feature-apply | `docs/architecture/data-model/<entity>.md`, `docs/api/services/<service>.md`, proposal | approved `model.md`, `api.md` | change-management, documentation-review |
+| change-management | `docs/changes/<name>/` | approved-документ | пишущие skills, documentation-review |
 | documentation-orchestrator | только план | запрос пользователя | все стадии, затем review |
 
 Выбор skill по задаче — раздел «Как определить нужный skill» в [AGENTS.md](../../AGENTS.md).
@@ -77,6 +80,7 @@ TBD (ждут ответа): <список или none>
 
 - Определение требования: `- UI-004 (→ FR-012): …` или `FR-001: …` в начале строки. Форма `UI-004 → FR-012: …` определением не считается.
 - ID ADR берётся из H1: `# ADR-001: <Название решения>`. В frontmatter `title` двоеточие недопустимо: `title: ADR-001 <Название решения>`.
+- Определение метода в `api.md`: `- API-001 (→ FR-012): …` первой строкой блока `## <METHOD> <path>`; ID в заголовок не выносится.
 - Placeholder `<TYPE>-NEW-<n>` допустим только в `docs/changes/`.
 - В `related` frontmatter и в таблице README feature — только существующие файлы.
 

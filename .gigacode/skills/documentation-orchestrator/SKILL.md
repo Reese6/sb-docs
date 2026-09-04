@@ -21,7 +21,7 @@ description: Координирует полный цикл документир
 ## Прочитать
 
 1. Обязательно: `rules/ai-guardrails.md` (остальные `rules/` читают стадии); [overview.md](../../../docs/product/overview.md) и [glossary.md](../../../docs/product/glossary.md) — понять продукт и термины запроса.
-2. Структура feature: [docs/features/README.md](../../../docs/features/README.md), [schemas/feature.schema.yaml](../../../schemas/feature.schema.yaml) — обязательные `README.md`, `product.md`, `requirements.md`; опциональные `ui.md`, `api.md`, `technical.md`, `decisions/`.
+2. Структура feature: [docs/features/README.md](../../../docs/features/README.md), [schemas/feature.schema.yaml](../../../schemas/feature.schema.yaml) — обязательные `README.md`, `product.md`, `requirements.md`; опциональные `model.md`, `ui.md`, `api.md`, `technical.md`, `decisions/`.
 3. Статусы и версии: [schemas/README.md](../../../schemas/README.md).
 4. Если feature есть: состав `docs/features/<feature>/` и frontmatter каждого файла (`status`, `version`); содержание читают стадии.
 
@@ -29,14 +29,14 @@ description: Координирует полный цикл документир
 
 Общие — AGENTS.md, `rules/ai-guardrails.md`.
 
-1. Pipeline — максимальный маршрут, не обязательный: `product → requirements → ui / api → technical → adr → review`. Запускаются только стадии, следующие из намерения: правка текста кнопки не порождает technical и ADR.
-2. Стадия не запускается «на всякий случай», «для полноты» или потому, что опционального файла нет: отсутствие `ui.md`, `api.md`, `technical.md`, `decisions/` — не пробел.
+1. Pipeline — максимальный маршрут, не обязательный: `scaffold → product → requirements → model → ui / api → technical → adr → review → apply`. Запускаются только стадии, следующие из намерения: правка текста кнопки не порождает technical и ADR.
+2. Стадия не запускается «на всякий случай» или потому, что опционального файла нет: отсутствие `model.md`, `ui.md`, `api.md`, `technical.md`, `decisions/` — не пробел.
 3. Review — единственная непропускаемая стадия: после любого изменения, даже одной строки. Изменений не было — review не запускается.
 4. Сомнение, нужна ли стадия, — сверить с «Когда использовать» и стоп-условиями её skill; остающееся сомнение — вопрос пользователю.
 5. Отсутствует вход стадии — добавить недостающую стадию раньше: просят API без `requirements.md` — сначала requirements; нет `product.md` — сначала product. Стадии сами останавливаются без входов; план обязан это исключать.
 6. Содержательное изменение верхнего документа включает пересмотр нижних: scope в `product.md` — стадия requirements обязательна; UI/API — по охвату изменения.
-7. UI и API независимы: нужна любая, обе или ни одной; порядок по умолчанию UI, затем API. Согласование валидации и ошибок между ними выполняют сами skills.
-8. Оркестратор сам ничего не редактирует и статусы не меняет: новые документы — `draft`, `approved` ставит человек; директорию новой feature и её `README.md` создаёт стадия product.
+7. UI и API независимы: нужна любая, обе или ни одной; порядок по умолчанию UI, затем API. Валидацию и ошибки согласуют сами skills.
+8. Оркестратор сам ничего не редактирует и статусы не меняет: новые документы — `draft`, `approved` ставит человек; директорию новой feature и три заготовки создаёт стадия scaffold.
 9. Стадии, добавленные сверх запрошенного (недостающие входы, пересмотр нижних), — подтвердить у пользователя; scope молча не расширять.
 10. Стадия остановилась (нет входа, ждёт подтверждения `ASSUMPTION`, не подключён код в `services/`) — остановиться и согласовать с пользователем, а не выдумывать ответы ради завершения pipeline.
 11. Отчёт review передать пользователю целиком; находки не устранять молча — устранение решает человек, выполняют пишущие skills, затем повторный review затронутого.
@@ -45,28 +45,31 @@ description: Координирует полный цикл документир
 
 | Стадия | Skill | Запускать, когда | Требует на входе |
 |--------|-------|------------------|------------------|
-| Product | product-documentation | feature новая (нет `product.md`) или меняются проблема, цель, пользователи, сценарии, scope | `docs/product/` |
+| Scaffold | feature-scaffold | директории `docs/features/<feature>/` нет | имя feature в kebab-case |
+| Product | product-documentation | feature новая (заготовка `product.md` пуста) или меняются проблема, цель, пользователи, сценарии, scope | директория feature, `docs/product/` |
 | Requirements | requirements | создан или содержательно изменён `product.md`, либо запрос затрагивает FR/BR/NFR или acceptance criteria | `product.md` |
+| Model | data-model | feature вводит или меняет сущности | `product.md`, `requirements.md` |
 | UI | ui-requirements | затронуто наблюдаемое поведение интерфейса; backend-only feature — не запускать | `product.md`, `requirements.md` |
 | API | api-requirements | затронут контракт клиент–сервер (endpoints, поля, ошибки); feature без внешнего API — не запускать | `product.md`, `requirements.md` |
-| Technical | technical-documentation | затронута реализация: компоненты, данные, интеграции, миграции | `product.md`, `requirements.md`; `ui.md`/`api.md` — если есть |
+| Technical | technical-documentation | затронута реализация: компоненты, данные, интеграции, миграции | `product.md`, `requirements.md`; `model.md`, `ui.md`, `api.md` — если есть |
 | ADR | architecture-decisions | есть кандидат: пометка в Alternatives `technical.md` или прямой запрос; заслуживает ли ADR — проверяет сам skill | контекст решения, обычно `technical.md` |
 | Review | documentation-review | всегда, когда изменён хотя бы один документ | завершение всех пишущих стадий |
+| Apply | feature-apply | `model.md` и `api.md` переведены человеком в `approved` | approved-документы feature |
 
 Примеры маршрутов:
 
 ```text
 Изменение текста кнопки    → UI → Review
-Новая backend-only feature → Product → Requirements → API → Technical → Review
+Новая backend-only feature → Scaffold → Product → Requirements → Model → API → Technical → Review
 ```
 
 ## Шаги
 
 1. Классифицировать запрос: новая feature; изменение существующей; точечная правка одного аспекта; только проверка.
 2. Инвентаризация `docs/features/<feature>/`: какие файлы есть, `status` и `version` каждого. Документ есть — стадия в режиме изменения; нет — в режиме создания. Отметить затронутые `approved`: они перейдут в `review`.
-3. Выбрать стадии по таблице (правила 1–2, 4), добавить недостающие входы и пересмотр нижних (правила 5–6), упорядочить по pipeline; review последняя.
+3. Выбрать стадии по таблице (правила 1–2, 4), добавить недостающие входы и пересмотр нижних (правила 5–6), упорядочить по pipeline; review — после пишущих стадий, apply — только при `approved`.
 4. Показать план пользователю до запуска по шаблону «План» и получить подтверждение добавленных стадий (правило 9).
-5. Запускать стадии по очереди; каждая — её skill по его SKILL.md целиком. После стадии собрать: созданные и изменённые файлы, `ASSUMPTION`, `TBD`.
+5. Запускать стадии по очереди; каждая — её skill по SKILL.md целиком. После стадии собрать файлы, `ASSUMPTION`, `TBD`.
 6. Если `technical-documentation` пометил кандидата на ADR: добавить стадию ADR. Если стадия остановилась: правило 10.
 7. Запустить `documentation-review` по feature (правило 3); отчёт — целиком (правило 11).
 8. Сформировать итоговый отчёт по шаблону «Итог».
@@ -117,7 +120,7 @@ Feature: <feature-name> (новая | существующая)
 Файлы по стадиям: <стадия: созданные/изменённые>
 ASSUMPTION (ждут подтверждения): <сводно со всех стадий или none>
 TBD (ждут ответа): <сводно или none>
-Review: <n> ERROR, <m> WARNING; Unresolved TBD / Unconfirmed assumptions / Broken references / Coverage gaps: <…>
+Review: <n> ERROR, <m> WARNING; TBD / assumptions / broken refs / coverage gaps: <…>
 Ожидают перевода в approved человеком: <документы>
-Следующие действия: <устранение находок review соответствующими skills>
+Следующие действия: <устранение находок review; после approved — стадия Apply>
 ```

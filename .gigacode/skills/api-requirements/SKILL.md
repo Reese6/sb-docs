@@ -1,6 +1,6 @@
 ---
 name: api-requirements
-description: Создаёт и изменяет api.md feature — человекочитаемый контракт API (endpoints, request/response, ошибки, идемпотентность, лимиты) со стабильными API-XXX и ссылками на FR/BR/NFR. Триггеры — «опиши API», «endpoint», «контракт», «запрос и ответ», «коды ошибок», «api.md». Вход — готовые product.md и requirements.md. Не для FR/BR/NFR (requirements), интерфейса (ui-requirements), реализации (technical-documentation).
+description: Создаёт и изменяет api.md feature — человекочитаемый контракт API (метод, роли, параметры, request/response, ошибки) со стабильными API-XXX и ссылками на FR/BR/NFR. Триггеры — «опиши API», «endpoint», «контракт», «запрос и ответ», «роли», «коды ошибок», «api.md». Вход — заполненные product.md и requirements.md, роли из docs/product/roles.md. Не для FR/BR/NFR (requirements), интерфейса (ui-requirements), реализации (technical-documentation), глобальных сервисных API (feature-apply).
 ---
 
 # Skill: api-requirements
@@ -18,30 +18,30 @@ description: Создаёт и изменяет api.md feature — челове�
 
 ## Прочитать
 
-1. Обязательно: `product.md` и `requirements.md` feature целиком; соглашения [docs/api/overview.md](../../../docs/api/overview.md), [conventions.md](../../../docs/api/conventions.md), [authentication.md](../../../docs/api/authentication.md), [errors.md](../../../docs/api/errors.md) — контракт feature обязан им следовать; [schemas/README.md](../../../schemas/README.md) — ID и frontmatter. Правила — по AGENTS.md.
+1. Обязательно: `product.md` и `requirements.md` feature целиком; соглашения [docs/api/overview.md](../../../docs/api/overview.md), [conventions.md](../../../docs/api/conventions.md), [authentication.md](../../../docs/api/authentication.md), [errors.md](../../../docs/api/errors.md) — контракт feature обязан им следовать; [roles.md](../../../docs/product/roles.md) — единственный источник ролей; [schemas/README.md](../../../schemas/README.md) — ID и frontmatter. Правила — по AGENTS.md.
 2. Если есть: текущий `api.md` целиком, включая deprecated (они занимают номера); `ui.md` и `technical.md` — валидация и ошибки в API обязаны совпадать с UI; документация сервисов [docs/api/services/](../../../docs/api/services/README.md).
 
 ## Правила
 
-Общие — AGENTS.md, `rules/ai-guardrails.md`. Ядро: текст документа, `title` и H1 — русский (заголовки секций, ID, статусы, `TBD`/`ASSUMPTION` — английские); факт — без пометки, только из `requirements.md`, `docs/api/`, документации сервисов или слов человека; неизвестное — `TBD: <что неизвестно>`; предположение — `ASSUMPTION: <текст>. Requires confirmation.`; существующие ID не менять и не переиспользовать.
+Общие — AGENTS.md, `rules/ai-guardrails.md`. Ядро: текст документа, `title` и H1 — русский (заголовки секций — дословно по шаблону; ID, статусы, `TBD`/`ASSUMPTION` — английские); факт — без пометки, только из `requirements.md`, `docs/api/`, документации сервисов или слов человека; неизвестное — `TBD: <что неизвестно>`; предположение — `ASSUMPTION: <текст>. Requires confirmation.`; существующие ID не менять и не переиспользовать.
 
-1. Охват — FR/BR/NFR с ответом на вопрос «какой запрос и ответ это реализует?». Чисто интерфейсные требования в `api.md` не попадают.
-2. Каждый сценарий `product.md`, требующий сервера, проходим через описанные endpoints. Непроходимый — пробел: `TBD` в соответствующей секции.
-3. Endpoints, поля, коды ошибок, лимиты, тайм-ауты, форматы — только из источников, не «по аналогии». Признак нарушения: значение, которого нет ни в `requirements.md`, ни в `docs/api/`, и которое не дал человек.
-4. Определение требования — строго `- API-007 (→ FR-012): <специфика API>`: только ID источника и специфика уровня API, формулировку FR/BR/NFR не копировать. Связи нет — найти источник или явно написать, почему её нет.
-5. Новый ID = наибольший `API-XXX` в feature (включая deprecated) + 1; пропуски не заполнять. Изменение формулировки сохраняет ID; удаление = пометка `deprecated`.
-6. Аутентификация, формат ошибок, общие коды, пагинация, форматы данных описаны один раз в `docs/api/` — в feature только ссылка и специфика endpoint.
-7. Специфичный код ошибки — в `api.md` со ссылкой на `docs/api/errors.md`. Новый общий код — предложить в `docs/api/errors.md`, локально не заводить.
-8. Endpoint, нарушающий `docs/api/conventions.md`, — с явным обоснованием (ADR или пометка в `api.md`).
+1. Охват — FR/BR/NFR с ответом «какой запрос и ответ это реализует?». Каждый сценарий `product.md`, требующий сервера, проходим через описанные методы; непроходимый — `TBD`.
+2. Методы, поля, коды ошибок, лимиты, тайм-ауты, форматы — только из `requirements.md`, `docs/api/` или слов человека, не «по аналогии».
+3. Определение требования — строго `- API-007 (→ FR-012): <специфика API>`: только ID источника и специфика. Связи нет — найти источник или написать, почему её нет.
+4. Новый ID = наибольший `API-XXX` в feature (включая deprecated) + 1; пропуски не заполнять. Изменение формулировки сохраняет ID; удаление = `deprecated`.
+5. Аутентификация, ошибки, идемпотентность, пагинация, лимиты, форматы — один раз в `docs/api/`; в feature ссылка и специфика метода. Побочные эффекты, события, кэширование — `technical.md`.
+6. Специфичный код ошибки — со ссылкой на `docs/api/errors.md`; новый общий код предложить туда, локально не заводить. Метод против `docs/api/conventions.md` — с явным обоснованием.
+7. Роли метода — дословно из `docs/product/roles.md`; своих не вводить. Роли там нет — `TBD` и предложить дополнить `roles.md`.
+8. API, которые feature вызывает у чужих систем, — `docs/architecture/integrations.md`; API шире одной feature — `docs/api/services/` через skill `feature-apply`. Здесь — контракт этой feature.
 9. Валидация и семантика ошибок совпадают с `ui.md`; расхождение — пометить конфликт, не «чинить» молча.
-10. Документ — проза, таблицы, примеры; не YAML-дамп. Значения в Examples — правдоподобные, но явно тестовые; реальные данные не использовать.
-11. Новый документ — `type: api`, `status: draft`. Существующий — минимальная правка; `version`: MINOR без изменения смысла, MAJOR при новых или изменённых API-XXX; `approved` после правки → `review`.
+10. Документ — проза и таблицы; не YAML-дамп и не OpenAPI. Значения в примерах — явно тестовые.
+11. Новый документ — `type: api`, `status: draft`; правка минимальная. `version`: MINOR без изменения смысла, MAJOR при новых или изменённых API-XXX; `approved` после правки → `review`.
 
 ## Шаги
 
-1. Из `requirements.md` выбрать требования с серверным проявлением (правило 1); проверить проходимость сценариев (правило 2).
-2. Для каждого endpoint — подраздел `###` с методом, путём, назначением и `API-XXX` (правила 4–5). Контракты различаются — секции заполнять per-endpoint внутри подразделов.
-3. Для каждого endpoint заполнить каждую секцию шаблона (request, validation, response, authentication, authorization, errors, idempotency, pagination, filtering, sorting, rate limits, security, side effects, events, examples) или `Not applicable: <причина>`. Конкурентные запросы — в Idempotency.
+1. Из `requirements.md` выбрать требования с серверным проявлением и проверить проходимость сценариев (правило 1).
+2. Для каждого метода — блок `## <METHOD> <path>`; первая строка блока — `- API-XXX (→ FR-XXX): <специфика>` (правила 3–4). ID в заголовок не выносить.
+3. Внутри блока заполнить каждую подсекцию шаблона: Роли, Параметры, Request, Response, Errors; неприменимая — `Not applicable: <причина>`. Аспекты вне шаблона — правило 5.
 4. Новый документ — из [templates/api.md](../../../templates/api.md): комментарии `<!-- AI: -->` выполнить и удалить.
 5. Заполнить Traceability: строка на каждый `API-XXX`, включая deprecated, с минимум одной связью; затем обновить колонку «Покрыто (UI / API / technical)» в Traceability `requirements.md` (часть API).
 6. Если изменён существующий `API-XXX`: `grep -rn "API-003" docs/` → проверить расхождение с `requirements.md` и `ui.md` (валидация, ошибки) → конфликт пометить `TBD`/`ASSUMPTION` → обновить Traceability затронутых документов. Связанные документы молча не переписывать.
@@ -64,12 +64,11 @@ description: Создаёт и изменяет api.md feature — челове�
 ## Чеклист
 
 - [ ] Каждое существенное API-требование имеет `API-XXX` в форме `- API-XXX (→ FR-XXX): …`; номера не переиспользованы.
-- [ ] Каждая секция шаблона заполнена для каждого endpoint или помечена `Not applicable`.
-- [ ] Формулировки FR/BR/NFR не скопированы — только ID и специфика API.
-- [ ] Глобальные соглашения не скопированы — только ссылки на `docs/api/` и специфика endpoint.
-- [ ] Ни одного выдуманного endpoint, поля, кода или лимита; каждое значение прослеживается к `requirements.md`, `docs/api/` или словам человека.
-- [ ] Каждый `ASSUMPTION` — с `Requires confirmation.`; ни один не записан как факт.
-- [ ] Документ человекочитаем; в OpenAPI не превращён; Examples — тестовые значения.
+- [ ] У каждого метода — блок `## <METHOD> <path>` и все подсекции шаблона или `Not applicable: <причина>`.
+- [ ] Роли — только идентификаторы из `roles.md`; отсутствующая помечена `TBD`.
+- [ ] Ни формулировки FR/BR/NFR, ни глобальные соглашения не скопированы — только ID, ссылки и специфика метода.
+- [ ] Ни одного выдуманного метода, поля, кода или лимита; каждое значение прослеживается к `requirements.md`, `docs/api/` или словам человека; каждый `ASSUMPTION` — с `Requires confirmation.`
+- [ ] Документ человекочитаем; в OpenAPI не превращён.
 - [ ] Traceability содержит все `API-XXX`; колонка «Покрыто» в `requirements.md` обновлена.
 
 ## Отчёт
@@ -78,6 +77,6 @@ description: Создаёт и изменяет api.md feature — челове�
 Файлы: <созданные/изменённые пути>
 ASSUMPTION (ждут подтверждения): <список или none>
 TBD (ждут ответа): <список или none>
-FR/BR/NFR без API-покрытия: <ID или none>
+FR/BR/NFR без API-покрытия: <ID или none>; роли не из roles.md: <список или none>
 Следующий шаг: .gigacode/skills/technical-documentation, затем .gigacode/skills/documentation-review
 ```

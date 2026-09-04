@@ -31,8 +31,8 @@ docs/
 ├── features/       # Документация по фичам: одна директория = одна feature
 ├── changes/        # Change proposals: изменения утверждённых документов
 │                   # (+ archive/ применённых и отклонённых)
-├── architecture/   # Архитектура системы и ADR
-├── api/            # Глобальные API-соглашения и документация сервисов
+├── architecture/   # Архитектура системы, доменная модель данных (data-model/) и ADR
+├── api/            # Глобальные API-соглашения и документация сервисов (services/)
 └── ai/             # Справочные материалы для AI: рекомендуемые external skills
 
 templates/          # Шаблоны документов (source of truth для структуры);
@@ -40,6 +40,7 @@ rules/              # Глобальные правила для AI и люде�
 schemas/            # Стандарт метаданных, ID и простые YAML-схемы
 scripts/            # Локальные автоматические проверки документации
 .gigacode/skills/   # Agent Skills для работы с документацией (GigaCode CLI)
+.gigacode/commands/ # Команды /feature-*: пошаговая сборка feature
 .gigacode/rules/    # Базовые правила поведения агента GigaCode
 GIGACODE.md         # Entry point GigaCode CLI: импорты .gigacode/rules/
 services/           # Локально подключённые репозитории сервисов (не коммитятся)
@@ -53,6 +54,7 @@ services/           # Локально подключённые репозито
 |-----|------|-------------|----------|
 | Product | `product.md` | WHAT + WHY | Проблема, цель, пользователи, сценарии, scope |
 | Requirements | `requirements.md` | Ожидаемое поведение | FR-XXX, BR-XXX, NFR-XXX, acceptance criteria |
+| Model | `model.md` | Какие данные | Сущности feature, поля, связи, дельта существующих |
 | UI | `ui.md` | Поведение интерфейса | UI-XXX, экраны, состояния, валидация |
 | API | `api.md` | Контракт взаимодействия | API-XXX, endpoints, request/response, errors |
 | Technical | `technical.md` | HOW | Решение, компоненты, data flow, миграции |
@@ -110,7 +112,7 @@ node scripts/validate-docs.mjs
 
 1. Создать директорию `docs/features/<feature-name>/` (kebab-case).
 2. Скопировать нужные шаблоны из `templates/` (не все файлы обязательны — см. `docs/features/README.md`).
-3. Заполнить `product.md` (WHAT + WHY), затем `requirements.md`, затем `ui.md` / `api.md`, затем `technical.md`.
+3. Заполнить `product.md` (WHAT + WHY), затем `requirements.md`, затем `model.md` (если feature вводит или меняет сущности), затем `ui.md` / `api.md`, затем `technical.md`.
 4. Присвоить требованиям ID по стандарту `schemas/README.md`.
 5. Связать документы cross-reference (`UI-004 → FR-012`).
 6. Прогнать review (skill `documentation-review`).

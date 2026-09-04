@@ -1,18 +1,19 @@
 ---
 name: product-documentation
-description: Создаёт и изменяет product.md feature (и README.md новой feature) — проблема, цель, пользователи, сценарии, scope на уровне WHAT + WHY. Триггеры — «опиши feature/функцию», «какую проблему решаем», «сценарии», «scope», «product.md», стадия product documentation. Вход — docs/product/. Не для FR/BR/NFR (requirements), интерфейса (ui-requirements), API (api-requirements), реализации (technical-documentation).
+description: Создаёт и изменяет product.md feature — проблема, цель, пользователи, сценарии, scope на уровне WHAT + WHY. Триггеры — «опиши feature/функцию», «какую проблему решаем», «сценарии», «scope», «product.md», стадия product documentation. Вход — существующая директория feature и docs/product/. Не для создания директории feature (feature-scaffold), FR/BR/NFR (requirements), интерфейса (ui-requirements), API (api-requirements), реализации (technical-documentation).
 ---
 
 # Skill: product-documentation
 
 ## Когда использовать
 
-Создать или изменить `docs/features/<feature>/product.md` — проблема, цель, пользователи, сценарии, scope (WHAT + WHY, без HOW). Единственный skill, создающий директорию новой feature и её `README.md`. Поводы: новая feature на продуктовом уровне; изменение проблемы, цели, сценариев, scope; стадия product documentation оркестратора. Остальные документы — другие skills (AGENTS.md, «Как определить нужный skill»).
+Создать или изменить `docs/features/<feature>/product.md` — проблема, цель, пользователи, сценарии, scope (WHAT + WHY, без HOW). Поводы: новая feature на продуктовом уровне; изменение проблемы, цели, сценариев, scope; стадия product documentation оркестратора. Остальные документы — другие skills (AGENTS.md, «Как определить нужный skill»).
 
 ## Вход и стоп-условия
 
 | Проверка | Если не выполнено |
 |----------|-------------------|
+| Директория `docs/features/<feature>/` существует | Стоп. Ответ: «Сначала `/feature-create <feature-name> <описание>`». |
 | Запрос описывает проблему, а не готовое решение («добавь кнопку X») | Не стоп: восстановить проблему за решением. Неизвестна — записать `TBD: какую проблему решает <X>` и спросить пользователя. |
 | Документ не `approved`, либо правка MINOR, либо apply утверждённого change proposal | Стоп. Ответ: «Содержательное изменение approved-документа — через `change-management`». |
 
@@ -24,27 +25,26 @@ description: Создаёт и изменяет product.md feature (и README.md
 
 ## Правила
 
-Общие — AGENTS.md, `rules/ai-guardrails.md`. Ядро: текст документа, `title` и H1 — русский (заголовки секций, ID, статусы, `TBD`/`ASSUMPTION` — английские); факт — без пометки, только из `docs/product/`, подтверждённых данных или слов человека; неизвестное — `TBD: <что неизвестно>`; предположение — `ASSUMPTION: <текст>. Requires confirmation.`; существующие ID не менять.
+Общие — AGENTS.md, `rules/ai-guardrails.md`. Ядро: текст документа, `title` и H1 — русский (заголовки секций — дословно по шаблону; ID, статусы, `TBD`/`ASSUMPTION` — английские); факт — без пометки, только из `docs/product/`, подтверждённых данных или слов человека; неизвестное — `TBD: <что неизвестно>`; предположение — `ASSUMPTION: <текст>. Requires confirmation.`; существующие ID не менять.
 
 1. Problem — проблема пользователя или бизнеса, существующая сейчас: факты, не решения. Метрики и обращения — только подтверждённые, иначе `TBD`.
-2. Users — только personas из `personas.md` по ссылке, без переописания; явно назвать незатронутые personas. Роли нет в `personas.md` — `TBD` и предложить дополнить `personas.md` отдельно.
+2. Users — personas из `personas.md` по ссылке, без переописания; незатронутые назвать явно. Роли нет в `personas.md` — `TBD` и предложить дополнить его отдельно.
 3. Сценарий — «Пользователь <делает X>, чтобы <получить Y>»: путь к цели без кликов и экранов (уровень `ui.md`). Негативные и граничные — если продуктово значимы.
-4. Scope — первая поставка, каждый пункт станет требованием в `requirements.md`. Out of scope — явный список близких вещей, отложенных или отвергнутых. Не подтверждённое пользователем — в Out of scope или Open questions; scope не расширять.
-5. Детали реализации запрещены: технологии, таблицы БД, очереди, структура API, библиотеки (`rules/writing.md`). Техническое ограничение, влияющее на продукт, — одна строка в Constraints со ссылкой на источник.
-6. Бизнес-правила, лимиты, метрики, целевые значения, приоритеты — только из источников, не «по здравому смыслу». Пустая секция с `TBD` лучше правдоподобно заполненной.
-7. Success criteria измеримы, Business value — конкретный эффект; запрещённые слова — `rules/writing.md`; нет данных — `TBD`.
-8. Термины — по `glossary.md`, новый термин не вводить молча. Глобальный контекст не копировать: personas, `BR-XXX`, `NFR-XXX` — по ссылке (`rules/linking.md`).
-9. Изменение `product.md` меняет смысл существующих FR — impact в Open questions; `requirements.md` молча не переписывать.
-10. Новый документ — `type: product`, `status: draft`. Существующий — минимальная правка; `version`: MINOR без изменения смысла, MAJOR при изменении scope или сценариев; `approved` после правки → `review`.
+4. Scope — первая поставка, каждый пункт станет требованием в `requirements.md`. Out of scope — близкие вещи, отложенные или отвергнутые. Неподтверждённое — в Out of scope или Open questions; scope не расширять.
+5. Детали реализации — технологии, БД, очереди, структура API, библиотеки — запрещены (`rules/writing.md`). Техническое ограничение, влияющее на продукт, — строка в Constraints со ссылкой на источник.
+6. Бизнес-правила, лимиты, метрики, приоритеты, Success criteria и Business value — только из источников и измеримо, не «по здравому смыслу»; нет данных — `TBD`. Пустая секция с `TBD` лучше правдоподобно заполненной; запрещённые слова — `rules/writing.md`.
+7. Термины — по `glossary.md`, новый термин не вводить молча. Глобальный контекст не копировать: personas, `BR-XXX`, `NFR-XXX` — по ссылке (`rules/linking.md`).
+8. Изменение `product.md` меняет смысл существующих FR — impact в Open questions; `requirements.md` молча не переписывать.
+9. Заготовка — `type: product`, `status: draft`; правка минимальная. `version`: MINOR без изменения смысла, MAJOR при изменении scope или сценариев; `approved` после правки → `review`.
+10. Уточняющих вопросов — не более пяти, одним списком, затем стоп.
 
 ## Шаги
 
 1. Определить проблему, пользователей, сценарии, ожидаемое поведение, scope и out of scope (правила 1–4).
-2. Если директории feature нет: создать `docs/features/<feature-name>/` (kebab-case) и `README.md` из [templates/feature.md](../../../templates/feature.md); в таблице Documents — только существующие файлы, для ненужных — «not planned» с причиной.
-3. Новый `product.md` — из [templates/product.md](../../../templates/product.md): все секции, неприменимые — `Not applicable: <причина>`; комментарии `<!-- AI: -->` выполнить и удалить; в `related` — только существующие файлы.
-4. Заполнить Business value, Success criteria, Dependencies, Constraints (правила 5, 7).
-5. Собрать все `TBD` и `ASSUMPTION` в Open questions, включая impact на существующие FR (правило 9).
-6. Запустить `node scripts/validate-docs.mjs`; добиться exit 0.
+2. Заполнить `product.md` feature: файл создан заготовкой skill `feature-scaffold`, секции — по [templates/product.md](../../../templates/product.md); неприменимые — `Not applicable: <причина>`; комментарии `<!-- AI: -->` выполнить и удалить; в `related` — только существующие файлы.
+3. Заполнить Business value, Success criteria, Dependencies, Constraints (правила 5–6).
+4. Собрать все `TBD` и `ASSUMPTION` в Open questions, включая impact на существующие FR (правило 8).
+5. Запустить `node scripts/validate-docs.mjs`; добиться exit 0.
 
 ## Примеры
 
