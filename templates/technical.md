@@ -57,7 +57,7 @@ requirements.md, ui.md/api.md; проверить services/ и изучить к
 ## Data model changes
 
 <!-- AI: изменения схемы данных: новые/изменённые таблицы, поля, индексы.
-Согласовать с docs/architecture/data-model.md. Нет изменений — «Not applicable». -->
+Согласовать с docs/architecture/data-model/. Нет изменений — «Not applicable». -->
 
 ## API changes
 

@@ -16,7 +16,7 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
 
 | Что искать | Где |
 |------------|-----|
-| Глобальный продуктовый контекст | `docs/product/` (overview, vision, glossary, personas, business-rules, NFR) |
+| Глобальный продуктовый контекст | `docs/product/` (overview, vision, glossary, personas, roles, business-rules, NFR) |
 | Документация фич | `docs/features/<feature-name>/` |
 | Изменения утверждённых документов (change proposals) | `docs/changes/` |
 | Архитектура и ADR | `docs/architecture/`, `docs/architecture/adr/` |

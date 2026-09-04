@@ -27,7 +27,7 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
 ```text
 docs/
 ├── product/        # Глобальный продуктовый контекст: overview, vision, glossary,
-│                   # personas, business-rules, non-functional-requirements
+│                   # personas, roles, business-rules, non-functional-requirements
 ├── features/       # Документация по фичам: одна директория = одна feature
 ├── changes/        # Change proposals: изменения утверждённых документов
 │                   # (+ archive/ применённых и отклонённых)

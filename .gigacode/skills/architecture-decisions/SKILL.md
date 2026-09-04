@@ -21,7 +21,7 @@ description: Создаёт и изменяет ADR — контекст, реш
 
 1. Обязательно: существующие ADR — глобальные в [docs/architecture/adr/](../../../docs/architecture/adr/README.md), для feature — `docs/features/<feature>/decisions/`; требования, обосновывающие решение — `requirements.md` feature и/или [business-rules.md](../../../docs/product/business-rules.md), [non-functional-requirements.md](../../../docs/product/non-functional-requirements.md); [schemas/README.md](../../../schemas/README.md) — ID и статусы ADR. Правила — по AGENTS.md.
 2. Если есть: `technical.md` feature — контекст решения и уже рассмотренные альтернативы.
-3. Архитектурный контекст: [overview.md](../../../docs/architecture/overview.md), [components.md](../../../docs/architecture/components.md), [data-model.md](../../../docs/architecture/data-model.md), [integrations.md](../../../docs/architecture/integrations.md) — имена компонентов и сущностей брать оттуда.
+3. Архитектурный контекст: [overview.md](../../../docs/architecture/overview.md), [components.md](../../../docs/architecture/components.md), [data-model/](../../../docs/architecture/data-model/README.md), [integrations.md](../../../docs/architecture/integrations.md) — имена компонентов и сущностей брать оттуда.
 
 ## Правила
 

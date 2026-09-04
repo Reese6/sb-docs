@@ -24,5 +24,5 @@ TBD: языки, фреймворки, хранилища, брокеры соо
 - [system-context.md](system-context.md) — границы системы и внешние акторы;
 - [components.md](components.md) — компоненты/сервисы и их ответственность;
 - [integrations.md](integrations.md) — внешние интеграции;
-- [data-model.md](data-model.md) — доменная модель данных;
+- [data-model/](data-model/README.md) — доменная модель данных;
 - [adr/](adr/README.md) — глобальные архитектурные решения.
