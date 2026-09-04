@@ -32,7 +32,7 @@ proposed → approved → applied
 - `approved` / `rejected` — выставляет только человек.
 - `applied` — все дельты внесены в целевые документы; proposal архивируется.
 
-Статус изменения живёт в секции `## Status` файла `proposal.md`; соответствие со статусом документа в frontmatter — [schemas/README.md](../../schemas/README.md), раздел «Статусы change proposal». Полный процесс — skill `change-management`.
+Статус изменения живёт в секции `## Status` файла `proposal.md`; соответствие со статусом документа в frontmatter — [schemas/README.md](../../schemas/README.md), раздел «Статусы change proposal». Полный процесс — skill `change-management`; команды — `/change-propose`, `/change-apply`.
 
 ## Активные изменения
 

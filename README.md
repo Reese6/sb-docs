@@ -41,7 +41,7 @@ rules/              # Глобальные правила для AI и люде�
 schemas/            # Стандарт метаданных, ID и простые YAML-схемы
 scripts/            # Локальные автоматические проверки документации
 .gigacode/skills/   # Agent Skills для работы с документацией (GigaCode CLI)
-.gigacode/commands/ # Команды /feature-*: пошаговая сборка feature
+.gigacode/commands/ # Команды /feature-* и /change-*: сборка feature и change proposal
 .gigacode/rules/    # Базовые правила поведения агента GigaCode
 GIGACODE.md         # Entry point GigaCode CLI: импорты .gigacode/rules/
 services/           # Локально подключённые репозитории сервисов (не коммитятся)
@@ -78,7 +78,7 @@ draft → review → approved → deprecated
 
 ## Изменение утверждённых документов
 
-Содержательное изменение `approved`-документа (добавление/изменение/удаление требований) вносится через change proposal в `docs/changes/<change-name>/`: proposal с дельтами требований утверждает человек, затем изменения применяются к целевым документам, а proposal архивируется. MINOR-правки и правки `draft`/`review`-документов идут обычным процессом. Правило порога — [CONTRIBUTING.md](CONTRIBUTING.md), структура и жизненный цикл — [docs/changes/README.md](docs/changes/README.md), процесс — skill `change-management`.
+Содержательное изменение `approved`-документа (добавление/изменение/удаление требований) вносится через change proposal в `docs/changes/<change-name>/`: proposal с дельтами требований утверждает человек, затем изменения применяются к целевым документам, а proposal архивируется. MINOR-правки и правки `draft`/`review`-документов идут обычным процессом. Правило порога — [CONTRIBUTING.md](CONTRIBUTING.md), структура и жизненный цикл — [docs/changes/README.md](docs/changes/README.md), процесс — skill `change-management`, команды — `/change-propose` и `/change-apply`.
 
 ## Проверка документации
 

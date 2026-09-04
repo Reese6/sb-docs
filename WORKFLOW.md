@@ -8,7 +8,7 @@
 - [CONTRIBUTING.md](CONTRIBUTING.md) — правила процесса: статусы, порог change proposal, формат коммитов.
 - Этот документ — сценарии работы для человека: что писать агенту и что проверять в его ответах.
 
-Работа ведётся командами `/feature-*` из `.gigacode/commands/`: одна команда — один документ feature. Порядок вызовов задаёт человек, полная таблица «команда → skill → следующая» — [.gigacode/README.md](.gigacode/README.md). Где команды нет (ADR, change proposal), skill вызывается по имени.
+Работа ведётся командами `/feature-*` и `/change-*` из `.gigacode/commands/`: одна команда — один документ feature или один change proposal. Порядок вызовов задаёт человек, полная таблица «команда → skill → следующая» — [.gigacode/README.md](.gigacode/README.md). Где команды нет (ADR), skill вызывается по имени.
 
 Сквозной пример в промптах — вымышленная feature `password-recovery`.
 
@@ -40,7 +40,7 @@
 | Один документ feature | своя `/feature-<документ>` | 2 |
 | Архитектурное решение (ADR) | skill `architecture-decisions` (команды нет) | 2 |
 | Правка `draft`/`review` или MINOR-правка `approved` | команда этого документа | 3 |
-| Содержательное изменение `approved`-документа | skill `change-management` | 4 |
+| Содержательное изменение `approved`-документа | `/change-propose`, `/change-apply` | 4 |
 | Промоут результатов в глобальные документы | `/feature-apply` | 4, врезка |
 | Проверка документации | `/feature-review` | 5 |
 | Готово, надо закоммитить | — | 6 |
@@ -237,14 +237,13 @@ password-recovery — skill architecture-decisions.
 
 ### Когда обязателен proposal
 
-При содержательном изменении `approved`-документа: добавление, изменение или удаление требований. Порог — раздел «Изменение утверждённых документов» в [CONTRIBUTING.md](CONTRIBUTING.md), процесс — [.gigacode/skills/change-management/SKILL.md](.gigacode/skills/change-management/SKILL.md). Команды у этого skill нет — вызывать по имени.
+При содержательном изменении `approved`-документа: добавление, изменение или удаление требований. Порог — раздел «Изменение утверждённых документов» в [CONTRIBUTING.md](CONTRIBUTING.md), процесс — [.gigacode/skills/change-management/SKILL.md](.gigacode/skills/change-management/SKILL.md), команды — `/change-propose` и `/change-apply`.
 
 ### Этап 1. Создать proposal
 
 ```text
-Нужно содержательно изменить утверждённый requirements.md feature
-password-recovery: код теперь доставляется по SMS или e-mail на выбор
-пользователя. Подготовь change proposal, сами целевые документы не трогай.
+/change-propose password-recovery-sms-otp requirements.md feature
+password-recovery: код доставляется по SMS или e-mail на выбор пользователя
 ```
 
 Проверить в результате:
@@ -261,8 +260,7 @@ password-recovery: код теперь доставляется по SMS или 
 ### Этап 3. Применить proposal
 
 ```text
-Proposal docs/changes/password-recovery-email-otp/proposal.md я утвердил
-(Status: approved). Примени его.
+/change-apply password-recovery-sms-otp
 ```
 
 Проверить в результате:
@@ -284,7 +282,7 @@ Proposal docs/changes/password-recovery-email-otp/proposal.md я утверди�
 ```
 
 - Цель ещё не существует — создаётся файл в статусе `draft`.
-- Цель уже `approved` — команда не правит её, а готовит change proposal; применяет его `change-management` (этапы 2–3 выше).
+- Цель уже `approved` — команда не правит её, а готовит change proposal; применяет его `/change-apply` (этапы 2–3 выше).
 - Индексы или файлы `model/` и `api/` не в статусе `approved` — команда останавливается: статус ставит человек.
 
 ## Сценарий 5. Ревью и работа с замечаниями

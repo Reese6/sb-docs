@@ -20,6 +20,6 @@
 ## Инструменты
 
 - Skills — `.gigacode/skills/`. Выбор — раздел «Как определить нужный skill» в `AGENTS.md`.
-- Команды — `.gigacode/commands/`. Команда — обёртка над skill, процедура в `SKILL.md`; один вызов — один документ.
+- Команды — `.gigacode/commands/`. Команда — обёртка над skill, процедура в `SKILL.md`; один вызов — один документ, для `/change-apply` — один proposal.
 - Шаги skill выполнять по порядку. Отчёт — по шаблону из секции «Отчёт» skill.
 - После каждого изменения `docs/` — `node scripts/validate-docs.mjs`. Завершать работу только при exit 0.

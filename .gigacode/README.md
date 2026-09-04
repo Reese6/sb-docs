@@ -69,6 +69,13 @@ description: <что делает команда одной строкой>
 | `/feature-api` | `api-requirements` | `/feature-api` для следующего метода, затем `/feature-technical` |
 | `/feature-technical` | `technical-documentation` | `/feature-review` |
 | `/feature-review` | `documentation-review` | команда документа с находкой, иначе `/feature-apply` |
-| `/feature-apply` | `feature-apply` | skill `change-management` при наличии proposal, иначе `/feature-review` |
+| `/feature-apply` | `feature-apply` | `/change-apply` после решения человека по proposal, иначе `/feature-review` |
 
-Один вызов — один документ; для `/feature-model` и `/feature-api` — одна сущность и один метод, файл на каждый в `model/` и `api/`. Автоматический маршрут по всем стадиям — skill `documentation-orchestrator`.
+Один вызов — один документ; для `/feature-model` и `/feature-api` — одна сущность и один метод, файл на каждый в `model/` и `api/`; для `/change-apply` — один proposal. Автоматический маршрут по всем стадиям — skill `documentation-orchestrator`.
+
+## Команды change proposal
+
+| Команда | Skill | Следующая |
+|---------|-------|-----------|
+| `/change-propose` | `change-management`, режим propose | решение человека в `## Status`, затем `/change-apply` |
+| `/change-apply` | `change-management`, режимы apply и rejected | команда документа с находкой review, иначе решение человека о `approved` |

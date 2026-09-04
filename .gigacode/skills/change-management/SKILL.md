@@ -31,7 +31,7 @@ description: Управляет изменениями approved-документ
 3. MODIFIED «Было:» — дословная текущая формулировка; при apply сверяется с целевым документом.
 4. REMOVED при apply = пометка `deprecated` с причиной и заменяющим ID, не удаление; ID не переиспользуются.
 5. Статус proposal в frontmatter до решения человека — максимум `review`.
-6. Правки целевых документов выполняют пишущие skills по своим SKILL.md в порядке pipeline: requirements → ui/api → technical.
+6. Правки целевых документов выполняют пишущие skills по своим SKILL.md в порядке pipeline: requirements → model → ui/api → technical; глобальные data-model/ и services/ — skill feature-apply.
 7. Архив `docs/changes/archive/` после переноса не редактируется, даже если ссылки устарели; из валидации исключён.
 
 ## Шаги
