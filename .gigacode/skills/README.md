@@ -8,7 +8,7 @@ Skills исполняют слабые модели (DeepSeek Flash, Qwen). От
 
 ## Структура SKILL.md
 
-Все двенадцать skills имеют одинаковый набор секций в этом порядке:
+Все тринадцать skills имеют одинаковый набор секций в этом порядке:
 
 | Секция | Содержание | Лимит, симв. |
 |--------|------------|--------------|
@@ -68,6 +68,7 @@ TBD (ждут ответа): <список или none>
 | ui-requirements | `ui.md` | `product.md`, `requirements.md` | api-requirements, technical-documentation |
 | api-requirements | `api/README.md` и `api/<method>-<имя>.md`, по одному вызову на метод | `product.md`, `requirements.md`, `roles.md` | technical-documentation |
 | technical-documentation | `technical.md` | `product.md`, `requirements.md`, `model/`, `services/` | architecture-decisions |
+| backend-test-cases | `tmp/test-cases/<feature-or-change>/README.md` и `tmp/test-cases/<feature-or-change>/tc-<NNN>-<имя>.md` (gitignored, вне репо), по одному вызову на операцию, сценарий или дельту | `requirements.md`; `api/` или `technical.md`, если есть; либо `docs/changes/<name>/proposal.md` | documentation-review |
 | architecture-decisions | `decisions/adr-XXX-*.md`, `docs/architecture/adr/` | требования, существующие ADR | documentation-review |
 | documentation-review | только отчёт | документы feature | пишущие skills |
 | feature-apply | `docs/architecture/data-model/<entity>.md`, `docs/api/services/<service>.md`, proposal | approved `model/`, `api/` | change-management, documentation-review |

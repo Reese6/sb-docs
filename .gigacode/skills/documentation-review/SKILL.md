@@ -74,6 +74,10 @@ description: Проверяет документацию без изменени
 | Terminology | Значимый термин есть в документах, отсутствует в glossary | WARNING | человек (product owner) |
 | TBD/assumptions | `ASSUMPTION` без `Requires confirmation.` | WARNING | пишущий skill документа |
 
+Backend test-cases (`tmp/test-cases/<feature-or-change>/`) вне scope этой skill: gitignored, вне
+`docs/`, не документ feature — проверяет их только сам `backend-test-cases` при
+повторной генерации.
+
 ## Шаги
 
 1. Запустить `node scripts/validate-docs.mjs`; его находки — в отчёт первыми.

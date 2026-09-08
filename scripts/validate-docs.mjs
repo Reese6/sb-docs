@@ -16,6 +16,9 @@
 //        в каждой существующей директории из indexDirs (api/, model/);
 //        CHANGE-FILES — состав change-директорий (schemas/change.schema.yaml).
 //
+// tmp/ (gitignored session-scratch, включая backend test-cases —
+// .gigacode/skills/backend-test-cases) исключена из обхода целиком: см. SKIP_DIRS.
+//
 // Область видимости ID при проверке 6: документ feature видит свою область и
 // глобальную; глобальный документ (docs/product/, docs/architecture/, docs/api/)
 // видит ID всех областей — он ссылается на требования feature при промоуте
@@ -31,6 +34,13 @@
 //     проверок (как templates/), остаются только MD-* проверки структуры.
 //
 // Источник правил frontmatter и ID — schemas/*.yaml (не хардкод).
+//
+// FM-PATTERN(title) и MD-H1-LANG (язык title/H1) действуют только вне
+// docs/features/: 13 из 16 существующих features документированы до перехода
+// на это правило (title/H1 на английском, approved) и умышленно не
+// переименовываются задним числом. Новые документы feature обязаны быть на
+// русском по rules/markdown.md и SKILL.md пишущих skills — это соглашение,
+// а не механическая проверка, пока в репозитории остаётся legacy-контент.
 //
 // Сознательно не покрыто:
 //   - reference-style ссылки [x]: path (в репозитории не используются);
@@ -211,7 +221,7 @@ function loadSchemas() {
 // Сбор файлов.
 // ---------------------------------------------------------------------------
 
-const SKIP_DIRS = new Set(['.git', 'node_modules']);
+const SKIP_DIRS = new Set(['.git', 'node_modules', 'tmp']);
 
 function collectFiles() {
   const files = [];
@@ -386,6 +396,12 @@ function featureNameOf(rel) {
   return m ? m[1] : null;
 }
 
+// Legacy feature-контент (создан до правила «title/H1 на русском») исключён
+// из FM-PATTERN(title) и MD-H1-LANG — см. шапку файла.
+function isLegacyFeatureDoc(rel) {
+  return rel.startsWith('docs/features/');
+}
+
 function checkFrontmatter(f, schema) {
   const required = path.basename(f.rel) !== 'README.md' || isFeatureReadme(f.rel);
   if (f.fmText === null) {
@@ -420,7 +436,7 @@ function checkFrontmatter(f, schema) {
   if (Object.hasOwn(fm, 'title')) {
     if (typeof fm.title !== 'string' || fm.title.length < schema.titleMinLength) {
       report(f.rel, lineOf('title'), 'FM-PATTERN', `title is shorter than ${schema.titleMinLength} characters`);
-    } else if (!new RegExp(schema.titlePattern).test(fm.title)) {
+    } else if (!isLegacyFeatureDoc(f.rel) && !new RegExp(schema.titlePattern).test(fm.title)) {
       report(f.rel, lineOf('title'), 'FM-PATTERN',
         `title "${fm.title}" must be in Russian (does not match ${schema.titlePattern})`);
     }
@@ -471,12 +487,15 @@ function checkFrontmatter(f, schema) {
         `feature "${fm.feature}" does not match directory name "${feature}"`);
     }
   }
+
   return fm;
 }
 
 // Правило репозитория: H1 документа с frontmatter — на русском языке
 // (rules/markdown.md); критерий тот же, что для title — pattern схемы.
+// Legacy-документы feature (isLegacyFeatureDoc) исключены — см. шапку файла.
 function checkH1Language(f, schema) {
+  if (isLegacyFeatureDoc(f.rel)) return;
   const re = new RegExp(schema.titlePattern);
   for (const h of f.headings) {
     if (h.level === 1 && !re.test(h.text)) {

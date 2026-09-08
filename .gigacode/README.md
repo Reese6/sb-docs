@@ -68,10 +68,11 @@ description: <что делает команда одной строкой>
 | `/feature-ui` | `ui-requirements` | `/feature-api` |
 | `/feature-api` | `api-requirements` | `/feature-api` для следующего метода, затем `/feature-technical` |
 | `/feature-technical` | `technical-documentation` | `/feature-review` |
+| `/backend-test-cases` | `backend-test-cases` | `/backend-test-cases` для следующей операции, затем `/feature-review` |
 | `/feature-review` | `documentation-review` | команда документа с находкой, иначе `/feature-apply` |
 | `/feature-apply` | `feature-apply` | `/change-apply` после решения человека по proposal, иначе `/feature-review` |
 
-Один вызов — один документ; для `/feature-model` и `/feature-api` — одна сущность и один метод, файл на каждый в `model/` и `api/`; для `/change-apply` — один proposal. Автоматический маршрут по всем стадиям — skill `documentation-orchestrator`.
+Один вызов — один документ; для `/feature-model` и `/feature-api` — одна сущность и один метод, файл на каждый в `model/` и `api/`; для `/backend-test-cases` — одна операция или сценарий, файл на каждый в `tmp/test-cases/<feature-name>/` (gitignored, вне репо); для `/change-apply` — один proposal. Автоматический маршрут по всем стадиям — skill `documentation-orchestrator`.
 
 ## Команды change proposal
 

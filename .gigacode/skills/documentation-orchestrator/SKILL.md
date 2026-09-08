@@ -29,7 +29,7 @@ description: Координирует полный цикл документир
 
 Общие — AGENTS.md, `rules/ai-guardrails.md`.
 
-1. Pipeline — максимальный маршрут, не обязательный: `scaffold → product → requirements → model → ui / api → technical → adr → review → apply`. Запускаются только стадии, следующие из намерения: правка текста кнопки не порождает technical и ADR.
+1. Pipeline — максимальный маршрут, не обязательный: `scaffold → product → requirements → model → ui / api → technical → adr → review → apply`. Запускаются только стадии, следующие из намерения: правка текста кнопки не порождает technical и ADR. Test cases (backend-test-cases) — вне этого pipeline: пишет в `tmp/test-cases/<feature>/`, не документ feature, запускается только явным запросом.
 2. Стадия не запускается «на всякий случай» или потому, что опционального файла нет: отсутствие `model/`, `ui.md`, `api/`, `technical.md`, `decisions/` — не пробел.
 3. Стадии Model и API повторяются: один запуск — одна сущность или один метод. В плане перечислить их поимённо.
 4. Review — единственная непропускаемая стадия: после любого изменения, даже одной строки. Изменений не было — review не запускается.
@@ -53,6 +53,7 @@ description: Координирует полный цикл документир
 | UI | ui-requirements | затронуто наблюдаемое поведение интерфейса; backend-only feature — не запускать | `product.md`, `requirements.md` |
 | API | api-requirements | затронут контракт клиент–сервер (endpoints, поля, ошибки); запуск на каждый метод отдельно; feature без внешнего API — не запускать | `product.md`, `requirements.md` |
 | Technical | technical-documentation | затронута реализация: компоненты, данные, интеграции, миграции | `product.md`, `requirements.md`; `model/`, `ui.md`, `api/` — если есть |
+| Test cases | backend-test-cases | явный запрос тест-кейсов backend для покрытия автотестами; не запускать по умолчанию для каждой feature | `requirements.md`; `api/` или `technical.md`, если есть |
 | ADR | architecture-decisions | есть кандидат: пометка в Alternatives `technical.md` или прямой запрос; заслуживает ли ADR — проверяет сам skill | контекст решения, обычно `technical.md` |
 | Review | documentation-review | всегда, когда изменён хотя бы один документ | завершение всех пишущих стадий |
 | Apply | feature-apply | все файлы `model/` и `api/` переведены человеком в `approved` | approved-документы feature |

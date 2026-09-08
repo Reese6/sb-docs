@@ -38,6 +38,7 @@
 | Новая feature целиком | цепочка `/feature-*` | 1 |
 | Автоматический маршрут по всем стадиям | skill `documentation-orchestrator` | 1, врезка |
 | Один документ feature | своя `/feature-<документ>` | 2 |
+| Тест-кейсы backend для автотестов | `/backend-test-cases` | 1, шаг 8 |
 | Архитектурное решение (ADR) | skill `architecture-decisions` (команды нет) | 2 |
 | Правка `draft`/`review` или MINOR-правка `approved` | команда этого документа | 3 |
 | Содержательное изменение `approved`-документа | `/change-propose`, `/change-apply` | 4 |
@@ -122,13 +123,23 @@ Feature собирается по одному документу за вызо�
 /feature-technical password-recovery
 ```
 
-8. `/feature-review` — отчёт о находках, документы не правятся. Дальше — Сценарий 5.
+8. `/backend-test-cases` — тест-кейсы backend для будущих автотестов; опционально, только если запрошено.
+
+```text
+/backend-test-cases password-recovery POST /auth/password-reset/request
+```
+
+```text
+/backend-test-cases password-recovery scenario повторный-запрос-кода
+```
+
+9. `/feature-review` — отчёт о находках, документы не правятся. Дальше — Сценарий 5.
 
 ```text
 /feature-review password-recovery
 ```
 
-9. `/feature-apply` — промоут в глобальные документы; только после того, как человек выставил `approved`. Дальше — врезка в Сценарии 4.
+10. `/feature-apply` — промоут в глобальные документы; только после того, как человек выставил `approved`. Дальше — врезка в Сценарии 4.
 
 ```text
 /feature-apply password-recovery
@@ -144,6 +155,7 @@ ASSUMPTION про 3 попытки ввода кода подтверждаю �
 ```
 
 - Остановка команды (нет входа, ждёт подтверждения) — правильное поведение: дать недостающую информацию или отложить работу, но не разрешать «додумать ради завершения».
+- Создан ровно один файл `tmp/test-cases/<feature-name>/tc-<NNN>-<имя>.md` плюс строка в индексе `tmp/test-cases/<feature-name>/README.md`; все секции кейса заполнены либо помечены `TBD`/`Not applicable: <причина>`.
 - `node scripts/validate-docs.mjs` → exit code `0`.
 - Сверить ответ с чеклистом «Что проверять в каждом ответе агента».
 

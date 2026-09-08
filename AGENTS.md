@@ -45,7 +45,7 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
    - `rules/markdown.md` — структура документов и секций.
 2. Прочитать связанные документы затрагиваемой feature: `product.md`, `requirements.md`, `ui.md`, `api/`, `technical.md`.
 3. Проверить глобальный контекст: `docs/product/business-rules.md`, `docs/product/glossary.md`.
-4. Новые feature-документы создавать только из шаблонов `templates/` (см. таблицу ниже). Для глобальных документов `docs/product/`, `docs/api/`, `docs/architecture/` шаблонов нет — редактировать существующие файлы, сохраняя их структуру. Исключение: новый файл сущности в `docs/architecture/data-model/` создаётся из `templates/entity.md`.
+4. Новые feature-документы создавать только из шаблонов `templates/` (см. таблицу ниже). Для глобальных документов `docs/product/`, `docs/api/`, `docs/architecture/` шаблонов нет — редактировать существующие файлы, сохраняя их структуру. Исключение: новый файл сущности в `docs/architecture/data-model/` создаётся из `templates/entity.md`. Тест-кейсы документами `docs/` не являются: их шаблоны лежат в `.gigacode/skills/backend-test-cases/templates/`.
 
 ## Какие файлы создавать
 
@@ -60,6 +60,8 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
 | Индекс API | `templates/api-index.md` | `docs/features/<feature-name>/api/README.md` | если есть API |
 | Метод API | `templates/api-method.md` | `docs/features/<feature-name>/api/<method>-<имя>.md` | файл на каждый метод |
 | Technical | `templates/technical.md` | `docs/features/<feature-name>/technical.md` | при описании реализации |
+| Индекс тест-кейсов | `.gigacode/skills/backend-test-cases/templates/test-cases-index.md` | `tmp/test-cases/<feature-or-change>/README.md` (gitignored, вне репо) | по запросу тест-кейсов |
+| Тест-кейс backend | `.gigacode/skills/backend-test-cases/templates/test-case.md` | `tmp/test-cases/<feature-or-change>/tc-<NNN>-<имя>.md` (gitignored, вне репо) | файл на каждый тест-кейс |
 | ADR feature | `templates/adr.md` | `docs/features/<feature-name>/decisions/adr-XXX-<short-kebab-title>.md` | при значимом решении |
 | ADR глобальный | `templates/adr.md` | `docs/architecture/adr/adr-XXX-<short-kebab-title>.md` | при решении, затрагивающем несколько фич |
 | Сущность модели данных | `templates/entity.md` | `docs/architecture/data-model/<entity>.md` | при новой сущности (через `/feature-apply`) |
@@ -71,7 +73,7 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
 
 ## Frontmatter и статусы
 
-- YAML frontmatter обязателен в каждом документе `docs/`: `title`, `type`, `status`, `version`, `owners`; для feature-документов также `feature`. `title` и H1 — на русском языке. Стандарт и допустимые значения — `schemas/README.md`.
+- YAML frontmatter обязателен в каждом документе `docs/`: `title`, `type`, `status`, `version`, `owners`; для feature-документов также `feature`. `title` и H1 — на русском языке (кроме существующего контента `docs/features/`, см. `scripts/validate-docs.mjs`). Стандарт и допустимые значения — `schemas/README.md`.
 - Жизненный цикл документа: `draft → review → approved → deprecated`. Новый документ — `status: draft`.
 - `approved` выставляет только человек. AI переводит документ максимум в `review`.
 
@@ -85,7 +87,7 @@ Product Context → Product Documentation → Requirements → UI/API → Techni
 
 ## Requirement IDs
 
-- Форматы: `FR-XXX`, `BR-XXX`, `NFR-XXX`, `UI-XXX`, `API-XXX`, `ADR-XXX`. Стандарт — `schemas/README.md`.
+- Форматы: `FR-XXX`, `BR-XXX`, `NFR-XXX`, `UI-XXX`, `API-XXX`, `ADR-XXX`, `TC-XXX` (тест-кейс, не требование). Стандарт — `schemas/README.md`.
 - Существующие ID сохранять. Удалённые ID не переиспользовать.
 - Требование определяется в одном файле; остальные ссылаются: `UI-004 → FR-012`.
 
@@ -134,6 +136,7 @@ Review только формирует отчёт о находках; испр�
 Описать интерфейс                   → .gigacode/skills/ui-requirements
 Описать API                         → .gigacode/skills/api-requirements
 Описать реализацию                  → .gigacode/skills/technical-documentation
+Подготовить тест-кейсы backend      → .gigacode/skills/backend-test-cases
 Зафиксировать архитектурное решение → .gigacode/skills/architecture-decisions
 Проверить документацию              → .gigacode/skills/documentation-review
 Перенести результаты в глобальные   → .gigacode/skills/feature-apply

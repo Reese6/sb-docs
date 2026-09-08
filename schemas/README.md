@@ -16,7 +16,14 @@ NFR-XXX  Non-functional Requirement   feature requirements.md | docs/product/non
 UI-XXX   UI Requirement               feature ui.md
 API-XXX  API Requirement              feature api/<method>-<имя>.md
 ADR-XXX  Architecture Decision        feature decisions/ | docs/architecture/adr/
+TC-XXX   Test Case (не требование)    tmp/test-cases/<feature-or-change>/tc-<NNN>-<имя>.md
 ```
+
+`TC-XXX`, в отличие от остальных ID, не под `docs/` и не проверяется
+`scripts/validate-docs.mjs` — нумерация и уникальность внутри директории набора
+(feature или change) поддерживаются самим skill'ом
+`.gigacode/skills/backend-test-cases` (grep по
+`tmp/test-cases/<feature-or-change>/`), а не валидатором.
 
 Сущности модели данных ID не получают: идентификатор сущности — имя её файла в `docs/architecture/data-model/` (см. [data-model/README.md](../docs/architecture/data-model/README.md)).
 
@@ -31,11 +38,29 @@ ADR-XXX  Architecture Decision        feature decisions/ | docs/architecture/adr
 
 Сущности из `model/` попадают в `docs/architecture/data-model/` через `/feature-apply`; сама feature глобальные файлы сущностей не правит.
 
+## Документы тест-кейсов
+
+Два файла, вне `docs/` — `tmp/test-cases/<feature-or-change>/` gitignored, не версионируется,
+не проверяется `metadata.schema.yaml`/`scripts/validate-docs.mjs`. Frontmatter эти
+файлы не используют вовсе: имя документа — H1, ID кейса — определение первой строкой
+тела и имя файла. Формат этой строки — соглашение skill'а `backend-test-cases`, не часть
+схем `docs/`.
+
+| Документ | Назначение |
+|---|---|
+| `tmp/test-cases/<feature-or-change>/README.md` | Индекс: область проверки, таблица кейсов, покрытие, открытые вопросы, очередь. |
+| `tmp/test-cases/<feature-or-change>/<tc-NNN-имя>.md` | Один тест-кейс — один файл; определение `- TC-XXX (→ …): …` обязательно по соглашению skill'а. |
+
+Директория набора — имя feature либо имя директории change (`docs/changes/<change-name>/`): кейсы по дельтам proposal лежат отдельно от кейсов feature, нумерация `TC-XXX` локальна набору.
+
+`TC-XXX` — идентификатор проверки, требованием не является: не смешивать с FR/BR/NFR/API. Нумерация и уникальность — по grep внутри директории набора, не по общему ID-механизму валидатора (см. «Типы ID»). Создание и заполнение — `.gigacode/skills/backend-test-cases`.
+
 ## Формат
 
 - `<TYPE>-<NNN>`: тип заглавными латинскими, дефис, три цифры с ведущими нулями: `FR-001`, `API-042`.
 - После `999` — четыре цифры (`FR-1000`); формат с меньшим числом цифр не меняется задним числом.
-- Регулярное выражение: `^(FR|BR|NFR|UI|API|ADR)-\d{3,}$`.
+- Регулярное выражение (`schemas/requirement.schema.yaml`, проверяет `validate-docs.mjs`): `^(FR|BR|NFR|UI|API|ADR)-\d{3,}$`.
+- `TC-XXX` — тот же текстовый формат (`TC-<NNN>`, uppercase, без переиспользования номера), но вне этого регулярного выражения: валидатор `tmp/test-cases/` не видит (см. «Документы тест-кейсов»).
 
 ## Область уникальности
 
@@ -105,13 +130,16 @@ related:
 
 | Поле | Обязательно | Значения |
 |------|-------------|----------|
-| `title` | да | название документа на русском языке, совпадает с H1; латиница — только для ID (`ADR-001`), аббревиатур (API, UI, OTP) и терминов glossary, зафиксированных на английском |
+| `title` | да | название документа на русском языке, совпадает с H1; латиница — только для ID (`ADR-001`), аббревиатур (API, UI, OTP) и терминов glossary, зафиксированных на английском. Не enforced валидатором для существующего контента `docs/features/` — см. `scripts/validate-docs.mjs` |
 | `type` | да | `product`, `requirements`, `ui`, `api`, `technical`, `model`, `adr`, `architecture`, `feature-readme`, `change` |
 | `status` | да | `draft`, `review`, `approved`, `deprecated` |
 | `feature` | для документов feature | имя директории feature (kebab-case) |
 | `version` | да | версия документа, `MAJOR.MINOR` |
 | `owners` | да | список ролей/команд: `product`, `backend`, `frontend`, `architecture`, `qa` |
 | `related` | нет | связанные файлы (относительные пути) |
+
+Файлы `tmp/test-cases/<feature>/` frontmatter не используют и под эту схему не
+попадают: они вне `docs/`, см. «Документы тест-кейсов».
 
 ### Статусы документов
 

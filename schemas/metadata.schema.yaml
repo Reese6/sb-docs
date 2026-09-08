@@ -13,7 +13,8 @@ properties:
   title:
     type: string
     minLength: 3
-    # На русском языке: хотя бы одна буква кириллицы (rules/markdown.md)
+    # На русском языке: хотя бы одна буква кириллицы (rules/markdown.md).
+    # Не enforced для docs/features/ — см. scripts/validate-docs.mjs.
     pattern: "[А-Яа-яЁё]"
   type:
     enum:
